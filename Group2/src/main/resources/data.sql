@@ -13,7 +13,7 @@ INSERT INTO users (user_name, user_password, user_role) VALUES
 
 -- 3. 書籍：20件（A～T）
 -- 非公開：5件 / 公開：15件
--- 表紙画像 Noimage.png は別途 static/images/books/ に配置します。
+-- 表紙画像 Noimage.png は別途 static/images/ に配置します。
 INSERT INTO books (
     book_title, book_author, book_price, book_summary,
     book_cover, book_genre, book_stock, book_publisher, book_flag
@@ -37,7 +37,12 @@ INSERT INTO books (
     ('サンプル本Q', 'サンプル著者', 1909, 'サンプルあらすじ', 'Noimage.png', 3, 0, 'サンプル出版社', TRUE),
     ('サンプル本R', 'サンプル著者', 1005, 'サンプルあらすじ', 'Noimage.png', 4, 20, 'サンプル出版社', TRUE),
     ('サンプル本S', 'サンプル著者', 1412, 'サンプルあらすじ', 'Noimage.png', 2, 1, 'サンプル出版社', TRUE),
-    ('サンプル本T', 'サンプル著者', 946, 'サンプルあらすじ', 'Noimage.png', 1, 13, 'サンプル出版社', FALSE);
+    ('サンプル本T', 'サンプル著者', 946, 'サンプルあらすじ', 'Noimage.png', 1, 13, 'サンプル出版社', FALSE),
+    ('サンプル本S', 'サンプル著者', 142, 'サンプルあらすじ', 'Noimage.png', 2, 15, 'サンプル出版社', TRUE),
+    ('サンプル本S', 'サンプル著者', 212, 'サンプルあらすじ', 'Noimage.png', 1, 29, 'サンプル出版社', TRUE),
+    ('サンプル本S', 'サンプル著者', 412, 'サンプルあらすじ', 'Noimage.png', 1, 25, 'サンプル出版社', TRUE),
+    ('サンプル本S', 'サンプル著者', 762, 'サンプルあらすじ', 'Noimage.png', 3, 4, 'サンプル出版社', TRUE),
+    ('サンプル本S', 'サンプル著者', 342, 'サンプルあらすじ', 'Noimage.png', 4, 3, 'サンプル出版社', TRUE);
 
 
 -- 4. cart：初期データなし（INSERTしない）
