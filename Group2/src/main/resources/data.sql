@@ -12,7 +12,6 @@ INSERT INTO users (user_name, user_password, user_role) VALUES
     ('sampleuser', 'userpass', '消費者');
 
 -- 3. 書籍：20件（A～T）
--- 非公開：5件 / 公開：15件
 -- 表紙画像 Noimage.png は別途 static/images/ に配置します。
 INSERT INTO books (
     book_title, book_author, book_price, book_summary,
