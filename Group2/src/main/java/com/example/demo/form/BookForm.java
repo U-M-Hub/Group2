@@ -1,0 +1,43 @@
+package com.example.demo.form;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class BookForm {
+	
+	@NotBlank(message = "書籍名を入力してください")
+	@Size(max = 255, message = "書籍名は255文字以内で入力してください")
+	private String bookTitle;
+	
+	@NotBlank(message = "著者名を入力してください")
+	@Size(max = 255, message = "著者名は255文字以内で入力してください")
+	private String bookAuthor;
+	
+	@NotNull(message = "価格を入力してください")
+	@PositiveOrZero(message = "価格は0以上で入力してください")
+	private int bookPrice;
+	
+	@NotBlank(message = "あらすじを入力してください")
+	private String bookSummary;
+	
+	@NotNull(message = "ジャンルを選択してください")
+	private Integer bookGenre;
+	
+	@NotNull(message = "在庫数を入力してください")
+	@PositiveOrZero(message = "在庫数は0以上で入力してください")
+	private int bookStock;
+	
+	@NotBlank(message = "出版社を入力してください")
+	private String bookPublisher;
+	
+
+}
