@@ -16,28 +16,28 @@ public class BookForm {
 	
 	@NotBlank(message = "書籍名を入力してください")
 	@Size(max = 255, message = "書籍名は255文字以内で入力してください")
-	private String bookTitle;
+	private String book_title;
 	
 	@NotBlank(message = "著者名を入力してください")
 	@Size(max = 255, message = "著者名は255文字以内で入力してください")
-	private String bookAuthor;
+	private String book_author;
 	
 	@NotNull(message = "価格を入力してください")
 	@PositiveOrZero(message = "価格は0以上で入力してください")
-	private int bookPrice;
+	private int book_price;
 	
 	@NotBlank(message = "あらすじを入力してください")
-	private String bookSummary;
+	private String book_summary;
 	
 	@NotNull(message = "ジャンルを選択してください")
-	private Integer bookGenre;
+	private Integer book_genre;
 	
 	@NotNull(message = "在庫数を入力してください")
 	@PositiveOrZero(message = "在庫数は0以上で入力してください")
-	private int bookStock;
+	private int book_stock;
 	
 	@NotBlank(message = "出版社を入力してください")
-	private String bookPublisher;
+	private String book_publisher;
 	
 
 }

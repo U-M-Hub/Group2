@@ -1,9 +1,9 @@
 package com.example.demo.repositry;
 
-import com.example.demo.entity.Book;
+import com.example.demo.entity.Books;
 
 public interface BookMapper {
 
-	void save(Book book);
+	void save(Books books);
 
 }

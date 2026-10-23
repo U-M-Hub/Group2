@@ -1,10 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html th:xmlns="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>書籍登録画面</title>
 </head>
 <body>
+	<h1>♰新規登録♰</h1>
+	
+	<p th:if="${param.success}">
+		書籍を登録しました！
+	</p>
+	
+	<form th:action="@{/admin/books/adminAddBook}"
+		  th:obiect="${bookForm}"
+		  method="post">
+	  
+		  <div>
+			<label for="bookTitle">書籍名</label>
+			<input type="text" id="bookTitle" th:field="*{bookTitle}">
+			<spam th:errors="*{bookTitle}"></spam>
+		  </div>
+		  
+		  <div>
+			<label for="bookAuthor">著者名</label>
+			<input type="text" id="bookAuthor" th:field="*{bookAuthor}">
+			<span th:errors="*{bookAuthor}"></span>
+		  </div>
+		  
+		  <div>
+			<label for="bookPrice">価格</label>
+			<input type="number" id="bookPrice" th:field="*{bookPrice}" min="1">
+			<span th:errors="*{bookPrice}"></span>
+		  </div>
+		  
+		  <div>
+			<label for="bookSummary">あらすじ</label>
+			<textarea id="bookSummary" th:field="*{bookSummary}"></textarea>
+			<span th:errors="*{bookSummary}"></span>
+		  </div>
+		  
+		  <div>
+			<label for="bookGenre">ジャンル</label>
+			<select id="bookGenre th:field=*{bookGenre}">
+				<option value="">選択してください</option>
+				<option th:each="genre : ${genres}"
+						th:value="${genre.genreId}"
+						th:text="${genre.genreName}"></option>
+			</select>
+			<span th:errors="*{bookGenre}"></span>
+		  </div>
+		  
+		  <div>
+			<label for="bookStock">在庫数</label>
+			<input type="number" id="bookStock" th:field="*{bookStock}" min="0">
+			<span th:errors="*{bookStock}"></span>
+		  </div>
+		  
+		  <div>
+			<label for="bookPublisher">出版社</label>
+			<input type="text" id="bookPublisher" th:field="*{bookPublisher}">
+			<span th:errors="*{bookPulisher}"></span>
+		  </div>
+		  
+		  <button type="submit">登録する</button>
+		  
+	  </form>
 
 </body>
 </html>
