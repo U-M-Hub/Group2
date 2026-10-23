@@ -22,7 +22,11 @@ public class AdminBookListController {
 			                    Model model) {
 		
 		model.addAttribute("booksWithGenre",
-				            adminBookListService.selectAllBookWithGenre(pageCount));
+				            adminBookListService.selectAllBookWithGenre(
+				            		adminBookListForm,
+				            		pageCount
+				            		)
+				            );
 		model.addAttribute("pageCount",pageCount);
 		model.addAttribute("bookCount", adminBookListService.allBookCount());
 		model.addAttribute("serchForm",adminBookListForm);
