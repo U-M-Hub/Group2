@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class Cart {
 
-    private final Integer user_id;
+    private Integer user_id;
     
-    private final Integer book_id;
+    private Integer book_id;
     
-    private final Integer book_count;
+    private Integer book_count;
 
 }

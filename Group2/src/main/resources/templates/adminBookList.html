@@ -1,10 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>【管理者】登録書籍一覧</title>
 </head>
 <body>
+	
+	<h2>■登録書籍一覧画面</h2>
+	
+	<label>検索条件</label>
+	<form 	id="searchForm" 
+	        th:action="@{/adminBookList/1}" 
+			th:object="${serchForm}" 
+			method="get">
+			
+		<label for="name">名前検索:</label>
+		<input type="text" th:field="*{name}">
+		<label for="author">著者名検索:</label>
+		<input type="text" th:field="*{author}">
+		<label for="publisher">出版社検索:</label>
+		<input type="text" th:field="*{publisher}">
+		<label for="order">並び順:</label>
+		<select id="order" th:field="*{order}">
+			<option value="ASC">降順</option>
+			<option value="DESC">昇順</option>
+		</select>
+		<button type="submit">検索</button>
+	</form>
+	
+	<label>[[${pageCount * 20 -19}]] 
+		    - 
+			[[${pageCount * 20 > bookCount ? bookCount : pageCount * 20}]] 
+		   / 全[[${bookCount}]]件
+	</label>
+		   
+	
+	<div>
+		<button th:if="${pageCount} != 1"
+				type="submit"
+				form="searchForm"
+				th:formaction="@{/adminBookList/{pageCount}(pageCount = ${pageCount - 1})}">
+				&lt;前へ
+		</button>
+				
+		<button th:if="${pageCount} * 20 < ${bookCount} + 1"
+				type="submit"
+				form="searchForm"
+				th:formaction="@{/adminBookList/{pageCount}(pageCount = ${pageCount + 1})}">
+				次へ&gt;
+		</button>
+	</div>
 
+	<br>
+	
+	<div th:object="${booksWithGenre}">
+		
+		<caption>登録書籍一覧</caption>
+		<table border="1">
+			
+			<tr>
+				<th>書籍ID</th>
+				<th>表紙</th>
+				<th>タイトル</th>
+				<th>著者名</th>
+				<th>出版社</th>
+				<th>ジャンル</th>
+				<th>価格</th>
+				<th>在庫数</th>
+				<th>あらすじ</th>
+				<th>公開状態</th>
+				<th>編集画面</th>
+			</tr>
+			<tr th:each="book : ${booksWithGenre}">
+				<th th:text="${book.book_id}"></th>
+				<th><img th:src="@{/images/{image}(image=${book.book_cover})}"
+					     style="width: 50px; height: auto;">
+				</th>
+				<th th:text="${book.book_title}"></th>
+				<th th:text="${book.book_author}"></th>
+				<th th:text="${book.book_publisher}"></th>
+				<th th:text="${book.genre_name}"></th>
+				<th>[[${book.book_price}]]円</th>
+				<th>[[${book.book_stock}]]個</th>
+				<th>[[${#strings.length(book.book_summary) > 5
+					    ? #strings.substring(book.book_summary, 0, 5) : book.book_summary }]]...
+				</th>
+				<th th:text="${book.book_flag ? '公開' : '非公開'}"
+				    th:style="${book.book_flag ? 'color:blue;' : 'color:red;'}">
+				</th>
+				<th><a th:href="@{bookDetails}">編集画面へ</a></th>
+			</tr>
+			
+		</table>
+	</div>
+	
+	
+	
 </body>
 </html>
