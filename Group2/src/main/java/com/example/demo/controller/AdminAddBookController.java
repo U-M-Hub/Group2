@@ -33,7 +33,7 @@ public class AdminAddBookController {
 	public String showForm(Model model) {
 		model.addAttribute("BookForm", new BookForm());
 		model.addAttribute("genres", adminAddBookMapper.findAll());
-		return "books/adminAddBook";
+		return "adminAddBook";
 	}
 	
 	@PostMapping("/adminAddBook")
@@ -41,7 +41,7 @@ public class AdminAddBookController {
 			BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			model.addAttribute("genres", adminAddBookMapper.findAll());
-			return "books/adminAddBook";
+			return "adminAddBook";
 		}
 		
 		adminAddBookService.register(form);

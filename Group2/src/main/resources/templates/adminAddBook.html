@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:xmlns="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>書籍登録画面</title>
@@ -12,54 +12,54 @@
 	</p>
 	
 	<form th:action="@{/admin/books/adminAddBook}"
-		  th:obiect="${bookForm}"
+		  th:object="${BookForm}"
 		  method="post">
 	  
 		  <div>
-			<label for="bookTitle">書籍名</label>
-			<input type="text" id="bookTitle" th:field="*{bookTitle}">
-			<spam th:errors="*{bookTitle}"></spam>
+			<label for="book_title">書籍名</label>
+			<input type="text" id="book_title" th:field="*{book_title}">
+			<spam th:errors="*{book_title}"></spam>
 		  </div>
 		  
 		  <div>
-			<label for="bookAuthor">著者名</label>
-			<input type="text" id="bookAuthor" th:field="*{bookAuthor}">
-			<span th:errors="*{bookAuthor}"></span>
+			<label for="book_author">著者名</label>
+			<input type="text" id="book_author" th:field="*{book_author}">
+			<span th:errors="*{book_author}"></span>
 		  </div>
 		  
 		  <div>
-			<label for="bookPrice">価格</label>
-			<input type="number" id="bookPrice" th:field="*{bookPrice}" min="1">
-			<span th:errors="*{bookPrice}"></span>
+			<label for="book_price">価格</label>
+			<input type="number" id="book_price" th:field="*{book_price}" min="1">
+			<span th:errors="*{book_price}"></span>
 		  </div>
 		  
 		  <div>
-			<label for="bookSummary">あらすじ</label>
-			<textarea id="bookSummary" th:field="*{bookSummary}"></textarea>
-			<span th:errors="*{bookSummary}"></span>
+			<label for="book_summary">あらすじ</label>
+			<textarea id="book_summary" th:field="*{book_summary}"></textarea>
+			<span th:errors="*{book_summary}"></span>
 		  </div>
 		  
 		  <div>
-			<label for="bookGenre">ジャンル</label>
-			<select id="bookGenre th:field=*{bookGenre}">
+			<label for="book_genre">ジャンル</label>
+			<select id="book_genre th:field=*{book_genre}">
 				<option value="">選択してください</option>
 				<option th:each="genre : ${genres}"
-						th:value="${genre.genreId}"
-						th:text="${genre.genreName}"></option>
+						th:value="${genre.genre_id}"
+						th:text="${genre.genre_name}"></option>
 			</select>
-			<span th:errors="*{bookGenre}"></span>
+			<span th:errors="*{book_genre}"></span>
 		  </div>
 		  
 		  <div>
-			<label for="bookStock">在庫数</label>
-			<input type="number" id="bookStock" th:field="*{bookStock}" min="0">
-			<span th:errors="*{bookStock}"></span>
+			<label for="book_stock">在庫数</label>
+			<input type="number" id="book_stock" th:field="*{book_stock}" min="0">
+			<span th:errors="*{bookS_stock}"></span>
 		  </div>
 		  
 		  <div>
-			<label for="bookPublisher">出版社</label>
-			<input type="text" id="bookPublisher" th:field="*{bookPublisher}">
-			<span th:errors="*{bookPulisher}"></span>
+			<label for="book_publisher">出版社</label>
+			<input type="text" id="book_publisher" th:field="*{book_publisher}">
+			<span th:errors="*{book_pulisher}"></span>
 		  </div>
 		  
 		  <button type="submit">登録する</button>
