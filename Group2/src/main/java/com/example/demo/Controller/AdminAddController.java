@@ -14,7 +14,7 @@ import com.example.demo.form.BookForm;
 
 @Controller
 @RequestMapping("/admin/books/")
-public class AdminAddBookController {
+public class AdminAddController {
 	
 	@GetMapping("/new")
 	public String showForm(Model model) {
