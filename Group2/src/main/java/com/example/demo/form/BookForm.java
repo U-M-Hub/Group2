@@ -1,5 +1,6 @@
 package com.example.demo.form;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -23,10 +24,10 @@ public class BookForm {
 	private String book_author;
 	
 	@NotNull(message = "価格を入力してください")
-	@PositiveOrZero(message = "価格は0以上で入力してください")
-	private int book_price;
+	@Min(value = 1, message = "価格は1以上で入力してください")
+	private Integer book_price;
 	
-	@NotBlank(message = "あらすじを入力してください")
+	//@NotBlank(message = "あらすじを入力してください")
 	private String book_summary;
 	
 	@NotNull(message = "ジャンルを選択してください")
@@ -34,7 +35,7 @@ public class BookForm {
 	
 	@NotNull(message = "在庫数を入力してください")
 	@PositiveOrZero(message = "在庫数は0以上で入力してください")
-	private int book_stock;
+	private Integer book_stock;
 	
 	@NotBlank(message = "出版社を入力してください")
 	private String book_publisher;

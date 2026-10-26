@@ -20,6 +20,4 @@ public interface AdminAddBookMapper {
 	
 	int insert(Books books);
 
-	void save(Books book);
-
 }

@@ -20,7 +20,7 @@
 		 )
 		 VALUES(
 		 #{book_title},
-		 #{book_authpr},
+		 #{book_author},
 		 #{book_price},
 		 #{book_summary},
 		 #{book_cover},

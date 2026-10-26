@@ -20,11 +20,15 @@ public class AdminAddBookService {
     @Transactional
     public void register(BookForm form) {
         Books book = new Books();
+        String summary = form.getBook_summary();
+        if(summary == null || summary.isBlank()) {
+        	summary = "未登録"; 
+        }
 
         book.setBook_title(form.getBook_title());
         book.setBook_author(form.getBook_author());
         book.setBook_price(form.getBook_price());
-        book.setBook_summary(form.getBook_summary());
+        book.setBook_summary(summary);
         book.setBook_cover("Noimage.png");
         book.setBook_genre(form.getBook_genre());
         book.setBook_stock(form.getBook_stock());

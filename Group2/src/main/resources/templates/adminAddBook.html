@@ -7,7 +7,7 @@
 <body>
 	<h1>♰新規登録♰</h1>
 	
-	<p th:if="${param.success}">
+	<p th:if="${param.success}" style="color:blue;">
 		書籍を登録しました！
 	</p>
 	
@@ -18,48 +18,50 @@
 		  <div>
 			<label for="book_title">書籍名</label>
 			<input type="text" id="book_title" th:field="*{book_title}">
-			<spam th:errors="*{book_title}"></spam>
+			<span th:errors="*{book_title}" style="color:red;"></span>
 		  </div>
 		  
 		  <div>
 			<label for="book_author">著者名</label>
 			<input type="text" id="book_author" th:field="*{book_author}">
-			<span th:errors="*{book_author}"></span>
+			<span th:errors="*{book_author}" style="color:red;"></span>
 		  </div>
 		  
 		  <div>
 			<label for="book_price">価格</label>
-			<input type="number" id="book_price" th:field="*{book_price}" min="1">
-			<span th:errors="*{book_price}"></span>
+			<input type="number" id="book_price" th:field="*{book_price}">
+			<span th:errors="*{book_price}" style="color:red;"></span>
 		  </div>
 		  
 		  <div>
 			<label for="book_summary">あらすじ</label>
-			<textarea id="book_summary" th:field="*{book_summary}"></textarea>
-			<span th:errors="*{book_summary}"></span>
+			<textarea id="book_summary" th:field="*{book_summary}"
+			rows="5"
+			cols="40"></textarea>
+			<span th:errors="*{book_summary}" style="color:red;"></span>
 		  </div>
 		  
 		  <div>
 			<label for="book_genre">ジャンル</label>
-			<select id="book_genre th:field=*{book_genre}">
+			<select id="book_genre" th:field="*{book_genre}">
 				<option value="">選択してください</option>
 				<option th:each="genre : ${genres}"
 						th:value="${genre.genre_id}"
 						th:text="${genre.genre_name}"></option>
 			</select>
-			<span th:errors="*{book_genre}"></span>
+			<span th:errors="*{book_genre}" style="color:red;"></span>
 		  </div>
 		  
 		  <div>
 			<label for="book_stock">在庫数</label>
-			<input type="number" id="book_stock" th:field="*{book_stock}" min="0">
-			<span th:errors="*{bookS_stock}"></span>
+			<input type="number" id="book_stock" th:field="*{book_stock}">
+			<span th:errors="*{book_stock}" style="color:red;"></span>
 		  </div>
 		  
 		  <div>
 			<label for="book_publisher">出版社</label>
 			<input type="text" id="book_publisher" th:field="*{book_publisher}">
-			<span th:errors="*{book_pulisher}"></span>
+			<span th:errors="*{book_publisher}" style="color:red;"></span>
 		  </div>
 		  
 		  <button type="submit">登録する</button>
