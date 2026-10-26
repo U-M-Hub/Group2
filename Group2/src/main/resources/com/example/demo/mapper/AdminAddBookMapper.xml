@@ -16,7 +16,8 @@
 		 book_cover,
 		 book_genre,
 		 book_stock,
-		 book_publisher
+		 book_publisher,
+		 book_flag
 		 )
 		 VALUES(
 		 #{book_title},
@@ -26,7 +27,8 @@
 		 #{book_cover},
 		 #{book_genre},
 		 #{book_stock},
-		 #{book_publisher}
+		 #{book_publisher},
+		 #{book_flag}
 		 )
 		 
 		 </insert>

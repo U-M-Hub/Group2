@@ -24,16 +24,21 @@ public class AdminAddBookService {
         if(summary == null || summary.isBlank()) {
         	summary = "未登録"; 
         }
+        String cover= form.getBook_cover();
+        if(cover == null || cover.isBlank()) {
+        	cover = "Noimage.png";
+        }
 
         book.setBook_title(form.getBook_title());
         book.setBook_author(form.getBook_author());
         book.setBook_price(form.getBook_price());
         book.setBook_summary(summary);
-        book.setBook_cover("Noimage.png");
+        book.setBook_cover(cover);
         book.setBook_genre(form.getBook_genre());
         book.setBook_stock(form.getBook_stock());
         book.setBook_publisher(form.getBook_publisher());
-        book.setBook_flag(false);
+        book.setBook_flag(form.getBook_flag() != null
+        		? form.getBook_flag(): false);
 
         adminAddBookMapper.insert(book);
     }

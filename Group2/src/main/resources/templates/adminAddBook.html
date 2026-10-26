@@ -18,19 +18,22 @@
 		  <div>
 			<label for="book_title">書籍名</label>
 			<input type="text" id="book_title" th:field="*{book_title}">
-			<span th:errors="*{book_title}" style="color:red;"></span>
+			<span style="color:red">必須</span>
+			<span th:errors="*{book_title}" style="color:crimson;"></span>
 		  </div>
 		  
 		  <div>
 			<label for="book_author">著者名</label>
 			<input type="text" id="book_author" th:field="*{book_author}">
-			<span th:errors="*{book_author}" style="color:red;"></span>
+			<span style="color:red">必須</span>
+			<span th:errors="*{book_author}" style="color:crimson;"></span>
 		  </div>
 		  
 		  <div>
 			<label for="book_price">価格</label>
 			<input type="number" id="book_price" th:field="*{book_price}">
-			<span th:errors="*{book_price}" style="color:red;"></span>
+			<span style="color:red">必須</span>
+			<span th:errors="*{book_price}" style="color:crimson;"></span>
 		  </div>
 		  
 		  <div>
@@ -38,7 +41,29 @@
 			<textarea id="book_summary" th:field="*{book_summary}"
 			rows="5"
 			cols="40"></textarea>
-			<span th:errors="*{book_summary}" style="color:red;"></span>
+			<span style="color:gray">任意</span>
+			<span th:errors="*{book_summary}" style="color:crimson;"></span>
+		  </div>
+		  
+		  <div>
+			<label for="book_cover">表紙画像</label>
+			<select id="book_cover" th:field="*{book_cover}">
+				<option value="">画像を選択してください</option>
+				<option th:each="image : ${images}"
+						th:value="${image}"
+						th:text="${image}"></option>
+			</select>
+			<span style="color:gray">任意</span>
+
+			
+			<br>
+			
+			<img id="bookCoverPreview"
+				 src=""
+				 alt="表紙画像プレビュー"
+				 style="display:none; width:120px; margin-top:10px;">
+			
+			<span th:errors="*{book_cover}" style="color:crimson;"></span>
 		  </div>
 		  
 		  <div>
@@ -49,24 +74,54 @@
 						th:value="${genre.genre_id}"
 						th:text="${genre.genre_name}"></option>
 			</select>
-			<span th:errors="*{book_genre}" style="color:red;"></span>
+			<span style="color:red">必須</span>
+			<span th:errors="*{book_genre}" style="color:crimson;"></span>
 		  </div>
 		  
 		  <div>
 			<label for="book_stock">在庫数</label>
 			<input type="number" id="book_stock" th:field="*{book_stock}">
-			<span th:errors="*{book_stock}" style="color:red;"></span>
+			<span style="color:red">必須</span>
+			<span th:errors="*{book_stock}" style="color:crimson;"></span>
 		  </div>
 		  
 		  <div>
 			<label for="book_publisher">出版社</label>
 			<input type="text" id="book_publisher" th:field="*{book_publisher}">
-			<span th:errors="*{book_publisher}" style="color:red;"></span>
+			<span style="color:red">必須</span>
+			<span th:errors="*{book_publisher}" style="color:crimson;"></span>
+		  </div>
+		  
+		  <div>
+			<label for="book_flag">公開状態</label>
+			<select id="book_flag" th:field="*{book_flag}">
+				<option th:value="false">OFF</option>
+				<option th:value="true">ON</option>
+			</select>
 		  </div>
 		  
 		  <button type="submit">登録する</button>
 		  
 	  </form>
+	  
+	  <script>
+		const bookCoverSelect = document.getElementById("book_cover");
+		const bookCoverPreview = document.getElementById("bookCoverPreview");
+		
+		function updateBookCoverPreview(){
+			const filename = bookCoverSelect.value;
+			if(filename){
+				bookCoverPreview.src = 
+				"/images/" + encodeURIComponent(filename);
+				bookCoverPreview.style.display = "block";
+			}else{
+				bookCoverPreview.style.display = "none";
+				bookCoverPreview.removeAttribute("src");
+			}
+		}
+		bookCoverSelect.addEventListener("change", updateBookCoverPreview);
+		updateBppkCoverPreview();
+	  </script>
 
 </body>
 </html>
