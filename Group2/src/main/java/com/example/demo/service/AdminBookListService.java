@@ -26,6 +26,10 @@ public class AdminBookListService {
 									AdminBookListForm adminBookListForm,
 									Integer pageCount
 									) {
+		if(pageCount < 1) {
+			pageCount = 1;
+		}
+		
 		int offSet = 20 * pageCount - 20;
 		
 		return adminBookListMapper.selectAllBookWithGenre(adminBookListForm, offSet);

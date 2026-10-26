@@ -30,7 +30,7 @@ public class AdminBookListController {
 		model.addAttribute("pageCount",pageCount);
 		model.addAttribute("bookCount", adminBookListService.allBookCount(adminBookListForm));
 		model.addAttribute("genres", adminBookListService.selectAllGenre());
-		model.addAttribute("serchForm",adminBookListForm);
+		model.addAttribute("searchForm",adminBookListForm);
 		
 		return "adminBookList";
 	}

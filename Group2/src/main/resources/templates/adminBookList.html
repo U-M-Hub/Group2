@@ -8,10 +8,10 @@
 	
 	<h2>■登録書籍一覧画面</h2>
 	
-	<label>検索条件</label>
+	<label style="font-weight: bold">-検索条件-</label>
 	<form 	id="searchForm" 
 	        th:action="@{/adminBookList/1}" 
-			th:object="${serchForm}" 
+			th:object="${searchForm}" 
 			method="get">
 			
 		<label for="name">名前検索:</label>
@@ -63,11 +63,14 @@
 		   / 全[[${bookCount}]]件
 	</label>
 		   
+	<label th:if="${bookCount} == 0" style="color:red">
+		&nbsp;&nbsp;&nbsp;条件に一致する書籍は0件です
+	</label>
 	
 	<div>
 		<form th:if="${pageCount} != 1"
 			  th:action="@{/adminBookList/{pageCount}(pageCount=${pageCount - 1})}"
-			  th:object="${serchForm}"
+			  th:object="${searchForm}"
 			  method="get"
 			  style="display: inline;">
 			  
@@ -85,7 +88,7 @@
 		
 		<form th:if="${pageCount} * 20 < ${bookCount}"
 			  th:action="@{/adminBookList/{pageCount}(pageCount=${pageCount + 1})}"
-			  th:object="${serchForm}"
+			  th:object="${searchForm}"
 			  method="get"
 			  style="display: inline;">
 			  
@@ -116,7 +119,7 @@
 				<th>ジャンル</th>
 				<th>価格</th>
 				<th>在庫数</th>
-				<th>あらすじ</th>
+				<th>あらすじ(10文字まで)</th>
 				<th>公開状態</th>
 				<th>編集画面</th>
 			</tr>
@@ -132,7 +135,7 @@
 				<th>[[${#numbers.formatInteger(book.book_price, 1, 'COMMA')}]]円</th>
 				<th>[[${#numbers.formatInteger(book.book_stock, 1, 'COMMA')}]]個</th>
 				<th>[[${#strings.length(book.book_summary) > 10
-					    ? #strings.substring(book.book_summary, 0, 10) : book.book_summary }]]...
+					    ? #strings.substring(book.book_summary, 0, 10) : book.book_summary }]]
 				</th>
 				<th th:text="${book.book_flag ? '公開' : '非公開'}"
 				    th:style="${book.book_flag ? 'color:blue;' : 'color:red;'}">
