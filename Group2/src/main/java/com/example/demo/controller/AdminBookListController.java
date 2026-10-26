@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.example.demo.form.AdminBookListForm;
+import com.example.demo.form.adminBookList.AdminBookListForm;
 import com.example.demo.service.AdminBookListService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +29,7 @@ public class AdminBookListController {
 				            );
 		model.addAttribute("pageCount",pageCount);
 		model.addAttribute("bookCount", adminBookListService.allBookCount());
+		model.addAttribute("genres", adminBookListService.selectAllGenre());
 		model.addAttribute("serchForm",adminBookListForm);
 		
 		return "adminBookList";

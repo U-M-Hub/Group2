@@ -16,17 +16,31 @@
 			
 		<label for="name">名前検索:</label>
 		<input type="text" th:field="*{name}">
+		
 		<label for="author">著者名検索:</label>
 		<input type="text" th:field="*{author}">
+		
 		<label for="publisher">出版社検索:</label>
 		<input type="text" th:field="*{publisher}">
-		<label for="order">並び順:</label>
-		<select id="order" th:field="*{order}">
-			<option value="DESC">降順</option>
-			<option value="ASC">昇順</option>
+		
+		<label>ジャンル：</label>
+		<select th:field="*{genre_id}">
+			<option value="">選択してください</option>
+			<option th:each="genre : ${genres}"
+					th:value="${genre.genre_id}"
+					th:text="${genre.genre_name}">
+			</option>
 		</select>
+		
+		<label for="order">並び順:</label>
+			<select th:field="*{order}">
+				<option value="DESC">降順</option>
+				<option value="ASC">昇順</option>
+		</select>
+		
 		<button type="submit">検索</button>
 	</form>
+	
 	
 	<label>[[${pageCount * 20 -19}]] 
 		    - 

@@ -18,4 +18,9 @@
 		FROM books
 	</select>
 	
+	<select id="selectAllGenre" resultType="com.example.demo.entity.Genres">
+		SELECT * FROM genres
+		ORDER BY genre_id
+	</select>
+	
 </mapper>

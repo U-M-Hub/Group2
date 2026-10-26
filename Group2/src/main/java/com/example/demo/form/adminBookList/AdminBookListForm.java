@@ -1,4 +1,4 @@
-package com.example.demo.form;
+package com.example.demo.form.adminBookList;
 
 import lombok.Data;
 
@@ -13,4 +13,5 @@ public class AdminBookListForm {
 	
 	private String order;
 	
+	private Integer genre_id;
 }
