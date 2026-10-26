@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.AdminBookListMapper">
 
+	<!-- 検索条件にあった本の情報取得 -->
 	<select id="selectAllBookWithGenre" resultType="com.example.demo.dto.AdminBookListDto">
 		SELECT b.book_id, b.book_title, b.book_author, b.book_price,
 			   b.book_summary, b.book_cover, g.genre_id, g.genre_name, 
@@ -9,13 +10,60 @@
 		FROM books AS b
 		JOIN genres AS g
 		ON b.book_genre = g.genre_id
+		
+		<where>
+			<!-- 本のタイトルの部分一致検索 -->
+			<if test="form.name != null and form.name != ''">
+				AND b.book_title LIKE CONCAT('%',#{form.name}, '%' )
+			</if>
+			<!-- 著者名の部分一致検索 -->
+			<if test="form.author != null and form.author != ''">
+				AND b.book_author LIKE CONCAT('%',#{form.author}, '%' )
+			</if>
+			<!-- 出版社の部分一致検索 -->
+			<if test="form.publisher != null and form.name != ''">
+				AND b.book_publisher LIKE CONCAT('%',#{form.publisher}, '%' )
+			</if>
+			<!-- ジャンルでの絞り込み -->
+			<if test="form.genre_id != null and form.genre_id != ''">
+				AND g.genre_id = #{form.genre_id}
+			</if>
+		</where>
+		
 		ORDER BY b.book_id 
-		LIMIT 20 OFFSET #{pageCount}
+		<choose>
+			<when test="form.order == 'ASC'">
+				ASC
+			</when>
+			<otherwise>
+		        DESC
+		    </otherwise>
+		</choose>
+		LIMIT 20 OFFSET #{offSet}
 	</select>
 	
+	<!-- 検索条件にあった本の件数取得 -->
 	<select id="allBookCount">
 		SELECT COUNT(*)
 		FROM books
+		<where>
+			<!-- 本のタイトルの部分一致検索 -->
+			<if test="form.name != null and form.name != ''">
+				AND book_title LIKE CONCAT('%',#{form.name}, '%' )
+			</if>
+			<!-- 著者名の部分一致検索 -->
+			<if test="form.author != null and form.author != ''">
+				AND book_author LIKE CONCAT('%',#{form.author}, '%' )
+			</if>
+			<!-- 出版社の部分一致検索 -->
+			<if test="form.publisher != null and form.name != ''">
+				AND book_publisher LIKE CONCAT('%',#{form.publisher}, '%' )
+			</if>
+			<!-- ジャンルでの絞り込み -->
+			<if test="form.genre_id != null and form.genre_id != ''">
+				AND book_genre = #{form.genre_id}
+			</if>
+		</where>
 	</select>
 	
 	<select id="selectAllGenre" resultType="com.example.demo.entity.Genres">

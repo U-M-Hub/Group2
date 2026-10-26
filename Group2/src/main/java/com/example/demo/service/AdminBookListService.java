@@ -32,8 +32,8 @@ public class AdminBookListService {
 	}
 	
 	//検索条件にあてはまる本の件数を取得するService
-	public Integer allBookCount() {
-		return adminBookListMapper.allBookCount();
+	public Integer allBookCount(AdminBookListForm adminBookListForm) {
+		return adminBookListMapper.allBookCount(adminBookListForm);
 	}
 	
 	//全てのジャンルの情報を取得するMapper
