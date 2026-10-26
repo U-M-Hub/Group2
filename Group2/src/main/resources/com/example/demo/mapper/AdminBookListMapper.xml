@@ -21,12 +21,16 @@
 				AND b.book_author LIKE CONCAT('%',#{form.author}, '%' )
 			</if>
 			<!-- 出版社の部分一致検索 -->
-			<if test="form.publisher != null and form.name != ''">
+			<if test="form.publisher != null and form.publisher != ''">
 				AND b.book_publisher LIKE CONCAT('%',#{form.publisher}, '%' )
 			</if>
 			<!-- ジャンルでの絞り込み -->
-			<if test="form.genre_id != null and form.genre_id != ''">
+			<if test="form.genre_id != null">
 				AND g.genre_id = #{form.genre_id}
+			</if>
+			<!-- 公開状態での絞り込み -->
+			<if test="form.flag != null">
+				AND b.book_flag = #{form.flag}
 			</if>
 		</where>
 		
@@ -43,7 +47,7 @@
 	</select>
 	
 	<!-- 検索条件にあった本の件数取得 -->
-	<select id="allBookCount">
+	<select id="allBookCount" resultType="java.lang.Integer">
 		SELECT COUNT(*)
 		FROM books
 		<where>
@@ -56,12 +60,16 @@
 				AND book_author LIKE CONCAT('%',#{form.author}, '%' )
 			</if>
 			<!-- 出版社の部分一致検索 -->
-			<if test="form.publisher != null and form.name != ''">
+			<if test="form.publisher != null and form.publisher != ''">
 				AND book_publisher LIKE CONCAT('%',#{form.publisher}, '%' )
 			</if>
 			<!-- ジャンルでの絞り込み -->
-			<if test="form.genre_id != null and form.genre_id != ''">
+			<if test="form.genre_id != null">
 				AND book_genre = #{form.genre_id}
+			</if>
+			<!-- 公開状態での絞り込み -->
+			<if test="form.flag != null">
+				AND book_flag = #{form.flag}
 			</if>
 		</where>
 	</select>

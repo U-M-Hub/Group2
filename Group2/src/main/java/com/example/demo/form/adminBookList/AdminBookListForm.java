@@ -14,4 +14,6 @@ public class AdminBookListForm {
 	private String order;
 	
 	private Integer genre_id;
+	
+	private Boolean flag;
 }
