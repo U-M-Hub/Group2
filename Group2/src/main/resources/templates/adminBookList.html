@@ -1,10 +1,186 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>【管理者】登録書籍一覧</title>
 </head>
 <body>
+	
+	<h2>■登録書籍一覧画面</h2>
+	
+	<label style="font-weight: bold">-検索条件-</label>
+	<form 	id="searchForm" 
+	        th:action="@{/adminBookList/1}" 
+			th:object="${searchForm}" 
+			method="get">
+			
+		<label for="name">名前検索:</label>
+		<input type="text" th:field="*{name}">
+		
+		<label for="author">著者名検索:</label>
+		<input type="text" th:field="*{author}">
+		
+		<label for="publisher">出版社検索:</label>
+		<input type="text" th:field="*{publisher}">
+		
+		<br>&nbsp;&nbsp;&nbsp;
+		
+		<label for="genre_id">ジャンル絞り込み：</label>
+		<select th:field="*{genre_id}">
+			<option value="">選択してください</option>
+			<option th:each="genre : ${genres}"
+					th:value="${genre.genre_id}"
+					th:text="${genre.genre_name}">
+			</option>
+		</select>
+		
+		&nbsp;&nbsp;&nbsp;
+		
+		<label>公開状態絞り込み：</label>
+		<select th:field="*{flag}">
+			<option value="">全て</option>
+			<option value="true">公開</option>
+			<option value="false">非公開</option>
+		</select>
+		
+		&nbsp;&nbsp;&nbsp;
+		
+		<label for="order">並び順:</label>
+			<select th:field="*{order}">
+				<option value="DESC">降順</option>
+				<option value="ASC">昇順</option>
+		</select>
+		
+		&nbsp;&nbsp;&nbsp;
+		
+		<button type="submit">検索</button>
+	</form>
+	
+	
+	<label th:if="${bookCount} != 0">[[${pageCount * 20 -19}]] 
+		    - 
+			[[${pageCount * 20 > bookCount ? bookCount : pageCount * 20}]] 
+		   / 全[[${bookCount}]]件
+	</label>
+		   
+	<label th:if="${bookCount} == 0" style="color:red">
+		&nbsp;&nbsp;&nbsp;条件に一致する書籍は0件です
+	</label>
+	
+	<div>
+		<form th:if="${pageCount} != 1"
+			  th:action="@{/adminBookList/{pageCount}(pageCount=${pageCount - 1})}"
+			  th:object="${searchForm}"
+			  method="get"
+			  style="display: inline;">
+			  
+			  <input type="hidden" th:value="*{name}" name="name">
+			  <input type="hidden" th:value="*{author}" name="author">
+			  <input type="hidden" th:value="*{publisher}" name="publisher">
+			  <input type="hidden" th:value="*{genre_id}" name="genre_id">
+			  <input type="hidden" th:value="*{order}" name="order">
+			  <input type="hidden" th:value="*{flag}" name="flag">
+			  
+			<button type="submit">&lt;前へ</button>
+		</form>
+		
+		
+		
+		<form th:if="${pageCount} * 20 < ${bookCount}"
+			  th:action="@{/adminBookList/{pageCount}(pageCount=${pageCount + 1})}"
+			  th:object="${searchForm}"
+			  method="get"
+			  style="display: inline;">
+			  
+			  <input type="hidden" th:value="*{name}" name="name">
+			  <input type="hidden" th:value="*{author}" name="author">
+			  <input type="hidden" th:value="*{publisher}" name="publisher">
+			  <input type="hidden" th:value="*{genre_id}" name="genre_id">
+			  <input type="hidden" th:value="*{order}" name="order">
+			  <input type="hidden" th:value="*{flag}" name="flag">
+			  
+			<button type="submit">次へ&gt;</button>
+		</form>
+	</div>
 
+	<br>
+	
+	<div th:object="${booksWithGenre}">
+		
+		<caption>登録書籍一覧</caption>
+		<table border="1">
+			
+			<tr>
+				<th>書籍ID</th>
+				<th>表紙</th>
+				<th>タイトル</th>
+				<th>著者名</th>
+				<th>出版社</th>
+				<th>ジャンル</th>
+				<th>価格</th>
+				<th>在庫数</th>
+				<th>あらすじ(10文字まで)</th>
+				<th>公開状態</th>
+				<th>編集画面</th>
+			</tr>
+			<tr th:each="book : ${booksWithGenre}">
+				<th th:text="${book.book_id}"></th>
+				<th><img th:src="@{/images/{image}(image=${book.book_cover})}"
+					     style="width: 50px; height: auto;">
+				</th>
+				<th th:text="${book.book_title}"></th>
+				<th th:text="${book.book_author}"></th>
+				<th th:text="${book.book_publisher}"></th>
+				<th th:text="${book.genre_name}"></th>
+				<th>[[${#numbers.formatInteger(book.book_price, 1, 'COMMA')}]]円</th>
+				<th>[[${#numbers.formatInteger(book.book_stock, 1, 'COMMA')}]]個</th>
+				<th>[[${#strings.length(book.book_summary) > 10
+					    ? #strings.substring(book.book_summary, 0, 10) : book.book_summary }]]
+				</th>
+				<th th:text="${book.book_flag ? '公開' : '非公開'}"
+				    th:style="${book.book_flag ? 'color:blue;' : 'color:red;'}">
+				</th>
+				<th>
+					<form th:action="@{/adminBookEdit/{bookId}(bookId=${book.book_id})}"
+				          method="get">
+
+					    <input type="hidden"
+					           name="pageCount"
+					           th:value="${pageCount}">
+	
+					    <input type="hidden"
+					           name="name"
+					           th:value="${searchForm.name}">
+	
+					    <input type="hidden"
+					           name="author"
+					           th:value="${searchForm.author}">
+	
+					    <input type="hidden"
+					           name="publisher"
+					           th:value="${searchForm.publisher}">
+	
+					    <input type="hidden"
+					           name="genre_id"
+					           th:value="${searchForm.genre_id}">
+	
+					    <input type="hidden"
+					           name="order"
+					           th:value="${searchForm.order}">
+	
+					    <input type="hidden"
+					           name="flag"
+					           th:value="${searchForm.flag}">
+	
+					    <button type="submit">編集画面へ</button>
+					</form>
+				</th>
+			</tr>
+			
+		</table>
+	</div>
+	
+	
+	
 </body>
 </html>
