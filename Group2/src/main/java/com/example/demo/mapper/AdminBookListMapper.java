@@ -14,8 +14,9 @@ public interface AdminBookListMapper {
 
 	
 	/*
-	 * 全ての本の情報を取得し、
-	 * genresテーブルから本に対応するgenre_nameを結合してListで返すMapper
+	 * 検索条件にあてはまる全ての本の情報を取得し、
+	 * offSetをもとに検索結果を一部除外。
+	 * ジャンルIDとジャンル名を結合して、一覧をListで返すMapper
 	 */
 	List<AdminBookListDto> selectAllBookWithGenre(
 							@Param("form") AdminBookListForm adminBookListForm,

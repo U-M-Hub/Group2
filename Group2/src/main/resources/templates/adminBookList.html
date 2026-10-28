@@ -74,12 +74,12 @@
 			  method="get"
 			  style="display: inline;">
 			  
-			  <input type="hidden" th:field="*{name}">
-			  <input type="hidden" th:field="*{author}">
-			  <input type="hidden" th:field="*{publisher}">
-			  <input type="hidden" th:field="*{genre_id}">
-			  <input type="hidden" th:field="*{order}">
-			  <input type="hidden" th:field="*{flag}">
+			  <input type="hidden" th:value="*{name}" name="name">
+			  <input type="hidden" th:value="*{author}" name="author">
+			  <input type="hidden" th:value="*{publisher}" name="publisher">
+			  <input type="hidden" th:value="*{genre_id}" name="genre_id">
+			  <input type="hidden" th:value="*{order}" name="order">
+			  <input type="hidden" th:value="*{flag}" name="flag">
 			  
 			<button type="submit">&lt;前へ</button>
 		</form>
@@ -92,12 +92,12 @@
 			  method="get"
 			  style="display: inline;">
 			  
-			  <input type="hidden" th:field="*{name}">
-			  <input type="hidden" th:field="*{author}">
-			  <input type="hidden" th:field="*{publisher}">
-			  <input type="hidden" th:field="*{genre_id}">
-			  <input type="hidden" th:field="*{order}">
-			  <input type="hidden" th:field="*{flag}">
+			  <input type="hidden" th:value="*{name}" name="name">
+			  <input type="hidden" th:value="*{author}" name="author">
+			  <input type="hidden" th:value="*{publisher}" name="publisher">
+			  <input type="hidden" th:value="*{genre_id}" name="genre_id">
+			  <input type="hidden" th:value="*{order}" name="order">
+			  <input type="hidden" th:value="*{flag}" name="flag">
 			  
 			<button type="submit">次へ&gt;</button>
 		</form>
