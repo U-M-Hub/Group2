@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Mapperインターフェースと対応付ける -->
 <mapper namespace="com.example.demo.mapper.AdminAddBookMapper">
 
+<!-- 書籍を登録するSQL -->
 <insert id = "insert"
 		 parameterType = "com.example.demo.entity.Books"
 		 useGeneratedKeys = "true"

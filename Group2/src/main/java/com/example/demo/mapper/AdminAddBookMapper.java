@@ -11,6 +11,7 @@ import com.example.demo.entity.Genres;
 @Mapper
 public interface AdminAddBookMapper {
 	
+	//ジャンル一覧を取得するSQL
 	@Select("""
 			SELECT genre_id, genre_name
 			FROM genres
@@ -18,6 +19,7 @@ public interface AdminAddBookMapper {
 			""")
 	List<Genres> findAll();
 	
+	//書籍を登録する
 	int insert(Books books);
 
 }
