@@ -1,10 +1,98 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>書籍一覧</title>
 </head>
 <body>
 <h1>書籍一覧</h1>
+<h1>書籍一覧</h1>
 
+<table border="1">
+    <thead>
+        <tr>
+            <th>書籍ID</th>
+            <th>表紙</th>
+            <th>書籍名</th>
+            <th>著者名</th>
+            <th>ジャンル（仮）</th>
+            <th>出版社</th>
+            <th>価格</th>
+        </tr>
+    </thead>
+
+    <tbody>
+		
+		<form th:action="@{/customer/books}" method="get">
+		    <label for="sortBy">並び替え：</label>
+
+		    <select id="sortBy" name="sortBy">
+		        <option value="bookIdDesc"
+		                th:selected="${sortBy == 'bookIdDesc'}">
+		            書籍ID（降順）
+		        </option>
+
+		        <option value="bookIdAsc"
+		                th:selected="${sortBy == 'bookIdAsc'}">
+		            書籍ID（昇順）
+		        </option>
+
+		        <option value="priceAsc"
+		                th:selected="${sortBy == 'priceAsc'}">
+		            価格（安い順）
+		        </option>
+
+		        <option value="priceDesc"
+		                th:selected="${sortBy == 'priceDesc'}">
+		            価格（高い順）
+		        </option>
+		    </select>
+
+		    <button type="submit">並び替え</button>
+		</form>
+		
+        <tr th:each="book : ${books}">
+            <td th:text="${book.book_id}">1</td>
+            <td>
+                <img th:src="@{/images/{filename}(filename=${book.book_cover})}"
+                     th:alt="${book.book_title}"
+                     width="80">
+            </td>
+            <td th:text="${book.book_title}">サンプル本</td>
+            <td th:text="${book.book_author}">サンプル著者</td>
+           <td th:text="${book.genre_name}">小説</td>
+            <td th:text="${book.book_publisher}">サンプル出版社</td>
+            <td>
+                <span th:text="${book.book_price}">1000</span> 円
+            </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(books)}">
+            <td colspan="7">公開中の書籍はありません。</td>
+        </tr>
+    </tbody>
+</table>
+<div class="pagination">
+
+    <!-- 前のページがある場合だけ表示 -->
+    <a th:if="${hasPrevious}"
+       th:href="@{/customer/books(page=${currentPage - 1}, sortBy=${sortBy})}">
+        前へ
+    </a>
+
+    <!-- 現在のページと総ページ数 -->
+    <span>
+        <span th:text="${currentPage}">1</span>
+        /
+        <span th:text="${totalPages}">1</span>
+        ページ
+    </span>
+
+    <!-- 次のページがある場合だけ表示 -->
+    <a th:if="${hasNext}"
+       th:href="@{/customer/books(page=${currentPage + 1}, sortBy=${sortBy})}">
+        次へ
+    </a>
+
+</div>
 </body>
