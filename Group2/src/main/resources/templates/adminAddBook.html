@@ -1,10 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>書籍登録画面</title>
 </head>
 <body>
+	<h1>♰新規登録♰</h1>
+	
+	<!-- 登録成功時にメッセージを表示する -->
+	<p th:if="${param.success}" style="color:blue;">
+		書籍を登録しました！
+	</p>
+	
+	<!-- 書籍登録用フォーム -->
+	<form th:action="@{/admin/books/adminAddBook}"
+		  th:object="${BookForm}"
+		  method="post">
+	  
+		  <!-- 書籍名 -->
+		  <div>
+			<label for="book_title">書籍名</label>
+			<input type="text" id="book_title" th:field="*{book_title}">
+			<span style="color:crimson">必須</span>
+			<span th:errors="*{book_title}" style="color:red;"></span>
+		  </div>
+		  
+		  <!-- 著者名 -->
+		  <div>
+			<label for="book_author">著者名</label>
+			<input type="text" id="book_author" th:field="*{book_author}">
+			<span style="color:crimson">必須</span>
+			<span th:errors="*{book_author}" style="color:red;"></span>
+		  </div>
+		  
+		  <!-- 価格 -->
+		  <div>
+			<label for="book_price">価格</label>
+			<input type="number" id="book_price" th:field="*{book_price}">
+			<span style="color:crimson">必須</span>
+			<span th:errors="*{book_price}" style="color:red;"></span>
+		  </div>
+		  
+		  <!-- あらすじ -->
+		  <div>
+			<label for="book_summary">あらすじ</label>
+			<textarea id="book_summary" th:field="*{book_summary}"
+			rows="5"
+			cols="40"></textarea>
+			<span style="color:gray">任意</span>
+			<span th:errors="*{book_summary}" style="color:red;"></span>
+		  </div>
+		  
+		  <!-- 表示画像の選択 -->
+		  <div>
+			<label for="book_cover">表紙画像</label>
+			<select id="book_cover" th:field="*{book_cover}">
+				<option value="">画像を選択してください</option>
+				<!-- Serviceから受け取った画像一覧を表示する -->
+				<option th:each="image : ${images}"
+						th:value="${image}"
+						th:text="${image}"></option>
+			</select>
+			<span style="color:gray">任意</span>
+
+			
+			<br>
+			
+			<!-- 選択した表紙画像をプレビューする -->
+			<img id="bookCoverPreview"
+				 src=""
+				 alt="表紙画像プレビュー"
+				 style="display:none; width:120px; margin-top:10px;">
+			
+			<span th:errors="*{book_cover}" style="color:red;"></span>
+		  </div>
+		  
+		  <!-- ジャンルの選択 -->
+		  <div>
+			<label for="book_genre">ジャンル</label>
+			<select id="book_genre" th:field="*{book_genre}">
+				<option value="">選択してください</option>
+				<!-- Serviceから受け取ったジャンル一覧を表示する -->
+				<option th:each="genre : ${genres}"
+						th:value="${genre.genre_id}"
+						th:text="${genre.genre_name}"></option>
+			</select>
+			<span style="color:crimson">必須</span>
+			<span th:errors="*{book_genre}" style="color:red;"></span>
+		  </div>
+		  
+		  <!-- 在庫数 -->
+		  <div>
+			<label for="book_stock">在庫数</label>
+			<input type="number" id="book_stock" th:field="*{book_stock}">
+			<span style="color:crimson">必須</span>
+			<span th:errors="*{book_stock}" style="color:red;"></span>
+		  </div>
+		  
+		  <!-- 出版社 -->
+		  <div>
+			<label for="book_publisher">出版社</label>
+			<input type="text" id="book_publisher" th:field="*{book_publisher}">
+			<span style="color:crimson">必須</span>
+			<span th:errors="*{book_publisher}" style="color:red;"></span>
+		  </div>
+		  
+		  <!-- 公開状態のON/OFF -->
+		  <div>
+			<label for="book_flag">公開状態</label>
+			<select id="book_flag" th:field="*{book_flag}">
+				<option th:value="false">OFF</option>
+				<option th:value="true">ON</option>
+			</select>
+		  </div>
+		  
+		  <!-- 入力した書籍情報を送信する -->
+		  <button type="submit">登録する</button>
+		  
+	  </form>
+	  
+	  <script>
+		//表紙画像の選択欄を取得する
+		const bookCoverSelect = document.getElementById("book_cover");
+		//プレビュー用の画像要素を取得する
+		const bookCoverPreview = document.getElementById("bookCoverPreview");
+		
+		//選択された画像をプレビューに反映する
+		function updateBookCoverPreview(){
+			const filename = bookCoverSelect.value;
+			if(filename){
+				//static/images内の画像を表示する
+				bookCoverPreview.src = 
+				"/images/" + encodeURIComponent(filename);
+				bookCoverPreview.style.display = "block";
+			}else{
+				//画像が未選択ならプレビューを隠す
+				bookCoverPreview.style.display = "none";
+				bookCoverPreview.removeAttribute("src");
+			}
+		}
+		//画像を選択したときにプレビューを更新する
+		bookCoverSelect.addEventListener("change", updateBookCoverPreview);
+		//初期表示時にもプレビューを更新する
+		updateBookCoverPreview();
+	  </script>
 
 </body>
 </html>

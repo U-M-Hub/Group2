@@ -1,3 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.AdminAddBookMapper"></mapper>
+<!-- Mapperインターフェースと対応付ける -->
+<mapper namespace="com.example.demo.mapper.AdminAddBookMapper">
+
+<!-- 書籍を登録するSQL -->
+<insert id = "insert"
+		 parameterType = "com.example.demo.entity.Books"
+		 useGeneratedKeys = "true"
+		 keyProperty = "book_id"
+		 keyColumn = "book_id">
+		 
+		 INSERT INTO books(
+		 book_title,
+		 book_author,
+		 book_price,
+		 book_summary,
+		 book_cover,
+		 book_genre,
+		 book_stock,
+		 book_publisher,
+		 book_flag
+		 )
+		 VALUES(
+		 #{book_title},
+		 #{book_author},
+		 #{book_price},
+		 #{book_summary},
+		 #{book_cover},
+		 #{book_genre},
+		 #{book_stock},
+		 #{book_publisher},
+		 #{book_flag}
+		 )
+		 
+		 </insert>
+
+</mapper>
