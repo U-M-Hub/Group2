@@ -1,4 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.AdminBookListMapper">
+
+	<!-- 共通処理(検索条件での絞り込み処理) -->
+	<sql id="searchConditions">
+		<where>
+			<!-- 本のタイトルの部分一致検索 -->
+			<if test="form.name != null and form.name != ''">
+				AND b.book_title LIKE CONCAT('%',#{form.name}, '%' )
+			</if>
+			<!-- 著者名の部分一致検索 -->
+			<if test="form.author != null and form.author != ''">
+				AND b.book_author LIKE CONCAT('%',#{form.author}, '%' )
+			</if>
+			<!-- 出版社の部分一致検索 -->
+			<if test="form.publisher != null and form.publisher != ''">
+				AND b.book_publisher LIKE CONCAT('%',#{form.publisher}, '%' )
+			</if>
+			<!-- ジャンルでの絞り込み -->
+			<if test="form.genre_id != null">
+				AND b.book_genre = #{form.genre_id}
+			</if>
+			<!-- 公開状態での絞り込み -->
+			<if test="form.flag != null">
+				AND b.book_flag = #{form.flag}
+			</if>
+		</where>
+	</sql>
+	
+
+	<!-- 検索条件にあった本の情報取得 -->
+	<select id="selectAllBookWithGenre" resultType="com.example.demo.dto.AdminBookListDto">
+		SELECT b.book_id, b.book_title, b.book_author, b.book_price,
+			   b.book_summary, b.book_cover, b.book_genre, g.genre_name, 
+			   b.book_stock, b.book_publisher, b.book_flag
+		FROM books AS b
+		JOIN genres AS g
+		ON b.book_genre = g.genre_id
+		
+		<!-- 共通処理の呼び出し -->
+		<include refid="searchConditions"/>
+		
+		ORDER BY b.book_id 
+		<choose>
+			<when test="form.order == 'ASC'">
+				ASC
+			</when>
+			<otherwise>
+		        DESC
+		    </otherwise>
+		</choose>
+		LIMIT 20 OFFSET #{offSet}
+	</select>
+	
+	<!-- 検索条件にあった本の件数取得 -->
+	<select id="allBookCount" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM books AS b
+		
+		<!-- 共通処理の呼び出し -->
+		<include refid="searchConditions"/>	
+		
+	</select>
+	
+	<!-- 全てのジャンル情報を取得 -->
+	<select id="selectAllGenre" resultType="com.example.demo.entity.Genres">
+		SELECT * FROM genres
+		ORDER BY genre_id
+	</select>
+	
 </mapper>
