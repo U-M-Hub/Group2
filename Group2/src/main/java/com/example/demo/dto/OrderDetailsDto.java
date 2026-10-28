@@ -1,11 +1,11 @@
-package com.example.demo.entity;
+package com.example.demo.dto;
 
 import java.time.LocalDate;
 
 import lombok.Data;
 
 @Data
-public class OrderDetails {
+public class OrderDetailsDto {
 
 	/** 注文明細ID */
 	private Integer orderDetailId;
@@ -14,7 +14,7 @@ public class OrderDetails {
 	private Integer userId;
 
 	/** ユーザー名 */
-	private String userName;
+	private String userName;	// usersテーブルから取得
 
 	/** 注文番号 */
 	private Integer orderNumber;
@@ -26,15 +26,15 @@ public class OrderDetails {
 	private Integer bookId;
 
 	/** タイトル */
-	private String bookTitle;
-	
+	private String bookTitle;	// booksテーブルから取得
+		
 	/** 価格 */
 	private Integer orderPrice;
-	
+		
 	/** 数量 */
 	private Integer bookCount;
-	
+		
 	/** 注文日 */
 	private LocalDate orderDate;
-	
+
 }
