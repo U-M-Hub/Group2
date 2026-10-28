@@ -5,12 +5,12 @@ import lombok.Data;
 @Data
 public class Users {
 
-    private final Integer user_id;
+    private Integer user_id;
     
-    private final String user_name;
+    private String user_name;
     
-    private final String user_password;
+    private String user_password;
     
-    private final String user_role;
+    private String user_role;
 
 }

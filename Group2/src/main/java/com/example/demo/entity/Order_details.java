@@ -7,20 +7,20 @@ import lombok.Data;
 @Data
 public class Order_details {
 
-    private final Integer order_detail_id;
+    private Integer order_detail_id;
     
-    private final Integer user_id;
+    private Integer user_id;
     
-    private final Integer order_number;
+    private Integer order_number;
     
-    private final Integer order_branch_number;
+    private Integer order_branch_number;
     
-    private final Integer book_id;
+    private Integer book_id;
     
-    private final Integer order_price;
+    private Integer order_price;
     
-    private final Integer book_count;
+    private Integer book_count;
     	
-    private final LocalDate order_date;
+    private LocalDate order_date;
 
 }

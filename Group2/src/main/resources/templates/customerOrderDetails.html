@@ -1,10 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja"
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>注文履歴</title>
 </head>
 <body>
 
+	<h1 th:text = "${message}">メッセージ</h1>
+
+	<!-- 0件 or nullの場合 -->
+	<p th:if="${#lists.isEmpty(DetailsByUserId)}">
+	    注文履歴はありません。
+	</p>	
+
+	<!-- 注文履歴一覧表示(1件以上ある場合) 			-->
+	<!-- ※cellspacing="0"：セル同士の隙間をなくす	-->
+	<table th:if = "${not #lists.isEmpty(DetailsByUserId)}"
+	       border = '1'
+		   cellspacing="0">
+		<thead>
+			<tr>
+				<th>注文日</th>
+				<th colspan="2">注文番号</th>
+				<th>タイトル</th>
+				<th>価格</th>
+				<th>数量</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each = "orders : ${DetailsByUserId}">
+				<td style="text-align: left;"
+				  th:text = "${orders.orderDate}">注文日</td>
+				<td style="text-align: center;"
+				    th:text = "${#numbers.formatInteger(orders.orderNumber, 6)}">注文番号</td>
+				<td style="text-align: center;"
+				    th:text = "${#numbers.formatInteger(orders.orderBranchNumber, 3)}">枝番</td>
+				<td style="text-align: left;">
+					<!-- URLの仕様が確定次第、修正すること。					-->
+					<!-- <a th:href="@{/book/detail/{id}(id=${orders.bookId})}"	-->
+					<!--    th:text = "${orders.bookTitle}">タイトル			-->
+					<!-- </a>-->
+					<a th:href="@{/admin/orders}" th:text="${orders.bookTitle}">タイトル</a>
+				</td>
+				<td style="text-align: right;"
+				    th:text = "${#numbers.formatInteger(orders.orderPrice, 1, 'COMMA')}">価格</td>
+				<td style="text-align: right;"
+				    th:text = "${#numbers.formatInteger(orders.bookCount, 1, 'COMMA')}">数量</td>
+			</tr>
+		</tbody>		
+	</table>
+
+	<br>
+	<!--	<a th:href = "@{/}">消費者ホーム画面に戻る</a>	-->
+	<a>消費者ホーム画面に戻る</a>	
+	
 </body>
 </html>

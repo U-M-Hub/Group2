@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.AdminOrderDetailsMapper">
+
+	<!-- 【商品管理者用】全ユーザーの注文履歴を取得するためのSQL	-->
+	<!-- ※表示順：第1条件 注文番号（降順）						 	-->
+	<!--           第2条件 枝番（昇順）								-->
+	<select id = "getAllOrderDetails"
+	 		 resultType = "com.example.demo.dto.OrderDetailsDto">
+		SELECT ods.order_detail_id as orderDetailId,
+			   usr.user_id as userId,
+			   usr.user_name as userName,
+			   ods.order_number as orderNumber,
+			   ods.order_branch_number as orderBranchNumber,
+			   ods.book_id as bookId,
+		       bks.book_title as bookTitle,
+			   ods.order_price as orderPrice,
+			   ods.book_count as bookCount,
+		       ods.order_date as orderDate
+		  FROM order_details as ods
+		  JOIN books as bks
+		    ON ods.book_id = bks.book_id
+		  JOIN users as usr
+		    ON ods.user_id = usr.user_id
+	  ORDER BY ods.order_number desc,
+	  		   ods.order_branch_number asc
+	</select>
+
 </mapper>
