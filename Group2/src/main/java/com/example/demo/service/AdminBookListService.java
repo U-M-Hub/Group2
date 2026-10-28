@@ -49,7 +49,9 @@ public class AdminBookListService {
 	public Integer checkPageCount(AdminBookListForm adminBookListForm,
 								  Integer pageCount) {
 		
-		Integer maxPage = (int)	Math.ceil(adminBookListMapper.allBookCount(adminBookListForm) / 20);
+		Integer bookCount = adminBookListMapper.allBookCount(adminBookListForm);
+		
+		Integer maxPage = Math.max(1, (int) Math.ceil(bookCount / 20.0));
 		
 		if(pageCount < 1) {
 			return 1; 
@@ -57,7 +59,7 @@ public class AdminBookListService {
 			return maxPage;
 		}
 		
-		return 1;
+		return pageCount;
 	}
 	
 	

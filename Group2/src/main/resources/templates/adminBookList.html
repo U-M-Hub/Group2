@@ -57,7 +57,7 @@
 	</form>
 	
 	
-	<label>[[${pageCount * 20 -19}]] 
+	<label th:if="${bookCount} != 0">[[${pageCount * 20 -19}]] 
 		    - 
 			[[${pageCount * 20 > bookCount ? bookCount : pageCount * 20}]] 
 		   / 全[[${bookCount}]]件
