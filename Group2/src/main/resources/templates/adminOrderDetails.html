@@ -19,7 +19,7 @@
 	<table th:if = "${not #lists.isEmpty(allDetails)}"
 	       border = '1'
 		   cellspacing="0">
-		<thread>
+		<thead>
 			<tr>
 				<th>ユーザー名</th>
 				<th>注文日</th>
@@ -28,7 +28,7 @@
 				<th>価格</th>
 				<th>数量</th>
 			</tr>
-		</thread>
+		</thead>
 		<tbody>
 			<tr th:each = "orders : ${allDetails}">
 				<td style="text-align: left;"
