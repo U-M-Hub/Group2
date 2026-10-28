@@ -140,7 +140,41 @@
 				<th th:text="${book.book_flag ? '公開' : '非公開'}"
 				    th:style="${book.book_flag ? 'color:blue;' : 'color:red;'}">
 				</th>
-				<th><a th:href="@{bookDetails}">編集画面へ</a></th>
+				<th>
+					<form th:action="@{/adminBookEdit/{bookId}(bookId=${book.book_id})}"
+				          method="get">
+
+					    <input type="hidden"
+					           name="pageCount"
+					           th:value="${pageCount}">
+	
+					    <input type="hidden"
+					           name="name"
+					           th:value="${searchForm.name}">
+	
+					    <input type="hidden"
+					           name="author"
+					           th:value="${searchForm.author}">
+	
+					    <input type="hidden"
+					           name="publisher"
+					           th:value="${searchForm.publisher}">
+	
+					    <input type="hidden"
+					           name="genre_id"
+					           th:value="${searchForm.genre_id}">
+	
+					    <input type="hidden"
+					           name="order"
+					           th:value="${searchForm.order}">
+	
+					    <input type="hidden"
+					           name="flag"
+					           th:value="${searchForm.flag}">
+	
+					    <button type="submit">編集画面へ</button>
+					</form>
+				</th>
 			</tr>
 			
 		</table>
