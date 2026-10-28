@@ -40,8 +40,36 @@ public class AdminBookListService {
 		return adminBookListMapper.allBookCount(adminBookListForm);
 	}
 	
-	//全てのジャンルの情報を取得するMapper
+	//全てのジャンルの情報を取得するService
 	public List<Genres> selectAllGenre(){
 		return adminBookListMapper.selectAllGenre();
 	}
+	
+	//渡されたページ番号が適切かどうが判断するService
+	public Integer checkPageCount(AdminBookListForm adminBookListForm,
+								  Integer pageCount) {
+		
+		Integer maxPage = (int)	Math.ceil(adminBookListMapper.allBookCount(adminBookListForm) / 20);
+		
+		if(pageCount < 1) {
+			return 1; 
+		}else if(pageCount > maxPage){
+			return maxPage;
+		}
+		
+		return 1;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

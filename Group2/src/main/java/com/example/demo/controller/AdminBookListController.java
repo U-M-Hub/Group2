@@ -21,6 +21,8 @@ public class AdminBookListController {
 								AdminBookListForm adminBookListForm,
 			                    Model model) {
 		
+		pageCount = adminBookListService.checkPageCount(adminBookListForm, pageCount);
+		
 		model.addAttribute("booksWithGenre",
 				            adminBookListService.selectAllBookWithGenre(
 				            		adminBookListForm,
