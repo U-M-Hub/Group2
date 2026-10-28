@@ -25,7 +25,7 @@ public class CustomerOrderDetailsController {
 
 	/* 消費者：ユーザーIDで取得 */
 //	@GetMapping("/{id}")
-	@GetMapping("")
+	@GetMapping("/orders")
 	public String showOederDetailsByUserId(Model model) {
 		model.addAttribute("message", "注文履歴一覧");
 //		model.addAttribute("DetailsByUserId", customerOrderDetailsService.getOrderDetailsByUserId(id));

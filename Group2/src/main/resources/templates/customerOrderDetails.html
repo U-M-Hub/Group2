@@ -41,7 +41,7 @@
 					<!-- <a th:href="@{/book/detail/{id}(id=${orders.bookId})}"	-->
 					<!--    th:text = "${orders.bookTitle}">タイトル			-->
 					<!-- </a>-->
-					<a th:href="@{/admin/all}" th:text="${orders.bookTitle}">タイトル</a>
+					<a th:href="@{/admin/orders}" th:text="${orders.bookTitle}">タイトル</a>
 				</td>
 				<td style="text-align: right;"
 				    th:text = "${#numbers.formatInteger(orders.orderPrice, 1, 'COMMA')}">価格</td>
