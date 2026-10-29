@@ -27,7 +27,10 @@ public class OrderDetailsDto {
 
 	/** タイトル */
 	private String bookTitle;	// booksテーブルから取得
-		
+
+	/** 表紙(画像) */
+	private String bookCover;	// booksテーブルから取得
+	
 	/** 価格 */
 	private Integer orderPrice;
 		

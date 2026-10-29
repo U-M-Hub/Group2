@@ -19,13 +19,27 @@
 	<table th:if = "${not #lists.isEmpty(DetailsByUserId)}"
 	       border = '1'
 		   cellspacing="0">
+
+		<!-- 表紙(画像)の表示対象に伴い、見出し部分のレイアウトを変更	-->
+		<!-- ①注文番号表示部											-->
+		<!--   1行目に「注文番号情報」と表示 								-->
+		<!--   2行目に「番号」「枝番」を追加							-->
+		<!-- ②書籍表示部												-->
+		<!--   1行目に「書籍情報」と表示 									-->
+		<!--   2行目に「タイトル」「表示」を追加						-->
 		<thead>
 			<tr>
-				<th>注文日</th>
-				<th colspan="2">注文番号</th>
+				<th rowspan="2">注文日</th>
+				<th colspan="2">注文番号情報</th>
+				<th colspan="2">書籍情報</th>
+				<th rowspan="2">価格</th>
+				<th rowspan="2">数量</th>
+			</tr>
+			<tr>
+				<th>番号</th>
+				<th>枝番</th>
 				<th>タイトル</th>
-				<th>価格</th>
-				<th>数量</th>
+				<th>表紙</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -43,9 +57,20 @@
 					<!-- </a>-->
 					<a th:href="@{/admin/orders}" th:text="${orders.bookTitle}">タイトル</a>
 				</td>
+
+				<!-- 表紙(画像)を表示対象に追加	-->
+				<!-- ※/images/{filename}：(初期構成の場合の)画像ファイル読み取り先				-->
+				<!--   alt="●●" 	：画像が表示できない場合などに、代わりに表示する文字列を指定-->
+				<!--   width="●●"	：画像の幅を●●ピクセルに指定								-->
+				<td  style="text-align: center;">
+					<img th:src="@{/images/{filename}(filename=${orders.bookCover})}"
+						 alt="画像取込失敗"
+						 width="50">
+				</td>				  
+				  				
 				<td style="text-align: right;"
 				    th:text = "${#numbers.formatInteger(orders.orderPrice, 1, 'COMMA')}">価格</td>
-				<td style="text-align: right;"
+				<td style="text-align: center;"
 				    th:text = "${#numbers.formatInteger(orders.bookCount, 1, 'COMMA')}">数量</td>
 			</tr>
 		</tbody>		
