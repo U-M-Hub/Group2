@@ -20,7 +20,10 @@ public class SecurityConfig {
 		.requestMatchers("/login").permitAll()
 		//以下のリクエストは管理者のみ許可
 		.requestMatchers("/admin/**",
-						 "/adminBookList/**").hasAuthority("ROLE_ADMIN")
+						 "/adminBookList/**",
+						 "/adminBookEdit/**").hasAuthority("ROLE_ADMIN")
+		//以下のリクエストは消費者のみ許可
+		.requestMatchers("/customer/**").hasAuthority("ROLE_USER")
 		// その他のリクエストは認証が必要
 		.anyRequest().authenticated())
 		
