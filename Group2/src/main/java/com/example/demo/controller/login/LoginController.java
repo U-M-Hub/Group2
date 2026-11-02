@@ -16,4 +16,9 @@ public class LoginController {
 	public String login(@ModelAttribute LoginForm loginForm) {
 		return "loginPackage/login";
 	}
+	
+	@GetMapping("test")
+	public String test() {
+		return "loginPackage/test";
+	}
 }

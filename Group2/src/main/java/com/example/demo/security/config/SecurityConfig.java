@@ -32,7 +32,7 @@ public class SecurityConfig {
 		// パスワードのname属性を指定(URLリクエストのどの部分を扱うか指定)
 		.passwordParameter("userPassInput")
 		// ログイン成功時のリダイレクト先を指定
-		.defaultSuccessUrl("/adminBookList/1")
+		.defaultSuccessUrl("/test")
 		// ログイン失敗時のリダイレクト先を指定
 		.failureUrl("/login?error"))
 		
