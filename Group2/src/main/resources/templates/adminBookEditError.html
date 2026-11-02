@@ -17,13 +17,29 @@
 	書籍が削除されている可能性があります。
 	</p>
 	
-	<form th:action="@{/adminBookEdit/{bookId}(bookId=${bookId})}"
-			method="get">
-		<button type="button" onclick="history.back()">
-			編集画面に戻る
+<!--	<form th:action="@{/adminBookEdit/{bookId}(bookId=${bookId})}"-->
+<!--			method="get">-->
+		<button type="button" id="backButton">
+			戻る
 		</button>
-		</form>
+<!--		</form>-->
 	
+		<script>
+			document.getElementById("backButton").addEventListener("click", function(){
+				
+				const lastEditUrl = sessionStorage.getItem("lastEditUrl");
+				
+				if(lastEditUrl){
+					//保存された編集画面へ戻る
+					window.location.href = lastEditUrl;
+				}else{
+					//保存情報がなければ書籍一覧へ戻る
+					window.location.href = "/adminBookList/1";
+				}
+				
+			});
+			
+		</script>
 	
 	
 	
@@ -31,7 +47,7 @@
 <!--	<form th:action="@{/adminBookList/{pageCount}(pageCount=${pageCount})}"-->
 <!--			method="get">-->
 		
-<!--		 書籍目の検索条件 -->
+<!--		 書籍名の検索条件 -->
 <!--		<input type="hidden" name="name"-->
 <!--			   th:value="${searchForm.name}">-->
 		
