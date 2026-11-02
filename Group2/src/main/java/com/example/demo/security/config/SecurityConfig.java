@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,11 +25,11 @@ public class SecurityConfig {
 		.formLogin(form -> form
 		// カスタムログインページのURLを指定
 		.loginPage("/login")
-		// ログイン処理のURLを指定
+		// ログイン処理のURLを指定(このURLのpostリクエストを受けたら処理をする)
 		.loginProcessingUrl("/authentication")
-		// ユーザー名のname属性を指定
+		// ユーザー名のname属性を指定(URLリクエストのどの部分を扱うか指定)
 		.usernameParameter("userNameInput")
-		// パスワードのname属性を指定
+		// パスワードのname属性を指定(URLリクエストのどの部分を扱うか指定)
 		.passwordParameter("userPassInput")
 		// ログイン成功時のリダイレクト先を指定
 		.defaultSuccessUrl("/adminBookList/1")

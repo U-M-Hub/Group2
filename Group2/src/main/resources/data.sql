@@ -9,7 +9,8 @@ INSERT INTO genres (genre_name) VALUES
 -- 注意：user_passwordは演習用の指定値をそのまま保存しています。
 -- 将来ログインを実装する際は、パスワードハッシュを保存してください。
 INSERT INTO users (user_name, user_password, user_role) VALUES
-    ('sampleuser', 'userpass', '消費者');
+    ('sampleuser', 'userpass', '消費者'),
+    ('sampleadmin','$2a$10$haRZPoct0FxQ79yw/79qHOx3P0cyaxKOoSSKN2i00RdfUiu0rayua','管理者');
 
 -- 3. 書籍：20件（A～T）
 -- 表紙画像 Noimage.png は別途 static/images/ に配置します。

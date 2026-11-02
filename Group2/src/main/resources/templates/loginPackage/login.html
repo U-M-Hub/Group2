@@ -22,6 +22,7 @@
 	
 	<!--ログイン情報入力フォーム-->
 	<div>
+		<!--SecurityConfigで指定したログイン処理用のURLへpostリクエストを送る-->
 		<form th:action="@{/authentication}" method="post" th:object="${loginForm}">
 			<!--ユーザー名入力-->
 			<label for="userNameInput">ユーザー名</label>
