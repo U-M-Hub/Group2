@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- AdminBookEditMapper.javaと対応するSQLを定義する -->
 <mapper namespace="com.example.demo.mapper.AdminBookEditMapper">
+
+<!-- 指定された書籍IDの情報を取得する -->
+<select id = "findById"
+		 parameterType = "java.lang.Integer"
+		 resultType = "com.example.demo.entity.Books">
+		 
+		 SELECT
+		 	book_id,
+		 	book_title,
+		 	book_author,
+		 	book_price,
+		 	book_summary,
+		 	book_cover,
+		 	book_genre,
+		 	book_stock,
+		 	book_publisher,
+		 	book_flag
+		 FROM books
+		 WHERE book_id = #{bookId}
+		 
+</select>
+
+<!-- 既存の書籍情報を更新する -->
+<update id = "update"
+		 parameterType = "com.example.demo.entity.Books">
+		 
+		 UPDATE books
+		 SET
+		 	book_title = #{book_title},
+		 	book_author = #{book_author},
+		 	book_price = #{book_price},
+		 	book_summary = #{book_summary},
+		 	book_cover = #{book_cover},
+		 	book_genre = #{book_genre},
+		 	book_stock = #{book_stock},
+		 	book_publisher = #{book_publisher},
+		 	book_flag = #{book_flag}
+		 WHERE book_id = #{book_id}
+		 
+</update>
+
 </mapper>
