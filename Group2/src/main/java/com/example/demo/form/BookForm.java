@@ -15,6 +15,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BookForm {
 	
+	//書籍ID
+	private Integer book_id;
+	
 	//書籍名
 	@NotBlank(message = "　※書籍名を入力してください")
 	@Size(max = 255, message = "　※書籍名は255文字以内で入力してください")
