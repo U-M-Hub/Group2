@@ -26,6 +26,11 @@ public class AdminBookEditService {
 	//トランザクションにより、DB更新処理をひとまとまりとして扱う
 	@Transactional
 	public void update(Books books) {
+		//あらすじが未入力または空白だけの場合
+		if(books.getBook_summary() == null
+				|| books.getBook_summary().isBlank()) {
+			books.setBook_summary("未登録");
+		}
 		//指定された書籍情報をDBに保存する
 		int updateCount = adminBookEditMapper.update(books);
 		//指定したIDの書籍が存在しない場合はエラーにする

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>エラー</title>
+</head>
+<body>
+	<h1>エラー</h1>
+	
+	<!-- Controllerから受け取ったエラーメッセージを表示 -->
+	<p th:text="${errorMessage}">
+		指定された書籍が見つかりません
+	</p>
+	
+	<p>	
+	指定された書籍IDが存在しないか、
+	書籍が削除されている可能性があります。
+	</p>
+	
+	<form th:action="@{/adminBookEdit/{bookId}(bookId=${bookId})}"
+			method="get">
+		<button type="button" onclick="history.back()">
+			編集画面に戻る
+		</button>
+		</form>
+	
+	
+	
+	
+<!--	 書籍一覧画面に戻るフォーム -->
+<!--	<form th:action="@{/adminBookList/{pageCount}(pageCount=${pageCount})}"-->
+<!--			method="get">-->
+		
+<!--		 書籍目の検索条件 -->
+<!--		<input type="hidden" name="name"-->
+<!--			   th:value="${searchForm.name}">-->
+		
+<!--		 著者名の検索条件 -->
+<!--		<input type="hidden" name="author"-->
+<!--			   th;value="${searchForm.author}">-->
+		
+<!--		 出版社の検索条件 -->
+<!--		<input type="hidden" name="publisher"-->
+<!--			   th:value="${searchForm.publisher}">-->
+		
+<!--		 ジャンルの検索条件 -->
+<!--		<input type="hidden" name="genre_id"-->
+<!--			   th:value="${searchForm.genre_id}">-->
+		
+<!--		 並び順 -->
+<!--		<input type="hidden" name="order"-->
+<!--		 	   th:value="${searchForm.order}">-->
+		
+<!--		 公開状態 -->
+<!--		<input type="hidden" name="flag"-->
+<!--			   th:value="${searchForm.flag}">-->
+		
+<!--		<button type="submit">書籍一覧に戻る</button>-->
+		
+<!--		</form>-->
+	
+</body>
+</html>

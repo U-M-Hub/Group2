@@ -64,6 +64,27 @@ public class AdminBookEditController {
 		//指定されたIDの書籍が存在しない場合
 		if(book == null) {
 			model.addAttribute("errorMessage", "指定された書籍が見つかりません");
+			model.addAttribute("bookId", bookId);
+			
+			/*
+			 * 
+			//一覧画面に戻るための検索条件を設定
+			AdminBookListForm searchForm = new AdminBookListForm();
+			
+			searchForm.setName(name);
+			searchForm.setAuthor(author);
+			searchForm.setPublisher(publisher);
+			searchForm.setGenre_id(genre_id);
+			searchForm.setOrder(order);
+			searchForm.setFlag(flag);
+			
+			model.addAttribute("searchForm", searchForm);
+			
+			//ページ番号を設定
+			model.addAttribute("pageCount",
+					pageCount != null && pageCount > 0 ? pageCount : 1);
+			 */
+			
 			return "adminBookEditError";
 		}
 		

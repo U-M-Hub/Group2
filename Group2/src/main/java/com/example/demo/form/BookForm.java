@@ -49,11 +49,12 @@ public class BookForm {
 	@PositiveOrZero(message = "　※在庫数は0以上で入力してください")
 	private Integer book_stock;
 	
-	//公開状態
+	//出版社
 	@NotBlank(message = "　※出版社を入力してください")
-	@Size(max = 255, message = "　※書籍名は255文字以内で入力してください")
+	@Size(max = 255, message = "　※出版社は255文字以内で入力してください")
 	private String book_publisher;
 	
+	//公開状態
 	private Boolean book_flag = false;
 	
 
