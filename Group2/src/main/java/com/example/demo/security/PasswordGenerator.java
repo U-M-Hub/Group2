@@ -9,7 +9,7 @@ public class PasswordGenerator {
         // 「BCrypt」のインスタンス化
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         // 入力値
-        String rawPassword = "adminpass";
+        String rawPassword = "customerpass";
         // パスワードをハッシュ化
         String encodedPassword = encoder.encode(rawPassword);
         // 表示

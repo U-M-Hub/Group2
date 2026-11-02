@@ -18,6 +18,9 @@ public class SecurityConfig {
 		.authorizeHttpRequests(authz -> authz
 		// 「/login」へのアクセスは認証を必要としない
 		.requestMatchers("/login").permitAll()
+		//以下のリクエストは管理者のみ許可
+		.requestMatchers("/admin/**",
+						 "/adminBookList/**").hasAuthority("ROLE_ADMIN")
 		// その他のリクエストは認証が必要
 		.anyRequest().authenticated())
 		

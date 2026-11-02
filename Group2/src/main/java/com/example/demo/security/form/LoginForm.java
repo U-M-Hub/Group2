@@ -1,4 +1,4 @@
-package com.example.demo.form.login;
+package com.example.demo.security.form;
 
 import lombok.Data;
 

@@ -1,10 +1,10 @@
-package com.example.demo.controller.login;
+package com.example.demo.security.controlelr;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.example.demo.form.login.LoginForm;
+import com.example.demo.security.form.LoginForm;
 
 import lombok.RequiredArgsConstructor;
 
