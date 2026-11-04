@@ -18,7 +18,7 @@ public class RegisterForm {
 	private String userName;
 	
 	//パスワード
-	@NotBlank(message = "ユーザー名を入力してください")
+	@NotBlank(message = "パスワードを入力してください")
 	@Pattern(regexp = "^(?=(?:.*[a-zA-Z]){2})(?=(?:.*[0-9]){2})[a-zA-Z0-9]{7,20}$",
 			 message = "半角英数字をそれぞれ2文字以上含む7〜20文字で入力してください")
 	private String userPass;
