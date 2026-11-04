@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>会員登録画面</title>
+</head>
+<body>
+	
+	<h2>■会員登録画面</h2>
+		
+	<h3>ユーザー名とパスワードを入力してください</h3>
+	
+	<div th:if="${param.success}">
+		<label style="color:blue">登録成功</label>
+		<form th:action="@{/login}" method="get">
+			<input type="submit" value="ログイン画面へ">
+		</form>
+	</div>
+	
+	<div th:unless="${param.success}">
+		<!--会員登録情報入力フォーム-->
+		<form th:action="@{/register/post}" th:object="${registerForm}" method="post">
+			
+			<!--ユーザー名入力-->
+			<label for="userName">ユーザー名を入力してください</label>
+			
+			<div th:if="${#fields.hasErrors('userName')}" style="display: inline;">
+				<br>
+				<label th:errors="*{userName}"
+					   style="color:red">
+				</label>
+			</div>
+			
+			<br>
+			<input type="password" th:field="*{userName}">
+			<br>
+			
+			<!--パスワード入力-->
+			<label for="userPass">パスワードを入力してください</label>
+			
+			<div th:if="${#fields.hasErrors('userPass')}" style="display: inline;">
+				<br>
+				<label th:errors="*{userPass}"
+					   style="color:red">
+				</label>
+			</div>
+			
+			<br>
+			<input type="text" th:field="*{userPass}">
+			<br>
+			
+			<!--確認用パスワード入力-->
+			<label for="userPassCheck">確認用にもう一度パスワードを入力してください</label>
+			
+			<div th:if="${#fields.hasErrors('checkPassword')}" style="display: inline;">
+				<br>
+				<label th:errors="*{checkPassword}"
+					   style="color:red">
+				</label>
+			</div>
+						
+			<br>
+			<input type="password" th:field="*{userPassCheck}">
+			<br><br>
+			
+			<!--登録ボタン-->
+			<input type="submit" value="登録">
+			
+			
+		</form>
+	</div>
+
+</body>
+</html>

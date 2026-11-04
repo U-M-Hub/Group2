@@ -20,6 +20,8 @@ public class SecurityConfig {
 		.requestMatchers("/login",
 						 "/images/**",
 						 "/css/**").permitAll()
+		//以下のリクエストはゲストのみ許可
+		.requestMatchers("/register/**").anonymous()
 		//以下のリクエストは管理者のみ許可
 		.requestMatchers("/admin/**",
 						 "/adminBookList/**",
