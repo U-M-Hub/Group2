@@ -19,13 +19,14 @@ public class RegisterService {
 	/*
 	 * 渡された登録情報をDB登録用のMapperへ渡すService。
 	 * パスワードは、ハッシュ化してからMapperへ渡す。
+	 * ユーザー名が重複していた場合はfalseを返す
 	 */
 	public boolean registerUser(RegisterForm registerForm) {
 		
 		//ユーザー名が重複しているかどうかチェック
 		if(registerMapper.checkDuplicateUserName(registerForm.getUserName())) {
 			return false;
-		};
+		}
 		
 		//パスワードのハッシュ化
 		String encodePass = passwordEncoder.encode(registerForm.getUserPass());
