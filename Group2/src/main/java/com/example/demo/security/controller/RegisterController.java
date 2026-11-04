@@ -29,21 +29,14 @@ public class RegisterController {
 	public String registerPost(@Validated RegisterForm registerForm,
 							   BindingResult bindingResult) {
 		
-		//ユーザー名重複チェック処理の結果に応じて、エラー情報を追加
-		if(registerService.checkDuplicateUserName(registerForm.getUserName())) {
-			bindingResult.rejectValue("userName",
-									  "duplicate",
-									  "そのユーザー名は既に使用されています");
-		}
-		
 		//エラー情報があれば表示
 		if(bindingResult.hasErrors()) {
 			return "loginPackage/register";
 		}
 		
 		/*
-		 * ユーザー登録処理のために必要な情報をServiceへ渡し、登録処理
-		 * 万が一、同時登録などでチェックをすり抜けてINSERTが行われた場合にも、
+		 * ユーザー登録処理のために必要な情報をServiceへ渡して登録処理を行う。
+		 * Service側でユーザー名の重複が確認された場合、エラー情報を追加して表示
 		 * エラー情報を追加。
 		 */
 		if(!registerService.registerUser(registerForm)) {

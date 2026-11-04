@@ -22,14 +22,21 @@ public class RegisterService {
 	 */
 	public boolean registerUser(RegisterForm registerForm) {
 		
+		//ユーザー名が重複しているかどうかチェック
+		if(registerMapper.checkDuplicateUserName(registerForm.getUserName())) {
+			return false;
+		};
+		
+		//パスワードのハッシュ化
 		String encodePass = passwordEncoder.encode(registerForm.getUserPass());
 		
 		try {
-			
+			//登録情報をもとに登録処理を行うMapperを呼び出す。
 			registerMapper.registerUser(registerForm.getUserName(), encodePass);
 			
 			return true;
 			
+			//同時登録などで、重複チェックをすり抜けてINSERT文が実行された時の例外処理
 		}catch(DuplicateKeyException e) {
 			
 			return false;
