@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.AdminHomeMapper">
+
+<!-- 登録書籍数を取得 -->
+<select id="countBooks" resultType="int">
+	SELECT COUNT(*)
+	FROM books
+</select>
+
+<!-- 注文件数を取得 -->
+<select id="countOrders" resultType="int">
+	SELECT COUNT(DISTINCT order_number)
+	FROM order_details
+</select>
+
+<!-- 在庫切れの書籍数を取得 -->
+<select id="countOutOfStockBooks" resultType="int">
+	SELECT COUNT(*)
+	FROM books
+	WHERE book_stock = 0
+</select>
+
+<!-- 公開書籍数を取得 -->
+<select id="countPublishedBooks" resultType="int">
+	SELECT COUNT(*)
+	FROM books
+	WHERE book_flag = TRUE
+</select>
+
+<!-- 非公開書籍数を取得 -->
+<select id="countUnpublishedBooks" resultType="int">
+	SELECT COUNT(*)
+	FROM books
+	WHERE book_flag = FALSE
+</select>
+
+</mapper>
