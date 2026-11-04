@@ -37,7 +37,6 @@ public class RegisterController {
 		/*
 		 * ユーザー登録処理のために必要な情報をServiceへ渡して登録処理を行う。
 		 * Service側でユーザー名の重複が確認された場合、エラー情報を追加して表示
-		 * エラー情報を追加。
 		 */
 		if(!registerService.registerUser(registerForm)) {
 			bindingResult.rejectValue("userName",
