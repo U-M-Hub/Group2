@@ -29,6 +29,12 @@ public class RegisterController {
 	public String registerPost(@Validated RegisterForm registerForm,
 							   BindingResult bindingResult) {
 		
+		if(registerService.checkDuplicateUserName(registerForm.getUserName())) {
+			bindingResult.rejectValue("userName",
+									  "duplicate",
+									  "そのユーザー名は既に使用されています");
+		}
+		
 		if(bindingResult.hasErrors()) {
 			return "loginPackage/register";
 		}
