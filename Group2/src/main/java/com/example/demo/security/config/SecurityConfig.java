@@ -16,8 +16,10 @@ public class SecurityConfig {
 		http
 		// HTTPリクエストに対するセキュリティ設定
 		.authorizeHttpRequests(authz -> authz
-		// 「/login」へのアクセスは認証を必要としない
-		.requestMatchers("/login").permitAll()
+		// 以下のリクエストは認証を必要としない
+		.requestMatchers("/login",
+						 "/images/**",
+						 "/css/**").permitAll()
 		//以下のリクエストは管理者のみ許可
 		.requestMatchers("/admin/**",
 						 "/adminBookList/**",
@@ -25,7 +27,7 @@ public class SecurityConfig {
 		//以下のリクエストは消費者のみ許可
 		.requestMatchers("/customer/**").hasAuthority("ROLE_USER")
 		// その他のリクエストは認証が必要
-		.anyRequest().authenticated())
+		.anyRequest().permitAll())
 		
 		// フォームベースのログイン設定
 		.formLogin(form -> form
@@ -33,9 +35,9 @@ public class SecurityConfig {
 		.loginPage("/login")
 		// ログイン処理のURLを指定(このURLのpostリクエストを受けたら処理をする)
 		.loginProcessingUrl("/authentication")
-		// ユーザー名のname属性を指定(URLリクエストのどの部分を扱うか指定)
+		// ユーザー名のname属性を指定(URLリクエストのどの部分をユーザー名として扱うか指定)
 		.usernameParameter("userNameInput")
-		// パスワードのname属性を指定(URLリクエストのどの部分を扱うか指定)
+		// パスワードのname属性を指定(URLリクエストのどの部分をパスワードとして扱うか指定)
 		.passwordParameter("userPassInput")
 		// ログイン成功時のリダイレクト先を指定
 		.defaultSuccessUrl("/test")
