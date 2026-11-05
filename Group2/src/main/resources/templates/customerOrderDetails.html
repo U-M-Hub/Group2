@@ -4,7 +4,22 @@
 <head>
 	<meta charset="UTF-8">
 	<title>注文履歴</title>
+
 	<link rel="stylesheet" th:href="@{/css/customerHome.css}">
+
+
+	<!-- table th, table td の部分								-->
+	<!--   テーブルの見出し（th）と								-->
+	<!--   データ部分（td）の内側に余白を設ける設定				-->
+	<!-- padding: 8px 12px：上下の余白(8px)と左右の余白(12px)	-->
+	<style>
+		table th,
+		table td {
+		    padding: 8px 12px;
+		}
+	</style>
+	
+
 </head>
 <body>
 	
@@ -58,7 +73,10 @@
 					<!-- <a th:href="@{/book/detail/{id}(id=${orders.bookId})}"	-->
 					<!--    th:text = "${orders.bookTitle}">タイトル			-->
 					<!-- </a>-->
-					<a th:href="@{/admin/orders}" th:text="${orders.bookTitle}">タイトル</a>
+<!--					<a th:href="@{/admin/orders}" th:text="${orders.bookTitle}">タイトル</a>-->
+					<a th:href="@{/customer/books/{id}(id=${orders.bookId},from='order_details')}"
+					   th:text="${orders.bookTitle}">タイトル</a>
+					
 				</td>
 
 				<!-- 表紙(画像)を表示対象に追加	-->
