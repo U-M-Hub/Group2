@@ -31,7 +31,7 @@ public class SecurityConfig {
 		//以下のリクエストは認証済みユーザーのみ許可
 		.requestMatchers("/test").authenticated()
 		// その他のリクエストは認証が必要
-		.anyRequest().permitAll())
+		.anyRequest().authenticated())
 		
 		// フォームベースのログイン設定
 		.formLogin(form -> form
