@@ -1,4 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.CustomerBookDetailsMapper">
+
+	<!-- 【消費者用】ユーザーIDと書籍IDの組み合わせの有無を確認するためのSQL -->
+	<select id = "selectCartCount"
+	 		 resultType = "java.lang.Integer">
+		SELECT count(*)
+		  FROM cart
+		 WHERE user_id = #{userId}
+           AND book_id = #{bookId}
+	</select>
+
+	<!-- 【消費者用】商品詳細を取得するためのSQL -->
+	<select id = "getBookDetailsByBookId"
+	 		 resultType = "com.example.demo.dto.CustomerBookDetailsDto">
+		SELECT bks.book_id as bookId,
+		       bks.book_title as bookTitle,
+		       bks.book_author as bookAuthor,
+		       bks.book_price as bookPrice,
+		       bks.book_summary as bookSummary,
+		       bks.book_cover as bookCover,
+		       gnr.genre_name as genreName,
+		       bks.book_stock as bookStock,
+		       bks.book_publisher as bookPublisher,
+		       bks.book_flag as bookFlag
+		FROM books as bks
+		JOIN genres as gnr
+		  ON bks.book_genre = genre_id
+		WHERE bks.book_id = #{select_book_id}
+	</select>
+
+	<!-- 【消費者用】カートテーブルに追加するためのSQL			-->
+	<!-- ※ON CONFLICT (user_id, book_id)：						-->
+	<!--	 user_id と book_id の組み合わせが重複していた場合	-->
+	<!--   DO NOTHING：											-->
+	<!-- 　　何もせずに登録をスキップする			 			-->
+	<insert id = "insertCustomerCart"
+	 		 parameterType = "com.example.demo.dto.CustomerCartDto">
+		INSERT INTO cart (
+	        	user_id,
+	        	book_id,
+	        	book_count
+			    )
+		    VALUES (
+	        	#{userId},
+	        	#{bookId},
+	        	#{bookCount}
+	    	)
+	        ON CONFLICT (user_id, book_id)
+			DO NOTHING
+	</insert>
+
 </mapper>

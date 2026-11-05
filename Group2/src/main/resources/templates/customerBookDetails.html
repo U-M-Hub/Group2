@@ -1,10 +1,293 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja"
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>商品詳細</title>
+
+	<!-- table th, table td の部分								-->
+	<!--   テーブルの見出し（th）と								-->
+	<!--   データ部分（td）の内側に余白を設ける設定				-->
+	<!-- padding: 8px 12px：上下の余白(8px)と左右の余白(12px)	-->
+
+	<!-- quantity-cell の部分									-->
+	<!-- height			：セルの高さを指定						-->
+	<!-- padding		：セルの内側の余白を設定				-->
+
+	<!-- quantity-input の部分									-->
+	<!-- width			：入力欄の横幅							-->
+	<!-- width			：入力欄の横幅							-->
+	<!-- height			：入力欄の高さ							-->
+	<!-- font-size		：フォントサイズ						-->
+	<!-- text-align		：値の表示位置							-->
+	<!-- border			：入力欄の枠線を設定					-->
+	<!-- 				：1px / 枠線の太さ（1ピクセル）			-->
+	<!-- 				：solid / 実線にする					-->
+	<!-- 				：#ccc / 枠線の色（薄いグレー）			-->
+	<!-- border-radius	：入力欄の四隅を丸くする				-->
+	<!-- 				：4px：角をどれくらい丸くするかを指定	-->
+	<!-- box-sizing		：widthで指定した横幅の中に、			-->
+	<!-- 				：枠線や内側の余白も含める設定			-->
+	<style>
+		table th,
+		table td {
+		    padding: 8px 12px;
+		}
+		.quantity-cell {
+		    height: 40px;
+		    padding: 0;
+		}
+	    .quantity-input {
+	        width: 100%;
+	        height: 100%;
+	        font-size: 16px;
+	        text-align: right;
+	        border: 1px solid #ccc;
+	        border-radius: 4px;
+			box-sizing: border-box;
+	    }
+	</style>
+
 </head>
 <body>
 
+	<h1 th:text = "${message}">メッセージ</h1>
+
+	<table border="1"  cellspacing="0">
+	    <tr>
+
+			<!-- fromパラメータがある場合(注文履歴画面から遷移時)		-->
+			<!-- [カートへ]ボタンは表示対象外とする為、表示行数は8行	-->
+			<div th:if="${from != null}">
+				<!-- 左側：画像（8行分のセルを結合） -->
+		        <td rowspan="8">
+		            <img th:src="@{/images/{filename}(filename=${bookDetails.bookCover})}"
+		                 alt="画像取込失敗"
+		                 width="200">
+		        </td>
+			</div>			
+
+			<!-- fromパラメータがない場合(商品一覧画面から遷移時)		-->
+			<!-- [カートへ]ボタンは表示対象外とする為、表示行数は9行	-->
+			<div th:unless="${from != null}">
+				<!-- 左側：画像（9行分のセルを結合） -->
+			    <td rowspan="9">
+			        <img th:src="@{/images/{filename}(filename=${bookDetails.bookCover})}"
+			             alt="画像取込失敗"
+			             width="200">
+			    </td>
+			</div>
+						
+			<!-- 1行目 -->
+			<th style="text-align: left;">書籍ID</th>
+			<td colspan="2"
+				th:text="${bookDetails.bookId}"></td>
+
+		</tr>
+
+		<tr>
+			<!-- 2行目 -->
+			<th style="text-align: left;">タイトル</th>
+			<td colspan="2"
+				th:text="${bookDetails.bookTitle}"></td>
+		</tr>
+		
+	    <tr>
+			<!-- 3行目 -->
+	        <th style="text-align: left;">著者名</th>
+	        <td colspan="2"
+				th:text="${bookDetails.bookAuthor}"></td>
+	    </tr>
+
+	    <tr>
+	        <!-- 4行目 -->
+	        <th style="text-align: left;">価格</th>
+	        <td colspan="2"
+				th:text="${#numbers.formatInteger(bookDetails.bookPrice, 1, 'COMMA')} + 円"></td>
+	    </tr>
+
+		<tr>
+		    <!-- 5行目 -->
+			<th style="text-align: left;">あらすじ</th>
+			<td colspan="2">
+
+				<!-- width												-->
+				<!--  横幅を設定(単位：px) ※500px：全角30文字/行		-->
+				<!-- height												-->
+				<!--  縦幅を設定(単位：px) ※120px：最大5行				-->
+				<!-- overflow-y:auto									-->
+				<!--  縦方向にはみ出した場合のみスクロールバーを表示	-->
+				<!-- overflow-x: hidden									-->
+				<!--   横方向にはみ出した部分を隠す						-->
+				<!-- white-space: pre-line								-->
+				<!--  DBに保存された改行を画面にも反映					-->
+				<!-- overflow-wrap: anywhere							-->
+				<!--  長い文字列も折り返す								-->
+				<div style="
+					        width: 500px;
+					        height: 120px;
+			    		    overflow-y: auto;
+			        		overflow-x: hidden;
+			        		white-space: pre-line;
+			        		overflow-wrap: anywhere;
+			    			"
+			    	th:text="${bookDetails.bookSummary}">
+			    </div>
+			</td>
+		</tr>
+	
+		<tr>
+		    <!-- 6行目 -->
+			<th style="text-align: left;">ジャンル</th>
+		    <td colspan="2"
+				th:text="${bookDetails.genreName}"></td>
+		</tr>
+
+		<tr>
+		    <!-- 7行目 -->
+			<th style="text-align: left;">在庫数</th>
+
+			<!-- 非公開の書籍の場合 -->
+			<td colspan="2"
+				th:if="${bookDetails.bookFlag == false}">
+				<span style="color: red;">
+					販売終了
+				</span>
+			</td>
+
+			<!-- 公開の書籍 且つ 在庫なしの場合 -->
+			<td colspan="2"
+				th:if="${bookDetails.bookStock == 0
+				         and bookDetails.bookFlag == true}">
+				<span style="color: red;">
+					在庫なし
+				</span>
+			</td>
+
+			<!-- 公開の書籍 且つ 在庫が1～10の場合 -->
+			<td colspan="2"
+				th:if="${bookDetails.bookStock >= 1
+			           and bookDetails.bookStock <= 10
+				       and bookDetails.bookFlag == true}">
+				<span style="color: #DAA520;">
+					在庫僅か(<span th:text="${bookDetails.bookStock}"></span>)
+				</span>
+			</td>
+			
+			<!-- 公開の書籍 且つ 在庫が11以上の場合 -->
+			<td colspan="2"
+				th:if="${bookDetails.bookStock >= 11
+				         and bookDetails.bookFlag == true}">
+				<span style="color: blue;">
+				    在庫あり(<span th:text="${bookDetails.bookStock}"></span>)
+				</span>
+			</td>
+			
+		</tr>
+		
+		<tr>
+		    <!-- 8行目 -->
+			<th style="text-align: left;">出版社名</th>
+		    <td colspan="2"
+				th:text="${bookDetails.bookPublisher}"></td>
+		</tr>
+
+		<!-- fromパラメータがない場合(商品一覧画面から遷移時)	-->
+		<div th:unless="${from != null}">
+
+			<!-- 9行目												-->
+			<!-- ユーザーが該当書籍をカートに追加している場合：		-->
+			<!-- 処理：カート画面に遷移するようにする				-->
+			<!--       ※cartテーブルへの追加処理は実施しない		-->
+			<tr th:if="${numberOfMatches == 1}">
+
+				<td colspan="3"
+				    style="text-align: right;">
+
+					<form th:action="@{/customer/orders}" method="get">
+					<button style="
+						   		width: 100px;
+						   		height: 40px;
+						   		background-color: orange;
+						   		color: white;
+									"
+						   	type="submit">カート画面</button>
+					</form>
+				</td>			
+
+			</tr>
+			
+			<!-- 在庫数1以上の場合、注文数 / [カートへ]ボタン表示	-->
+			<tr th:if="${numberOfMatches == 0 and 
+				         bookDetails.bookStock >= 1
+					     and bookDetails.bookFlag == true}">
+
+				<th style="text-align: left;">注文数</th>
+	
+				<!-- th:action 	： 送信先のURLを指定		-->
+				<!-- method 	： 送信方法を指定			-->
+				<!-- style 		： 画面上の表示方法を指定	-->
+				<!-- ※display 	： 要素の表示方法			-->
+				<!--   inline  	： 横並びに配置する			-->
+				<!--     ;     	： CSSの指定を区切る		-->
+				<td class="quantity-cell">
+					<form id="registerForm"
+						  th:object="${BookCount}"
+						  th:action="@{/customer/cart}"
+						  method="post"
+						  style="display: inline;">
+
+						  <!-- URLにIDを表示せずに			-->
+						  <!-- Java側でbookDetails.bookIdを	-->
+						  <!-- 取得できるようにする			-->
+						  <input type="hidden"
+						         name="bookID"
+						         th:value="${bookDetails.bookId}">
+<!-- 						  
+						<input type="number"
+					  	       th:field="*{bookCount}"
+					  		   class="quantity-input"
+					  	       min="1"
+							   th:max="${bookDetails.bookStock}">
+-->
+							   <input type="number"
+							          th:field="*{bookCount}"
+							   	   class="quantity-input"
+									  min="1"
+									  max="1">
+							   
+					</form>
+				</td>
+					
+				<!-- ボタン表示部	-->
+				<td style="text-align: right;">
+					<button style="
+						   		width: 100px;
+						   		height: 40px;
+						   		background-color: orange;
+						   		color: white;
+						   			" 
+						   	type="submit"
+							form="registerForm">カートに追加</button>
+			   	</td>
+			 </tr>
+		</div>
+			
+	</table>
+
+	<br>
+
+	<!-- fromパラメータがある場合(注文履歴画面から遷移時)	-->
+	<!-- 戻り先：リンク表示を注文履歴画面にする				-->
+	<div th:if="${from != null}">
+		<a th:href = "@{/customer/orders}">注文履歴画面に戻る</a>
+	</div>			
+
+	<!-- fromパラメータがない場合(商品一覧画面から遷移時)		-->
+	<!-- 戻り先：リンク表示を商品一覧画面にする				-->
+	<div th:unless="${from != null}">
+		<a th:href = "@{/customer/books}">商品一覧画面に戻る</a>
+	</div>			
+		
 </body>
 </html>
