@@ -69,5 +69,5 @@ FROM (
         (103, 3, DATE '2026-10-01')
 ) AS v(order_number, book_id, order_date)
 JOIN books AS b ON b.book_id = v.book_id
-JOIN users AS u ON u.user_name = 'sampleuser'
+JOIN users AS u ON u.user_name = 'samplecustomer'
 ORDER BY v.order_number;
