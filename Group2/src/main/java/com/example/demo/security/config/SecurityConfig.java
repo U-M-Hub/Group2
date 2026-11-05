@@ -42,7 +42,32 @@ public class SecurityConfig {
 		// パスワードのname属性を指定(URLリクエストのどの部分をパスワードとして扱うか指定)
 		.passwordParameter("userPassInput")
 		// ログイン成功時のリダイレクト先を指定
-		.defaultSuccessUrl("/test")
+		.successHandler((request, response, authentication) -> {
+
+	        // 管理者権限を持っているか確認
+	        boolean isAdmin = authentication.getAuthorities()
+	            .stream()
+	            .anyMatch(a -> "ROLE_ADMIN".equals(a.getAuthority()));
+
+	        // 消費者権限を持っているか確認
+	        boolean isUser = authentication.getAuthorities()
+	            .stream()
+	            .anyMatch(a -> "ROLE_USER".equals(a.getAuthority()));
+
+	        // 権限に応じたホーム画面へリダイレクト
+	        if (isAdmin) {
+	            response.sendRedirect(
+	                request.getContextPath() + "/admin/home"
+	            );
+	        } else if (isUser) {
+	            response.sendRedirect(
+	                request.getContextPath() + "/customer/home"
+	            );
+	        } else {
+	            // 想定外の権限の場合
+	            response.sendError(403);
+	        }
+	    })
 		// ログイン失敗時のリダイレクト先を指定
 		.failureUrl("/login?error"))
 		

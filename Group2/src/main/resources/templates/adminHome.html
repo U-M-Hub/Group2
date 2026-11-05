@@ -70,6 +70,16 @@
 		</div>
 		
 	</main>
+	
+	<br>
+	<label sec:authorize="isAuthenticated()"
+		   sec:authentication="name">
+		name
+	</label>
+		
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="ログアウト">
+	</form>
 
 </body>
 </html>
