@@ -41,3 +41,59 @@
     padding-top: 10px;
     font-size: 13px;
 }
+
+/* ヘッダー全体 */
+.customer-header{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+	padding: 10px 20px;
+	background-color: white;
+	border-bottom: 1px solid #ddd;
+}
+
+/* ロゴ */
+.customer-logo img{
+	width:100px;
+	height: auto;
+	display: block;
+}
+
+/* 右側の検索・カート */
+.header-right{
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+/* 検索フォーム */
+.header-search{
+	display: flex;
+	align-items: center;
+	border: 1px solid #ccc;
+	border-radius: 20px;
+	padding: 5px 10px;
+}
+
+/* 検索入力欄 */
+header-search input{
+	border: none;
+	outline: none;
+	padding: 5px;
+	width: 180px;
+}
+
+/* 検索ボタン */
+.header-search button{
+	border: none;
+	background: none;
+	cursor: pointer;
+	font-size: 18px;
+}
+
+/* カート */
+.cart-link{
+	font-size: 24px;
+	text-decoration: none;
+}

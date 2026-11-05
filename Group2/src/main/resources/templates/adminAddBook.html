@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>書籍登録画面</title>
+<link rel="stylesheet" th:href="@{/css/adminHome.css}">
 </head>
 <body>
-	<h1>♰新規登録♰</h1>
+	
+	<div th:replace="~{fragments/adminHeader :: header}"></div>
+	
+	<h2>■♰新規登録♰</h2>
 	
 	<!-- 登録成功時にメッセージを表示する -->
 	<p th:if="${param.success}" style="color:blue;">
@@ -13,7 +17,8 @@
 	</p>
 	
 	<!-- 書籍登録用フォーム -->
-	<form th:action="@{/admin/books/adminAddBook}"
+	<form id="bookForm"
+		  th:action="@{/admin/books/adminAddBook}"
 		  th:object="${BookForm}"
 		  method="post">
 	  
@@ -147,6 +152,29 @@
 		bookCoverSelect.addEventListener("change", updateBookCoverPreview);
 		//初期表示時にもプレビューを更新する
 		updateBookCoverPreview();
+		
+		//フォーム内容が入力されたかどうか
+		let formChanged = false;
+		
+		const form = document.getElementById("bookForm");
+		//フォームの内容が変更されたら記録
+		form.addEventListener("input", function(){
+			formChanged = true;
+		});
+		//プルダウンの変更も記録
+		form.addEventListener("change", function(){
+			formChanged = true;
+		});		
+		//画面を離れるときの警告
+		window.addEventListener("beforeunload", function(event){
+			if(formChanged){
+				event.preventDefault();
+			}
+		});
+		//登録ボタンを押して送信する場合は警告を出さない
+		form.addEventListener("submit", function(){
+			formChanged = false;
+		});
 	  </script>
 
 </body>

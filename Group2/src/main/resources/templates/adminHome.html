@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>【管理者】ホーム画面</title>
+	<link rel="stylesheet" th:href="@{/css/adminHome.css}">
 </head>
 <body>
-	<header>
-		<h1>書籍ECサイト</h1>
+	<div th:replace="~{fragments/adminHeader :: header}"></div>
 		<h2>🏠管理者ホーム画面🏠</h2>
-	</header>
 	
 	<!-- 管理情報 -->
 	<section>
