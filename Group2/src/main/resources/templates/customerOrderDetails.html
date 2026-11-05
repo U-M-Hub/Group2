@@ -5,6 +5,9 @@
 	<meta charset="UTF-8">
 	<title>注文履歴</title>
 
+	<link rel="stylesheet" th:href="@{/css/customerHome.css}">
+
+
 	<!-- table th, table td の部分								-->
 	<!--   テーブルの見出し（th）と								-->
 	<!--   データ部分（td）の内側に余白を設ける設定				-->
@@ -16,8 +19,11 @@
 		}
 	</style>
 	
+
 </head>
 <body>
+	
+	<div th:replace="~{fragments/customerHeader :: header}"></div>
 
 	<h1 th:text = "${message}">メッセージ</h1>
 
@@ -92,8 +98,8 @@
 	</table>
 
 	<br>
-	<!--	<a th:href = "@{/}">消費者ホーム画面に戻る</a>	-->
-	<a>消費者ホーム画面に戻る</a>	
+		<a th:href = "@{/customer/home}">消費者ホーム画面に戻る</a>	
+<!--	<a>消費者ホーム画面に戻る</a>	-->
 	
 </body>
 </html>

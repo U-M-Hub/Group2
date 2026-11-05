@@ -2,8 +2,11 @@
 <html lang="ja"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>注文履歴(商品管理者)</title>
+
+<meta charset="UTF-8">
+<title>注文履歴(商品管理者)</title>
+<link rel="stylesheet" th:href="@{/css/adminHome.css}">
+
 
 	<!-- table th, table td の部分								-->
 	<!--   テーブルの見出し（th）と								-->
@@ -16,8 +19,11 @@
 		}
 	</style>
 
+
 </head>
 <body>
+	
+	<div th:replace="~{fragments/adminHeader :: header}"></div>
 
 	<h1 th:text = "${message}">メッセージ</h1>
 
@@ -90,8 +96,8 @@
 	</table>
 
 	<br>
-	<!--	<a th:href = "@{/}">商品管理者ホーム画面に戻る</a>	-->
-	<a>商品管理者ホーム画面に戻る</a>
+		<a th:href = "@{/admin/home}">商品管理者ホーム画面に戻る</a>	
+<!--	<a>商品管理者ホーム画面に戻る</a>-->
 	
 </body>
 </html>
