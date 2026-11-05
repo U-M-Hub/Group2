@@ -31,15 +31,14 @@ public class RegisterService {
 		//パスワードのハッシュ化
 		String encodePass = passwordEncoder.encode(registerForm.getUserPass());
 		
+		//登録情報をもとに登録処理を行うとともに、同時登録などの重複判定も行う
 		try {
-			//登録情報をもとに登録処理を行うMapperを呼び出す。
+			//登録処理を呼び出す
 			registerMapper.registerUser(registerForm.getUserName(), encodePass);
-			
 			return true;
 			
 			//同時登録などで、重複チェックをすり抜けてINSERT文が実行された時の例外処理
 		}catch(DuplicateKeyException e) {
-			
 			return false;
 		}
 		

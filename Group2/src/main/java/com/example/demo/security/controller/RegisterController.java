@@ -34,11 +34,13 @@ public class RegisterController {
 			return "loginPackage/register";
 		}
 		
-		/*
-		 * ユーザー登録処理のために必要な情報をServiceへ渡して登録処理を行う。
+		/*ユーザー登録処理のために必要な情報をServiceへ渡して登録処理を行う。
 		 * Service側でユーザー名の重複が確認された場合、エラー情報を追加して表示
 		 */
+		
+		//登録処理↓
 		if(!registerService.registerUser(registerForm)) {
+			//重複していたらエラー情報をbindingResultに追加
 			bindingResult.rejectValue("userName",
 					  				  "duplicate",
 					  				  "そのユーザー名は既に使用されています");

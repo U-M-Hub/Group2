@@ -28,6 +28,8 @@ public class SecurityConfig {
 						 "/adminBookEdit/**").hasAuthority("ROLE_ADMIN")
 		//以下のリクエストは消費者のみ許可
 		.requestMatchers("/customer/**").hasAuthority("ROLE_USER")
+		//以下のリクエストは認証済みユーザーのみ許可
+		.requestMatchers("/test").authenticated()
 		// その他のリクエストは認証が必要
 		.anyRequest().permitAll())
 		
