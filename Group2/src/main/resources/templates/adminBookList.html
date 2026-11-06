@@ -131,7 +131,9 @@
 				<th><img th:src="@{/images/{image}(image=${book.book_cover})}"
 					     style="width: 50px; height: auto;">
 				</th>
-				<th th:text="${book.book_title}"></th>
+				<th>[[${#strings.length(book.book_title) > 10
+				    ? #strings.substring(book.book_title, 0, 10) : book.book_title }]]
+				</th>
 				<th th:text="${book.book_author}"></th>
 				<th th:text="${book.book_publisher}"></th>
 				<th th:text="${book.genre_name}"></th>
