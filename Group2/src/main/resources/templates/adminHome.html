@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>【管理者】ホーム画面</title>
+	<link rel="stylesheet" th:href="@{/css/adminHome.css}">
 </head>
 <body>
+	<div th:replace="~{fragments/adminHeader :: header}"></div>
+		<h2>🏠管理者ホーム画面🏠</h2>
+	
+	<!-- 管理情報 -->
+	<section>
+		<h3>■管理情報</h3>
+		
+		<!-- 在庫切れの書籍がある場合のみ表示 -->
+		<p th:if="${outOfStockCount > 0}" style="color:red;">
+			在庫切れの書籍があります(
+				<span th:text="${outOfStockCount}">0</span>件
+			)
+		</p>
+		
+		<p>
+			登録書籍数：
+			<span th:text="${bookCount}">0</span>冊
+			<br>
+			　　＜公開書籍数：
+			<span th:text="${publishedBookCount}">0</span>冊
+			　非公開書籍数：
+			<span th:text="${unpublishedBookCount}"> </span>冊＞
+		</p>
+		<p>
+			注文件数：
+			<span th:text="${orderCount}">0</span>件
+		</p>
+		
+	</section>
+	
+	<main>
+		
+		<h3>■管理メニュー</h3>
+		
+		<p>利用する管理機能を選択してください
+		</p>
+		
+		<div class="menu">
+			
+			<!-- 書籍一覧画面 -->
+			<div>・
+			<a th:href="@{/adminBookList/1}">
+				書籍一覧
+			</a>
+			</div>
+			
+			<!-- 書籍新規登録 -->
+			<div>・
+			<a th:href="@{/admin/books/adminAddBook}">
+				書籍新規登録
+			</a>
+			</div>
+			
+			<!-- 注文履歴 -->
+			<div>・
+			<a th:href="@{/admin/orders}">
+				注文履歴
+			</a>
+			</div>
+			
+		</div>
+		
+	</main>
 
 </body>
 </html>

@@ -1,0 +1,99 @@
+
+/* 新着書籍全体 */
+.new-books {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: stretch;
+}
+
+/* 書籍カード */
+.new-books > div {
+    width: 163px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    box-sizing: border-box;
+
+    /* カード内を縦方向に配置 */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 書籍画像 */
+.new-books img {
+    width: 100px;
+    height: 140px;
+    object-fit: contain;
+    align-self: center;
+}
+
+/* 書籍名・価格 */
+.new-books p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* 詳細を見るリンク */
+.new-books a {
+    margin-top: auto;
+    padding-top: 10px;
+    font-size: 13px;
+}
+
+/* ヘッダー全体 */
+.customer-header{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+	padding: 10px 20px;
+	background-color: white;
+	border-bottom: 1px solid #ddd;
+}
+
+/* ロゴ */
+.customer-logo img{
+	width:100px;
+	height: auto;
+	display: block;
+}
+
+/* 右側の検索・カート */
+.header-right{
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+/* 検索フォーム */
+.header-search{
+	display: flex;
+	align-items: center;
+	border: 1px solid #ccc;
+	border-radius: 20px;
+	padding: 5px 10px;
+}
+
+/* 検索入力欄 */
+header-search input{
+	border: none;
+	outline: none;
+	padding: 5px;
+	width: 180px;
+}
+
+/* 検索ボタン */
+.header-search button{
+	border: none;
+	background: none;
+	cursor: pointer;
+	font-size: 18px;
+}
+
+/* カート */
+.cart-link{
+	font-size: 24px;
+	text-decoration: none;
+}

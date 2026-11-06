@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>消費者画面の共通ヘッダー</title>
+	<link rel="stylesheet" th:href="@{/css/customerHome.css}">
+</head>
+<body>
+	
+	<!-- 共通消費者ヘッダー -->
+	<header th:fragment="header">
+		<div class="customer-header">
+			<!-- 左側：ロゴ -->
+			<a th:href="@{/customer/home}" class="customer-logo">
+				<img th:src="@{/logo/ECサイトロゴ.png}"
+					 alt="書籍ECサイト ホーム"
+					 width="100"
+					 style="height:auto;">
+			</a>
+			<!-- 右側：検索とカート -->
+			<div class="header-right">
+				<!-- ログアウトボタン -->
+				<form th:action="@{/logout}" method="post">
+					<button type="submit">
+						ログアウト
+					</button>
+				</form>
+				<!-- 書籍検索 -->
+				<form th:action="@{/}" method="get"
+					  class="header-search">
+				  <input type="text"
+				  		 name="keyword"
+						 placeholder="書籍を検索">
+					
+					<button type="submit" title="検索">
+						🔍
+					</button>
+					
+				  </form>
+				  <!-- カート画面へのリンク -->
+				  <a th:href="@{/customer/cart}"
+				  	 class="cart-link"
+					 title="カート">
+				 🛒
+				 </a>
+			</div>
+		</div>
+	</header>
+
+</body>
+</html>

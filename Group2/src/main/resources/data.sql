@@ -9,7 +9,8 @@ INSERT INTO genres (genre_name) VALUES
 -- 注意：user_passwordは演習用の指定値をそのまま保存しています。
 -- 将来ログインを実装する際は、パスワードハッシュを保存してください。
 INSERT INTO users (user_name, user_password, user_role) VALUES
-    ('sampleuser', 'userpass', '消費者');
+    ('samplecustomer','$2a$10$SFNJWbalt7NWesGZoGE8U.019iOl.MJAwHry3Ev5FghhUix46KrwK','消費者'),
+    ('sampleadmin','$2a$10$haRZPoct0FxQ79yw/79qHOx3P0cyaxKOoSSKN2i00RdfUiu0rayua','管理者');
 
 -- 3. 書籍：20件（A～T）
 -- 表紙画像 Noimage.png は別途 static/images/ に配置します。
@@ -68,5 +69,5 @@ FROM (
         (103, 3, DATE '2026-10-01')
 ) AS v(order_number, book_id, order_date)
 JOIN books AS b ON b.book_id = v.book_id
-JOIN users AS u ON u.user_name = 'sampleuser'
+JOIN users AS u ON u.user_name = 'samplecustomer'
 ORDER BY v.order_number;
