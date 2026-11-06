@@ -34,7 +34,6 @@ public class CustomerBookDetailsService {
 	}
 
 	/* 消費者：カートテーブルへの追加処理で使用		*/
-	/* データベースの参照専用処理（データ更新なし） */ 
 	public void insertCustomerCart(CustomerCartDto customerCartDto) {
 
         // カートテーブルへ登録
