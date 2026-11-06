@@ -2,6 +2,7 @@ package com.example.demo.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,8 +21,9 @@ public class SecurityConfig {
 		.requestMatchers("/login",
 						 "/images/**",
 						 "/css/**",
-						 "/logo/**",
-						 "/register/get").permitAll()
+						 "/logo/**").permitAll()
+		// 登録画面へのGETアクセスだけ全ユーザーに許可
+		.requestMatchers(HttpMethod.GET, "/register/get").permitAll()
 		//以下のリクエストはゲストのみ許可
 		.requestMatchers("/register/**").anonymous()
 		//以下のリクエストは管理者のみ許可
