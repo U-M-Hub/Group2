@@ -15,6 +15,7 @@
 			   ods.order_branch_number as orderBranchNumber,
 			   ods.book_id as bookId,
 		       bks.book_title as bookTitle,
+		       bks.book_cover as bookCover,
 			   ods.order_price as orderPrice,
 			   ods.book_count as bookCount,
 		       ods.order_date as orderDate

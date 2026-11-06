@@ -1,10 +1,277 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>書籍編集</title>
+<link rel="stylesheet" th:href="@{/css/adminHome.css}">
 </head>
 <body>
+	
+	<div th:replace="~{fragments/adminHeader :: header}"></div>	<h2>■💪書籍編集画面💪</h2>
+	
+	<!-- 書籍情報の編集フォーム -->
+	<!-- bookIdをURLに含めて、更新対象の書籍を指定する -->
+	<form id="editForm"
+		  th:action="@{/adminBookEdit/{bookId}(bookId=${book.book_id})}"
+		  th:object="${book}"
+		  method="post">
+		  
+		  <!-- 書籍IDは変更しないため、画面には表示だけする -->
+		  <p>
+			<label>書籍ID：</label>
+			<span th:text="*{book_id}"></span>
+		  </p>
+		  
+		  <!-- 更新処理で必要な書籍IDを送信する -->
+		  <input type="hidden" th:field="*{book_id}">
+		  
+		  <!-- 書籍名 -->
+		  <p>
+			<label for="book_title">書籍名：</label>
+			<input type="text" id="book_title"
+				   th:field="*{book_title}">
+			<span style="color:crimson;">必須</span>
+			<span th:errors="*{book_title}" style="color:red;"></span>
+		  </p>
+		  
+		  <!-- 著者名 -->
+		  <p>
+			<label for="book_author">著者名：</label>
+			<input type="text" id="book_author"
+				   th:field="*{book_author}">
+			<span style="color:crimson;">必須</span>
+			<span th:errors="*{book_author}" style="color:red;"></span>
+		  </p>
+		  
+		  <!-- 価格 -->
+		  <p>
+			<label for="book_price">価格：</label>
+			<input type="number" id="book_price"
+				   th:field="*{book_price}">円
+			<span style="color:crimson;">必須</span>
+			<span th:errors="*{book_price}" style="color:red;"></span>
+		  </p>
+		  
+		  <!-- あらすじ -->
+		  <p>
+			<label for="book_summary">あらすじ：</label>
+			<textarea id="book_summary"
+					  th:field="*{book_summary}"
+					  rows="5" cols="40"></textarea>
+		  <span style="color:gray;">任意</span>
+		  </p>
+		  
+		  <!-- 表紙画像 -->
+		  <p>
+			<label for="book_cover">表紙画像：</label>
+			<select id="book_cover" th:field="*{book_cover}">
+				<option value="Noimage.png">画像なし</option>
+				
+				<!-- Controllerから受け取った画像ファイル名を選択肢にする -->
+				<option th:each="image : ${images}"
+						th:value="${image}"
+						th:text="${image}"></option>
+			</select>
+		  <span style="color:gray;">任意</span>
+		  </p>
+		  
+		  <!-- 表紙画像のプレビュー -->
+		  <p>
+		      <label>表紙プレビュー：</label><br>
+
+		      <img id="coverPreview"
+		           th:src="@{/images/{image}(image=${book.book_cover})}"
+		           alt="書籍の表紙"
+		           style="width: 120px; height: 170px; object-fit: contain;">
+		  </p>
+		  
+		  <!-- ジャンル -->
+		  <p>
+			<label for="book_genre">ジャンル：</label>
+			<select id="book_genre" th:field="*{book_genre}">
+				<option value="">選択してください</option>
+				
+				<!-- DBから取得したジャンル一覧を表示する -->
+				<option th:each="genre : ${genres}"
+						th:value="${genre.genre_id}"
+						th:text="${genre.genre_name}"></option>
+			</select>
+			<span style="color:crimson;">必須</span>
+			<span th:errors="*{book_genre}" style="color:red;"></span>
+		  </p>
+		  
+		  <!-- 在庫数 -->
+		  <p>
+			<label for="book_stock">在庫数：</label>
+			<input type="number" id="book_stock"
+				   th:field="*{book_stock}">冊
+			<span style="color:crimson;">必須</span>
+			<span th:errors="*{book_stock}" style="color:red;"></span>
+		  </p>
+		  
+		  <!-- 出版社 -->
+		  <p>
+			<label for="book_publisher">出版社：</label>
+			<input type="text" id="book_publisher"
+				   th:field="*{book_publisher}">
+			<span style="color:crimson;">必須</span>
+			<span th:errors="*{book_publisher}" style="color:red;"></span>
+		  </p>
+		  
+		  <!-- 公開状態 -->
+		  <p>
+			<label for="book_flag">公開状態：</label>
+			<select id="book_flag" th:field="*{book_flag}">
+				<option value="true">ON</option>
+				<option value="false">OFF</option>
+			</select>
+		  </p>
+		  
+		  <br>
+		  
+		  <!-- ページ番号 -->
+		  <input type="hidden" name="pageCount"
+		  		 th:value="${pageCount}">
+		  
+		  <!-- 書籍名の検索条件 -->
+		  <input type="hidden" name="name"
+		  		 th:value="${searchForm.name}">
+		  			
+		  <!-- 著者名の検索条件 -->			
+		  <input type="hidden" name="author"
+		  		 th:value="${searchForm.author}">
+		  
+		  <!-- 出版社の検索条件 -->		
+		  <input type="hidden" name="publisher"
+		  		 th:value="${searchForm.publisher}">
+		  	
+		  <!-- ジャンルの検索条件 -->			
+		  <input type="hidden" name="genre_id"
+		  		 th:value="${searchForm.genre_id}">
+		  
+		  <!-- 並び順 -->
+		  <input type="hidden" name="order"
+		  		 th:value="${searchForm.order}">
+		  
+		  <!-- 公開状態 -->			
+		  <input type="hidden" name="flag"
+		  		 th:value="${searchForm.flag}">
+
+		  <!-- 更新ボタン -->
+		  <button type="submit">変更内容を更新</button>
+		  
+	  </form>
+	  
+	  <hr>
+	  
+	  <!-- 一覧画面へ戻るフォーム -->
+	  <!-- 編集前の検索条件とページ番号を引き継ぐ -->
+	  <form th:action="@{/adminBookList/{pageCount}(pageCount=${pageCount})}"
+	  		method="get">
+		
+			<input type="hidden" name="name"
+				   th:value="${searchForm.name}">
+			
+			<input type="hidden" name="author"
+				   th:value="${searchForm.author}">
+			
+			<input type="hidden" name="publisher"
+				   th:value="${searchForm.publisher}">
+			
+			<input type="hidden" name="genre_id"
+				   th:value="${searchForm.genre_id}">
+			
+			<input type="hidden" name="order"
+				   th:value="${searchForm.order}">
+			
+			<input type="hidden" name="flag"
+				   th:value="${searchForm.flag}">
+				   
+			<button type="submit">書籍一覧に戻る</button>
+			
+		</form>
+	  
+
+		<script>
+		document.addEventListener("DOMContentLoaded", function () {
+
+		    // 表紙画像のプルダウン
+		    const coverSelect = document.getElementById("book_cover");
+
+		    // 表紙画像のプレビュー
+		    const coverPreview = document.getElementById("coverPreview");
+
+		    // 表紙画像を変更したとき
+		    if (coverSelect && coverPreview) {
+		        coverSelect.addEventListener("change", function () {
+		            const imageName = this.value;
+		            coverPreview.src = "/images/" + encodeURIComponent(imageName);
+		        });
+		    }
+
+		    // 編集フォームを取得
+		    const form = document.getElementById("editForm");
+
+		    if (!form) return;
+
+		    // 書籍IDを取得
+		    const bookIdInput = form.querySelector('[name="book_id"]');
+
+		    if (!bookIdInput) return;
+
+		    const bookId = bookIdInput.value;
+
+		    // 編集画面のURLを保存
+		    const params = new URLSearchParams();
+
+		    ["pageCount", "name", "author", "publisher",
+		     "genre_id", "order", "flag"].forEach(function (name) {
+
+		        const input = form.querySelector('[name="' + name + '"]');
+
+		        if (input && input.value !== "") {
+		            params.set(name, input.value);
+		        }
+		    });
+
+		    const editUrl = "/adminBookEdit/" + bookId
+		        + (params.toString() ? "?" + params.toString() : "");
+
+		    sessionStorage.setItem("lastEditUrl", editUrl);
+
+
+		    // =================================
+		    // 入力中に画面を離れるときの警告
+		    // =================================
+
+		    let formChanged = false;
+
+		    // 入力内容が変更されたら記録
+		    form.addEventListener("input", function () {
+		        formChanged = true;
+		    });
+
+		    // プルダウンの変更も記録
+		    form.addEventListener("change", function () {
+		        formChanged = true;
+		    });
+
+		    // 更新ボタンを押した場合は警告を出さない
+		    form.addEventListener("submit", function () {
+		        formChanged = false;
+		    });
+
+		    // 画面を離れるときの警告
+		    window.addEventListener("beforeunload", function (event) {
+		        if (formChanged) {
+		            event.preventDefault();
+		            event.returnValue = "";
+		        }
+		    });
+
+		});
+		</script>
+
 
 </body>
 </html>

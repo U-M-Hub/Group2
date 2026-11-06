@@ -1,10 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>【消費者】ホーム画面</title>
+<!-- CSSファイルの読み込み -->
+<link rel="stylesheet" th:href="@{/css/customerHome.css}">
 </head>
 <body>
+	
+	<div th:replace="~{fragments/customerHeader :: header}"></div>
+	
+		<h2>🏡消費者ホーム画面🏡</h2>
+	
+	<section>
+		<h3>☆★☆新着書籍☆★☆</h3>
+		
+		<div class="new-books">
+			<!-- 書籍を1件ずつ表示 -->
+			<div th:each="book : ${newBooks}">
+				<!-- 書籍画像 -->
+				<div>
+					<img th:src="@{/images/{image}(image=${book.book_cover})}"
+						 th:alt="${book.book_title}"
+						 width="120">
+				</div>
+				<!-- 書籍名 -->
+				<p>
+					書籍名：
+					<span th:text="${book.book_title}"></span>
+				</p>
+				<!-- 著者名 -->
+<!--				<p>-->
+<!--					著者：-->
+<!--					<span th:text="${book.book_author}"></span>-->
+<!--				</p>-->
+				<!-- 価格 -->
+				<p>
+					価格：￥ 
+					<span th:text="${book.book_price}"></span>
+				</p>
+				<!-- 書籍詳細画面へのリンク -->
+				<a th:href="@{/}">
+					詳細を見る
+				</a>
+			</div>
+		</div>
+	</section>
+	
+	<main>
+		
+		<h3>■メニュー</h3>
+		
+		<p>利用する機能を選択して下さい</p>
+		
+		<div class="menu">
+			
+			<!-- 書籍一覧画面 -->
+			<div>・
+				<a th:href="@{/}">
+					書籍一覧画面
+				</a>
+			</div>
+			
+			<!-- カート画面 -->
+			<div>・
+				<a th:href="@{/}">
+					カート
+				</a>
+			</div>
+			
+			<!-- 注文履歴画面 -->
+			<div>・
+				<a th:href="@{/customer/orders}">
+					注文履歴
+				</a>
+			</div>
+			
+		</div>
+	</main>
+	
 
 </body>
 </html>

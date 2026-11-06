@@ -16,8 +16,8 @@ public class AdminOrderDetailsController {
 
 	// この場合、に表示するURLは
 	//   @RequestMapping("/admin")
-	//   @GetMapping("/all")
-	// の為、URLは http://localhost:8080/admin/all 
+	//   @GetMapping("/orders")
+	// の為、URLは http://localhost:8080/admin/orders
 	// URL構成が決まったら該当する内容に変更する必要あり。
 
 	// DI
