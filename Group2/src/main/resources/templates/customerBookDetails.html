@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>商品詳細</title>
-
+	<link rel="stylesheet" th:href="@{/css/customerHome.css}">
 	<!-- table th, table td の部分								-->
 	<!--   テーブルの見出し（th）と								-->
 	<!--   データ部分（td）の内側に余白を設ける設定				-->
@@ -50,6 +50,8 @@
 
 </head>
 <body>
+	
+	<div th:replace="~{fragments/customerHeader :: header}"></div>
 
 	<h1 th:text = "${message}">メッセージ</h1>
 

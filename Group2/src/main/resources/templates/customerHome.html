@@ -10,7 +10,8 @@
 	
 	<div th:replace="~{fragments/customerHeader :: header}"></div>
 	
-		<h2>🏡消費者ホーム画面🏡</h2>
+	<!-- 消費者ホーム画面 -->	
+	<h2>🏡ホーム画面🏡</h2>
 	
 	<section>
 		<h3>☆★☆新着書籍☆★☆</h3>
@@ -27,7 +28,9 @@
 				<!-- 書籍名 -->
 				<p>
 					書籍名：
-					<span th:text="${book.book_title}"></span>
+					<span th:text="${#strings.length(book.book_title) > 7
+					? #strings.substring(book.book_title, 0, 7) + '…'
+					: book.book_title}"></span>
 				</p>
 				<!-- 著者名 -->
 <!--				<p>-->
@@ -40,7 +43,7 @@
 					<span th:text="${book.book_price}"></span>
 				</p>
 				<!-- 書籍詳細画面へのリンク -->
-				<a th:href="@{/}">
+				<a th:href="@{/customer/books/{bookId}(bookId=${book.book_id})}">
 					詳細を見る
 				</a>
 			</div>
