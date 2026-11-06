@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.example.demo.security.Role;
+
 import lombok.Data;
 
 @Data
@@ -11,6 +13,6 @@ public class Users {
     
     private String user_password;
     
-    private String user_role;
+    private Role user_role;
 
 }
