@@ -19,7 +19,8 @@ public class SecurityConfig {
 		// 以下のリクエストは認証を必要としない
 		.requestMatchers("/login",
 						 "/images/**",
-						 "/css/**").permitAll()
+						 "/css/**",
+						 "/logo/**").permitAll()
 		//以下のリクエストはゲストのみ許可
 		.requestMatchers("/register/**").anonymous()
 		//以下のリクエストは管理者のみ許可
