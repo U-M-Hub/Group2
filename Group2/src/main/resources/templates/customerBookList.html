@@ -1,188 +1,272 @@
+
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>書籍一覧</title>
+    <meta charset="UTF-8">
+    <title>書籍一覧</title>
+
+    <!-- 消費者向け共通CSS -->
+    <link rel="stylesheet" th:href="@{/css/customerHome.css}">
 </head>
+
 <body>
-<h1>書籍一覧</h1>
-<h1>書籍一覧</h1>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>書籍ID</th>
-            <th>表紙</th>
-            <th>書籍名</th>
-            <th>著者名</th>
-            <th>ジャンル（仮）</th>
-            <th>出版社</th>
-            <th>価格</th>
-        </tr>
-    </thead>
+    <!-- 共通ヘッダーを読み込む -->
+    <div th:replace="~{fragments/customerHeader :: header}"></div>
 
-    <tbody>
-		
-		<form th:action="@{/customer/books}" method="get">
-			
-			<!-- 検索条件を引き継ぐ -->
-			<input type="hidden" name="bookTitle"
-			       th:value="${bookTitle}">
+    <h1>書籍一覧</h1>
 
-			<input type="hidden" name="bookAuthor"
-			       th:value="${bookAuthor}">
 
-			<input type="hidden" name="bookPublisher"
-			       th:value="${bookPublisher}">
+    <!-- ====================================== -->
+    <!-- 並び替えフォーム -->
+    <!-- ====================================== -->
+    <form th:action="@{/customer/books}" method="get">
 
-			<input type="hidden" name="genreId"
-			       th:value="${genreId}">
-			
-		    <label for="sortBy">並び替え：</label>
+        <!-- 現在の検索条件を引き継ぐ -->
+        <input type="hidden" name="bookTitle"
+               th:value="${bookTitle}">
 
-		    <select id="sortBy" name="sortBy">
-		        <option value="bookIdDesc"
-		                th:selected="${sortBy == 'bookIdDesc'}">
-		            書籍ID（降順）
-		        </option>
+        <input type="hidden" name="bookAuthor"
+               th:value="${bookAuthor}">
 
-		        <option value="bookIdAsc"
-		                th:selected="${sortBy == 'bookIdAsc'}">
-		            書籍ID（昇順）
-		        </option>
+        <input type="hidden" name="bookPublisher"
+               th:value="${bookPublisher}">
 
-		        <option value="priceAsc"
-		                th:selected="${sortBy == 'priceAsc'}">
-		            価格（安い順）
-		        </option>
+        <input type="hidden" name="genreId"
+               th:value="${genreId}">
 
-		        <option value="priceDesc"
-		                th:selected="${sortBy == 'priceDesc'}">
-		            価格（高い順）
-		        </option>
-		    </select>
 
-		    <button type="submit">並び替え</button>
-			
-		</form>
-		
-		<h2>書籍を検索</h2>
+        <!-- 並び替え方法を選択 -->
+        <label for="sortBy">並び替え：</label>
 
-		<form th:action="@{/customer/books}" method="get">
+        <select id="sortBy" name="sortBy">
 
-		    <!-- 現在の並び替え条件を維持する -->
-		    <input type="hidden" name="sortBy" th:value="${sortBy}">
+            <option value="bookIdDesc"
+                    th:selected="${sortBy == 'bookIdDesc'}">
+                書籍ID（降順）
+            </option>
 
-		    <div>
-		        <label for="bookTitle">書籍名：</label>
-				<input type="text"
-				       id="bookTitle"
-				       name="bookTitle"
-				       th:value="${bookTitle}"
-				       placeholder="書籍名を入力">
-		    </div>
+            <option value="bookIdAsc"
+                    th:selected="${sortBy == 'bookIdAsc'}">
+                書籍ID（昇順）
+            </option>
 
-		    <div>
-		        <label for="bookAuthor">著者名：</label>
-				<input type="text"
-				       id="bookAuthor"
-				       name="bookAuthor"
-				       th:value="${bookAuthor}"
-				       placeholder="著者名を入力">
-		    </div>
+            <option value="priceAsc"
+                    th:selected="${sortBy == 'priceAsc'}">
+                価格（安い順）
+            </option>
 
-		    <div>
-		        <label for="bookPublisher">出版社名：</label>
-				<input type="text"
-				       id="bookPublisher"
-				       name="bookPublisher"
-				       th:value="${bookPublisher}"
-				       placeholder="出版社名を入力">
-		    </div>
+            <option value="priceDesc"
+                    th:selected="${sortBy == 'priceDesc'}">
+                価格（高い順）
+            </option>
 
-		    <div>
-		        <label for="genreId">ジャンル：</label>
-				<select id="genreId" name="genreId">
+        </select>
 
-				    <option value="">すべてのジャンル</option>
+        <button type="submit">並び替え</button>
 
-				    <option th:each="genre : ${genres}"
-				            th:value="${genre.genre_id}"
-				            th:text="${genre.genre_name}"
-				            th:selected="${genreId == #strings.toString(genre.genre_id)}">
-				    </option>
+    </form>
 
-				</select>
-		    </div>
 
-		    <button type="submit">検索</button>
-		    <a th:href="@{/customer/books(sortBy=${sortBy})}">
-		        条件クリア
-		    </a>
+    <!-- ====================================== -->
+    <!-- 書籍検索フォーム -->
+    <!-- ====================================== -->
+    <h2>書籍を検索</h2>
 
-		</form>
-		
-        <tr th:each="book : ${books}">
-            <td th:text="${book.book_id}">1</td>
-            <td>
-                <img th:src="@{/images/{filename}(filename=${book.book_cover})}"
-                     th:alt="${book.book_title}"
-                     width="80">
-            </td>
-			<td>
-			    <a th:href="@{/Books/{bookId}(bookId=${book.book_id})}"
-			       th:text="${book.book_title}">
-			        サンプル本
-			    </a>
-			</td>
-            <td th:text="${book.book_author}">サンプル著者</td>
-           <td th:text="${book.genre_name}">小説</td>
-            <td th:text="${book.book_publisher}">サンプル出版社</td>
-            <td>
-                <span th:text="${book.book_price}">1000</span> 円
-            </td>
-        </tr>
+    <form th:action="@{/customer/books}" method="get">
 
-        <tr th:if="${#lists.isEmpty(books)}">
-            <td colspan="7">公開中の書籍はありません。</td>
-        </tr>
-    </tbody>
-</table>
-<div class="pagination">
+        <!-- 現在の並び替え条件を引き継ぐ -->
+        <input type="hidden" name="sortBy"
+               th:value="${sortBy}">
 
-    <!-- 前のページがある場合だけ表示 -->
-	<a th:if="${hasPrevious}"
-	   th:href="@{/customer/books(
-	       page=${currentPage - 1},
-	       sortBy=${sortBy},
-	       bookTitle=${bookTitle},
-	       bookAuthor=${bookAuthor},
-	       bookPublisher=${bookPublisher},
-	       genreId=${genreId}
-	   )}">
-	    前へ
-	</a>
 
-    <!-- 現在のページと総ページ数 -->
-    <span>
-        <span th:text="${currentPage}">1</span>
-        /
-        <span th:text="${totalPages}">1</span>
-        ページ
-    </span>
+        <!-- 書籍名で検索 -->
+        <div>
+            <label for="bookTitle">書籍名：</label>
 
-    <!-- 次のページがある場合だけ表示 -->
-	<a th:if="${hasNext}"
-	   th:href="@{/customer/books(
-	       page=${currentPage + 1},
-	       sortBy=${sortBy},
-	       bookTitle=${bookTitle},
-	       bookAuthor=${bookAuthor},
-	       bookPublisher=${bookPublisher},
-	       genreId=${genreId}
-	   )}">
-	    次へ
-	</a>
+            <input type="text"
+                   id="bookTitle"
+                   name="bookTitle"
+                   th:value="${bookTitle}"
+                   placeholder="書籍名を入力">
+        </div>
 
-</div>
+
+        <!-- 著者名で検索 -->
+        <div>
+            <label for="bookAuthor">著者名：</label>
+
+            <input type="text"
+                   id="bookAuthor"
+                   name="bookAuthor"
+                   th:value="${bookAuthor}"
+                   placeholder="著者名を入力">
+        </div>
+
+
+        <!-- 出版社名で検索 -->
+        <div>
+            <label for="bookPublisher">出版社名：</label>
+
+            <input type="text"
+                   id="bookPublisher"
+                   name="bookPublisher"
+                   th:value="${bookPublisher}"
+                   placeholder="出版社名を入力">
+        </div>
+
+
+        <!-- ジャンルで絞り込み -->
+        <div>
+            <label for="genreId">ジャンル：</label>
+
+            <select id="genreId" name="genreId">
+
+                <!-- ジャンルを指定しない場合 -->
+                <option value="">すべてのジャンル</option>
+
+                <!-- DBから取得したジャンルを選択肢として表示 -->
+                <option th:each="genre : ${genres}"
+                        th:value="${genre.genre_id}"
+                        th:text="${genre.genre_name}"
+                        th:selected="${genreId == #strings.toString(genre.genre_id)}">
+                </option>
+
+            </select>
+        </div>
+
+
+        <!-- 検索結果が0件の場合にメッセージを表示 -->
+        <p th:if="${#lists.isEmpty(books)}">
+            条件と一致する書籍は見つかりませんでした。
+        </p>
+
+
+        <!-- 検索実行ボタン -->
+        <button type="submit">検索</button>
+
+        <!-- 検索条件をクリアして一覧に戻る -->
+        <a th:href="@{/customer/books(sortBy=${sortBy})}">
+            条件クリア
+        </a>
+
+    </form>
+
+
+    <!-- ====================================== -->
+    <!-- 書籍一覧テーブル -->
+    <!-- ====================================== -->
+    <table border="1">
+
+        <!-- 一覧の見出し -->
+        <thead>
+            <tr>
+                <th>書籍ID</th>
+                <th>表紙</th>
+                <th>書籍名</th>
+                <th>著者名</th>
+                <th>ジャンル</th>
+                <th>出版社</th>
+                <th>価格</th>
+            </tr>
+        </thead>
+
+
+        <!-- DBから取得した書籍情報を表示 -->
+        <tbody>
+
+            <!-- 書籍データの件数分だけ行を繰り返す -->
+            <tr th:each="book : ${books}">
+
+                <!-- 書籍ID -->
+                <td th:text="${book.book_id}">1</td>
+
+                <!-- 表紙画像 -->
+                <td>
+                    <img th:src="@{/images/{filename}(filename=${book.book_cover})}"
+                         th:alt="${book.book_title}"
+                         width="80">
+                </td>
+
+                <!-- 書名をクリックすると商品詳細画面へ移動 -->
+                <td>
+                    <a th:href="@{/customer/books/{bookId}(bookId=${book.book_id})}"
+                       th:text="${book.book_title}">
+                        サンプル本
+                    </a>
+                </td>
+
+                <!-- 著者名 -->
+                <td th:text="${book.book_author}">
+                    サンプル著者
+                </td>
+
+                <!-- ジャンル名 -->
+                <td th:text="${book.genre_name}">
+                    小説
+                </td>
+
+                <!-- 出版社名 -->
+                <td th:text="${book.book_publisher}">
+                    サンプル出版社
+                </td>
+
+                <!-- 価格 -->
+                <td>
+                    <span th:text="${book.book_price}">1000</span> 円
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <!-- ====================================== -->
+    <!-- ページ切り替え -->
+    <!-- ====================================== -->
+    <div class="pagination">
+
+        <!-- 前のページがある場合のみ表示 -->
+        <a th:if="${hasPrevious}"
+           th:href="@{/customer/books(
+               page=${currentPage - 1},
+               sortBy=${sortBy},
+               bookTitle=${bookTitle},
+               bookAuthor=${bookAuthor},
+               bookPublisher=${bookPublisher},
+               genreId=${genreId}
+           )}">
+            前へ
+        </a>
+
+
+        <!-- 現在のページ番号と総ページ数 -->
+        <span>
+            <span th:text="${currentPage}">1</span>
+            /
+            <span th:text="${totalPages}">1</span>
+            ページ
+        </span>
+
+
+        <!-- 次のページがある場合のみ表示 -->
+        <a th:if="${hasNext}"
+           th:href="@{/customer/books(
+               page=${currentPage + 1},
+               sortBy=${sortBy},
+               bookTitle=${bookTitle},
+               bookAuthor=${bookAuthor},
+               bookPublisher=${bookPublisher},
+               genreId=${genreId}
+           )}">
+            次へ
+        </a>
+
+    </div>
+
+
 </body>
+</html>
