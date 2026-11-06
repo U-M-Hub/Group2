@@ -42,7 +42,19 @@
 		</form>
 	</div>
 	
-	<h3>アカウントをお持ちでない方はこちら</h3>
+	<br>
+	<label>アカウントをお持ちでない方はこちら</label>
+	<div th:if="${param.guest}" >
+		<label style="color:red">
+			※新規登録はログアウトしてから行ってください
+		</label>
+		
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="ログアウト">
+		</form>
+		<br>
+	</div>
+	
 	
 	<form th:action="@{/register/get}" method="get">
 		<input type="submit" value="登録">
