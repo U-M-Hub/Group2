@@ -7,15 +7,39 @@
 		<where>
 			<!-- 本のタイトルの部分一致検索 -->
 			<if test="form.name != null and form.name != ''">
-				AND b.book_title LIKE CONCAT('%',#{form.name}, '%' )
+				AND b.book_title LIKE CONCAT(
+									'%',
+									REPLACE( 
+										REPLACE( 
+											REPLACE(#{form.name}, '!', '!!'),
+										'%', '!%'),
+									'_', '!_'),
+									'%') 
+									ESCAPE '!'
 			</if>
 			<!-- 著者名の部分一致検索 -->
 			<if test="form.author != null and form.author != ''">
-				AND b.book_author LIKE CONCAT('%',#{form.author}, '%' )
+				AND b.book_author LIKE CONCAT(
+									'%',
+									REPLACE( 
+										REPLACE( 
+											REPLACE(#{form.author}, '!', '!!'),
+										'%', '!%'),
+									'_', '!_'),
+									'%') 
+									ESCAPE '!'
 			</if>
 			<!-- 出版社の部分一致検索 -->
 			<if test="form.publisher != null and form.publisher != ''">
-				AND b.book_publisher LIKE CONCAT('%',#{form.publisher}, '%' )
+				AND b.book_publisher LIKE CONCAT(
+									'%',
+									REPLACE( 
+										REPLACE( 
+											REPLACE(#{form.publisher}, '!', '!!'),
+										'%', '!%'),
+									'_', '!_'),
+									'%') 
+									ESCAPE '!'
 			</if>
 			<!-- ジャンルでの絞り込み -->
 			<if test="form.genre_id != null">
