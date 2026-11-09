@@ -1,87 +1,127 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>【消費者】ホーム画面</title>
-<!-- CSSファイルの読み込み -->
-<link rel="stylesheet" th:href="@{/css/customerHome.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消費者ホーム | BOOK STORE</title>
+    <link rel="stylesheet" th:href="@{/css/customerHome.css}">
 </head>
 <body>
-	
-	<div th:replace="~{fragments/customerHeader :: header}"></div>
-	
-	<!-- 消費者ホーム画面 -->	
-	<h2>🏡ホーム画面🏡</h2>
-	
-	<section>
-		<h3>☆★☆新着書籍☆★☆</h3>
-		
-		<div class="new-books">
-			<!-- 書籍を1件ずつ表示 -->
-			<div th:each="book : ${newBooks}">
-				<!-- 書籍画像 -->
-				<div>
-					<img th:src="@{/images/{image}(image=${book.book_cover})}"
-						 th:alt="${book.book_title}"
-						 width="120">
-				</div>
-				<!-- 書籍名 -->
-				<p>
-					書籍名：
-					<span th:text="${#strings.length(book.book_title) > 7
-					? #strings.substring(book.book_title, 0, 7) + '…'
-					: book.book_title}"></span>
-				</p>
-				<!-- 著者名 -->
-<!--				<p>-->
-<!--					著者：-->
-<!--					<span th:text="${book.book_author}"></span>-->
-<!--				</p>-->
-				<!-- 価格 -->
-				<p>
-					価格：￥ 
-					<span th:text="${book.book_price}"></span>
-				</p>
-				<!-- 書籍詳細画面へのリンク -->
-				<a th:href="@{/customer/books/{bookId}(bookId=${book.book_id})}">
-					詳細を見る
-				</a>
-			</div>
-		</div>
-	</section>
-	
-	<main>
-		
-		<h3>■メニュー</h3>
-		
-		<p>利用する機能を選択して下さい</p>
-		
-		<div class="menu">
-			
-			<!-- 書籍一覧画面 -->
-			<div>・
-				<a th:href="@{/}">
-					書籍一覧画面
-				</a>
-			</div>
-			
-			<!-- カート画面 -->
-			<div>・
-				<a th:href="@{/}">
-					カート
-				</a>
-			</div>
-			
-			<!-- 注文履歴画面 -->
-			<div>・
-				<a th:href="@{/customer/orders}">
-					注文履歴
-				</a>
-			</div>
-			
-		</div>
-	</main>
-	
+
+<!-- 既存の消費者ヘッダー -->
+<div th:replace="~{fragments/customerLayout :: layout}"></div>
+
+<!-- メイン -->
+<main class="home-container">
+
+    <section class="welcome">
+        <div class="welcome-text">
+            <p class="welcome-subtitle">BOOK STORE</p>
+            <h1>あなたの読みたい本が、<br>きっと見つかる。</h1>
+            <p class="welcome-description">
+                お気に入りの一冊を見つけて、読書を楽しもう。
+            </p>
+        </div>
+    </section>
+
+    <!-- 新着書籍 -->
+    <section class="book-section">
+
+        <div class="section-heading">
+            <div>
+                <h2>新着書籍</h2>
+                <p>新しく登録された書籍をご紹介</p>
+            </div>
+        </div>
+
+        <div class="book-list">
+
+            <div class="book-card" th:each="book : ${newBooks}">
+
+                <!-- 書籍画像 -->
+                <a th:href="@{/customer/books/{bookId}(bookId=${book.book_id})}"
+                   class="book-image">
+
+                    <img th:src="@{/images/{image}(image=${book.book_cover})}"
+                         th:alt="${book.book_title}"
+                         onerror="this.onerror=null;this.src='/images/Noimage.png';">
+                </a>
+
+                <!-- 書籍情報 -->
+                <div class="book-info">
+
+                    <a th:href="@{/customer/books/{bookId}(bookId=${book.book_id})}"
+                       class="book-title"
+                       th:text="${#strings.length(book.book_title) > 7
+                       ? #strings.substring(book.book_title,0,7) + '…'
+                       : book.book_title}">
+                    </a>
+
+                    <p class="book-author"
+                       th:text="${#strings.length(book.book_author) > 7
+						? #strings.substring(book.book_author,0,10) + '…'
+						: book.book_author}">
+                    </p>
+
+                    <p class="book-price">
+                        ￥<span th:text="${#numbers.formatInteger(book.book_price,1,'COMMA')}"></span>
+                        <small>（税込）</small>
+                    </p>
+
+                    <a th:href="@{/customer/books/{bookId}(bookId=${book.book_id})}"
+                       class="detail-button">
+                        詳細を見る
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 書籍がない場合 -->
+        <p class="no-books" th:if="${#lists.isEmpty(newBooks)}">
+            現在、新着書籍はありません。
+        </p>
+
+    </section>
+
+    <!-- 既存メニュー -->
+    <section class="menu-section">
+
+        <h2>メニュー</h2>
+        <p class="menu-description">利用する機能を選択してください。</p>
+
+        <div class="menu-list">
+
+            <a th:href="@{/}" class="menu-card">
+                <span class="menu-icon">📚</span>
+                <span>書籍一覧</span>
+                <span class="menu-arrow">›</span>
+            </a>
+
+            <a th:href="@{/}" class="menu-card">
+                <span class="menu-icon">🛒</span>
+                <span>カート</span>
+                <span class="menu-arrow">›</span>
+            </a>
+
+            <a th:href="@{/customer/orders}" class="menu-card">
+                <span class="menu-icon">📋</span>
+                <span>注文履歴</span>
+                <span class="menu-arrow">›</span>
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- フッター -->
+<footer class="footer">
+    <p>© BOOK STORE. All Rights Reserved.</p>
+</footer>
 
 </body>
 </html>

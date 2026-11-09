@@ -1,99 +1,526 @@
+/* =========================
+   全体
+========================= */
 
-/* 新着書籍全体 */
-.new-books {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    align-items: stretch;
+* {
+    box-sizing: border-box;
 }
 
-/* 書籍カード */
-.new-books > div {
-    width: 163px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    text-align: center;
-    box-sizing: border-box;
+body {
+    margin: 0;
+    background: #f7f8fa;
+    color: #172f4b;
+    font-family: "Yu Gothic", "Meiryo", sans-serif;
+}
 
-    /* カード内を縦方向に配置 */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =========================
+   メインコンテナ
+========================= */
+
+.home-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 30px 40px 60px;
+}
+
+
+/* =========================
+   ウェルカムエリア
+========================= */
+
+.welcome {
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    padding: 45px 65px;
+    margin-bottom: 40px;
+
+    background: linear-gradient(
+        110deg,
+        #e9eef4,
+        #f7f8fa 65%,
+        #dce5ed
+    );
+
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.welcome-text {
+    max-width: 650px;
+}
+
+.welcome-subtitle {
+    font-family: Georgia, serif;
+    letter-spacing: 4px;
+    font-size: 13px;
+    color: #58718d;
+    font-weight: bold;
+}
+
+.welcome h1 {
+    font-family: serif;
+    font-size: 36px;
+    line-height: 1.6;
+    letter-spacing: 2px;
+    margin: 10px 0;
+}
+
+.welcome-description {
+    color: #657180;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+
+/* =========================
+   セクション見出し
+========================= */
+
+.book-section,
+.menu-section {
+    margin-bottom: 50px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.section-heading h2,
+.menu-section h2 {
+    font-family: serif;
+    font-size: 28px;
+    margin: 0;
+    padding-left: 15px;
+    border-left: 5px solid #173451;
+}
+
+.section-heading p,
+.menu-description {
+    font-size: 14px;
+    color: #7a8490;
+    margin-top: 8px;
+}
+
+
+/* =========================
+   新着書籍カード
+========================= */
+
+.book-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.book-card {
+    display: flex;
+    gap: 15px;
+    padding: 18px;
+
+    background: #ffffff;
+    border: 1px solid #e3e7ec;
+    border-radius: 10px;
+
+    box-shadow: 0 3px 10px rgba(20, 45, 73, 0.04);
+
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(20, 45, 73, 0.10);
+}
+
+.book-image {
+    flex-shrink: 0;
+}
+
+.book-image img {
+    display: block;
+    width: 105px;
+    height: 150px;
+    object-fit: cover;
+
+    border-radius: 3px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.book-info {
+    flex: 1;
+    min-width: 0;
+
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
-/* 書籍画像 */
-.new-books img {
-    width: 100px;
-    height: 140px;
-    object-fit: contain;
-    align-self: center;
+.book-title {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
 }
 
-/* 書籍名・価格 */
-.new-books p {
-    font-size: 14px;
-    margin: 5px 0;
+.book-title:hover {
+    color: #6384a6;
 }
 
-/* 詳細を見るリンク */
-.new-books a {
-    margin-top: auto;
-    padding-top: 10px;
+.book-author {
     font-size: 13px;
+    color: #7a8490;
+    margin: 8px 0;
 }
 
-/* ヘッダー全体 */
-.customer-header{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	
-	padding: 10px 20px;
-	background-color: white;
-	border-bottom: 1px solid #ddd;
+.book-price {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
 }
 
-/* ロゴ */
-.customer-logo img{
-	width:100px;
-	height: auto;
-	display: block;
+.book-price small {
+    font-size: 11px;
+    font-weight: normal;
+    color: #777;
 }
 
-/* 右側の検索・カート */
-.header-right{
-	display: flex;
-	align-items: center;
-	gap: 15px;
+
+/* 詳細ボタン */
+
+.detail-button {
+    display: block;
+    padding: 9px 5px;
+
+    background: #173451;
+    color: #ffffff;
+
+    text-align: center;
+    font-size: 12px;
+    border-radius: 5px;
+
+    transition: background 0.2s;
+}
+
+.detail-button:hover {
+    background: #315b80;
+}
+
+
+/* 書籍がない場合 */
+
+.no-books {
+    text-align: center;
+    background: white;
+    padding: 40px;
+    color: #7a8490;
+    border-radius: 10px;
+}
+
+
+/* =========================
+   メニュー
+========================= */
+
+.menu-description {
+    margin-bottom: 20px;
+}
+
+.menu-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.menu-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    background: #ffffff;
+    border: 1px solid #e3e7ec;
+    border-radius: 10px;
+
+    padding: 22px;
+    font-weight: bold;
+
+    transition: background 0.2s, transform 0.2s;
+}
+
+.menu-card:hover {
+    background: #edf2f7;
+    transform: translateY(-3px);
+}
+
+.menu-icon {
+    font-size: 25px;
+}
+
+.menu-arrow {
+    margin-left: auto;
+    font-size: 24px;
+    color: #71859a;
+}
+
+
+/* =========================
+   フッター
+========================= */
+
+.footer {
+    background: #eaf0f5;
+    padding: 25px;
+    text-align: center;
+    color: #697887;
+    font-size: 12px;
+}
+
+
+/* =========================
+   レスポンシブ対応
+========================= */
+
+@media (max-width: 1100px) {
+
+    .book-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .home-container {
+        padding: 25px;
+    }
+
+    .welcome {
+        padding: 35px;
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .home-container {
+        padding: 15px;
+    }
+
+    .welcome {
+        min-height: 200px;
+        padding: 25px;
+    }
+
+    .welcome h1 {
+        font-size: 25px;
+    }
+
+    .book-list {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-list {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading h2,
+    .menu-section h2 {
+        font-size: 23px;
+    }
+
+}
+/* =========================
+   消費者共通ヘッダー
+========================= */
+
+.customer-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 100px;
+    padding: 15px 40px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e8ed;
+}
+
+/* 左側：ロゴ */
+.customer-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.customer-logo img {
+    width: 150px;
+    height: auto;
+    display: block;
+}
+
+/* 右側：ログアウト・検索・カート */
+.header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+
+    margin-left: auto;
+}
+
+/* ログアウトフォーム */
+.header-right form {
+    margin: 0;
+}
+
+/* ログアウトボタン */
+.header-right form button {
+    background-color: #173451;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.header-right form button:hover {
+    background-color: #315b80;
 }
 
 /* 検索フォーム */
-.header-search{
-	display: flex;
-	align-items: center;
-	border: 1px solid #ccc;
-	border-radius: 20px;
-	padding: 5px 10px;
+.header-search {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 42px;
+    border: 1px solid #b7c2d0;
+    border-radius: 25px;
+    overflow: hidden;
 }
 
 /* 検索入力欄 */
-header-search input{
-	border: none;
-	outline: none;
-	padding: 5px;
-	width: 180px;
+.header-search input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    padding: 0 15px;
+    font-size: 14px;
 }
 
 /* 検索ボタン */
-.header-search button{
-	border: none;
-	background: none;
-	cursor: pointer;
-	font-size: 18px;
+.header-search button {
+    border: none;
+    background-color: #173451;
+    color: white;
+    height: 100%;
+    padding: 0 15px;
+    cursor: pointer;
 }
 
-/* カート */
-.cart-link{
-	font-size: 24px;
-	text-decoration: none;
+.header-search button:hover {
+    background-color: #315b80;
+}
+
+/* カートリンク */
+.cart-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    text-decoration: none;
+    padding: 5px;
+}
+
+.cart-link:hover {
+    transform: scale(1.1);
+}
+
+
+/* =========================
+   スマホ対応
+========================= */
+
+@media (max-width: 700px) {
+
+    .customer-header {
+        flex-wrap: wrap;
+        padding: 15px 20px;
+        gap: 15px;
+    }
+
+    .customer-logo img {
+        width: 110px;
+    }
+
+    .header-right {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .header-search {
+        width: 200px;
+    }
+}
+/* =========================
+   共通メニュー
+========================= */
+
+.common-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+
+    width: 100%;
+    min-height: 55px;
+    padding: 0 20px;
+    box-sizing: border-box;
+
+    background-color: #173451;
+}
+
+/* メニューリンク */
+
+.common-menu a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 55px;
+    padding: 0 15px;
+
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+
+    transition: background-color 0.2s;
+}
+
+/* マウスを乗せたとき */
+
+.common-menu a:hover {
+    background-color: #254d73;
+}
+
+/* スマートフォン対応 */
+
+@media (max-width: 768px) {
+
+    .common-menu {
+        justify-content: flex-start;
+        gap: 5px;
+        overflow-x: auto;
+    }
+
+    .common-menu a {
+        white-space: nowrap;
+        padding: 0 12px;
+        font-size: 13px;
+    }
+
 }

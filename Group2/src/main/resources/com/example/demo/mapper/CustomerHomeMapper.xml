@@ -15,7 +15,7 @@
 	FROM books
 	WHERE book_flag = TRUE
 	ORDER BY book_id DESC
-	LIMIT 5
+	LIMIT 8
 </select>
 
 </mapper>

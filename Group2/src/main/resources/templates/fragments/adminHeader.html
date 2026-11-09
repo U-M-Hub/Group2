@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>管理者画面のヘッダー</title>
-	<link rel="stylesheet" th:href="@{/css/adminHome.css}">
+    <meta charset="UTF-8">
+    <title>管理者画面のヘッダー</title>
+    <link rel="stylesheet" th:href="@{/css/adminHome.css}">
 </head>
 <body>
-	
-	<!-- 共通管理者ヘッダー -->
-	<header th:fragment="header">
-		<div class="admin-header">
-		<!-- 左側：ロゴ -->
-			<a th:href="@{/admin/home}" class="admin-logo">
-				<img th:src="@{/logo/ECサイトロゴ.png}"
-					 alt="書籍ECサイト ホーム"
-					 width="100"
-					 style="height:auto;">
-			</a>
-			<!-- 右側：ログアウト -->
-			<form th:action="@{/logout}" method="post">
-				<button type="submit">
-					ログアウト
-				</button>
-			</form>
-			</div>
-	</header>
+
+<header th:fragment="header">
+    <div class="admin-header">
+
+        <!-- 左側：ロゴ -->
+        <a th:href="@{/admin/home}" class="admin-logo">
+            <img th:src="@{/logo/ECサイトロゴ.png}"
+                 alt="書籍ECサイト ホーム">
+        </a>
+
+        <!-- 右側：ログアウト -->
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-button">
+                ログアウト
+            </button>
+        </form>
+
+    </div>
+</header>
 
 </body>
 </html>

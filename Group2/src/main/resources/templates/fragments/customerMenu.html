@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<nav th:fragment="menu" class="common-menu customer-menu">
+
+    <a th:href="@{/customer/home}">ホーム</a>
+
+    <a th:href="@{/}">書籍一覧</a>
+
+    <a th:href="@{/customer/cart}">カート</a>
+
+    <a th:href="@{/customer/orders}">注文履歴</a>
+
+</nav>
+
+</body>
+</html>
