@@ -1,0 +1,197 @@
+/* ========================================
+   管理者 書籍一覧画面
+   ======================================== */
+
+/* ページタイトル */
+h2 {
+    color: #173451;
+    text-align: center;
+    margin: 35px 0;
+    font-size: 26px;
+}
+
+/* 検索条件ラベル */
+label {
+    color: #333;
+}
+
+/* 検索条件全体 */
+#searchForm {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: #fff;
+    border: 1px solid #d8e0e8;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+}
+
+/* 検索フォーム内のラベル */
+#searchForm label {
+    display: inline-block;
+    margin: 8px 5px;
+    font-weight: bold;
+    color: #173451;
+}
+
+/* 入力欄 */
+#searchForm input[type="text"],
+#searchForm select {
+    padding: 8px 10px;
+    margin: 5px;
+    border: 1px solid #cbd5df;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+}
+
+/* 入力欄にフォーカスしたとき */
+#searchForm input[type="text"]:focus,
+#searchForm select:focus {
+    outline: none;
+    border-color: #416d96;
+    box-shadow: 0 0 4px rgba(65, 109, 150, 0.3);
+}
+
+/* 検索ボタン */
+#searchForm button {
+    padding: 9px 25px;
+    margin: 8px;
+    background-color: #173451;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#searchForm button:hover {
+    background-color: #254d73;
+}
+
+/* 書籍件数表示 */
+body > label {
+    display: block;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    font-weight: bold;
+    color: #173451;
+}
+
+/* 0件表示 */
+body > label[style*="color:red"] {
+    color: #d32f2f !important;
+}
+
+/* ページ送り */
+body > div {
+    text-align: center;
+}
+
+/* ページ送り・編集ボタン */
+button {
+    padding: 9px 16px;
+    background-color: #173451;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #254d73;
+}
+
+/* =========================
+   書籍一覧テーブル
+========================= */
+
+table {
+    width: 95%;
+    max-width: 1500px;
+    margin: 25px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* 見出し行：ネイビー */
+table tr:first-child th {
+    background-color: #173451;
+    color: #fff;
+    padding: 12px 10px;
+    border: 1px solid #d8e0e8;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* 書籍データ部分：薄いグレー */
+table tr:not(:first-child) th {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 12px 10px;
+    border: 1px solid #e2e7ec;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* 偶数行 */
+table tr:nth-child(even):not(:first-child) th {
+    background-color: #f1f3f5;
+}
+
+/* マウスを乗せたとき */
+table tr:not(:first-child):hover th {
+    background-color: #e8edf2;
+}
+
+/* 書籍表紙 */
+table img {
+    width: 50px;
+    height: 70px;
+    object-fit: contain;
+}
+
+/* 編集ボタン */
+table button {
+    white-space: nowrap;
+    padding: 8px 12px;
+}
+
+/* ホーム画面に戻るリンク */
+body > a {
+    display: block;
+    width: fit-content;
+    margin: 30px auto;
+    padding: 12px 25px;
+    background-color: #173451;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+body > a:hover {
+    background-color: #254d73;
+}
+
+/* 画面が小さい場合 */
+@media (max-width: 768px) {
+    #searchForm {
+        width: 95%;
+    }
+
+    table {
+        min-width: 1100px;
+    }
+
+    body {
+        overflow-x: auto;
+    }
+}

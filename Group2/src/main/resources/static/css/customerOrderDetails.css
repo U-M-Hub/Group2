@@ -1,0 +1,100 @@
+
+/* =========================
+   消費者 注文履歴画面
+========================= */
+
+/* ページ全体 */
+body {
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+/* 注文履歴タイトル */
+body h1 {
+    color: #173451;
+    text-align: center;
+    margin: 35px 0;
+}
+
+/* 注文履歴テーブル */
+table {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* テーブル見出し */
+table th {
+    background-color: #173451;
+    color: #fff;
+    padding: 15px 12px;
+    text-align: center;
+    border: 1px solid #d8e0e8;
+}
+
+/* テーブル内容 */
+table td {
+    padding: 12px;
+    border: 1px solid #e2e7ec;
+    vertical-align: middle;
+}
+
+/* 偶数行 */
+table tbody tr:nth-child(even) {
+    background-color: #f6f8fa;
+}
+
+/* マウスを乗せたとき */
+table tbody tr:hover {
+    background-color: #edf3f8;
+}
+
+/* 書籍タイトルリンク */
+table td a {
+    color: #173451;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+table td a:hover {
+    color: #416d96;
+    text-decoration: underline;
+}
+
+/* 書籍画像 */
+table td img {
+    width: 60px;
+    height: 85px;
+    object-fit: contain;
+}
+
+/* ホームに戻るリンク */
+body > a {
+    display: block;
+    width: fit-content;
+    margin: 30px auto;
+    padding: 12px 25px;
+    background-color: #173451;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+body > a:hover {
+    background-color: #254d73;
+}
+
+/* スマホ対応 */
+@media (max-width: 768px) {
+    table {
+        width: 95%;
+        min-width: 850px;
+    }
+
+    body {
+        overflow-x: auto;
+    }
+}

@@ -1,0 +1,213 @@
+/* ========================================
+   管理者 書籍新規登録画面
+======================================== */
+
+/* ページ全体 */
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    font-family: "Noto Sans JP", sans-serif;
+}
+
+/* ページタイトル */
+h2 {
+    color: #173451;
+    text-align: center;
+    font-size: 26px;
+    margin: 35px 0;
+}
+
+/* 登録成功メッセージ */
+p[style*="color:blue"] {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 12px;
+    box-sizing: border-box;
+    background-color: #eaf4ed;
+    border: 1px solid #b8d9c1;
+    border-radius: 6px;
+    color: #28713d !important;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* 登録フォーム全体 */
+#bookForm {
+    width: 90%;
+    max-width: 850px;
+    margin: 25px auto 40px;
+    padding: 35px 45px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 1px solid #d8e0e8;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* 各入力項目 */
+#bookForm > div {
+    margin-bottom: 24px;
+}
+
+/* 項目名 */
+#bookForm label {
+    display: block;
+    margin-bottom: 9px;
+    color: #173451;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* 入力欄 */
+#bookForm input[type="text"],
+#bookForm input[type="number"],
+#bookForm select,
+#bookForm textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 11px 12px;
+    box-sizing: border-box;
+    border: 1px solid #cbd5df;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #333;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+/* 入力欄にフォーカスしたとき */
+#bookForm input:focus,
+#bookForm select:focus,
+#bookForm textarea:focus {
+    outline: none;
+    border-color: #416d96;
+    background-color: #fff;
+    box-shadow: 0 0 4px rgba(65, 109, 150, 0.25);
+}
+
+/* あらすじ入力欄 */
+#bookForm textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* 必須・任意の表示 */
+#bookForm span[style*="crimson"],
+#bookForm span[style*="color:gray"] {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+/* 入力エラーメッセージ */
+#bookForm span[style*="color:red"] {
+    display: block;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+/* 表紙画像プレビュー */
+#bookCoverPreview {
+    display: block;
+    max-width: 120px;
+    max-height: 170px;
+    object-fit: contain;
+    margin-top: 15px;
+    padding: 8px;
+    background-color: #f1f3f5;
+    border: 1px solid #d8dce1;
+    border-radius: 5px;
+}
+
+/* 登録ボタン */
+#bookForm button[type="submit"] {
+    display: block;
+    width: 220px;
+    margin: 35px auto 20px;
+    padding: 13px 20px;
+    background-color: #173451;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* 登録ボタンのホバー */
+#bookForm button[type="submit"]:hover {
+    background-color: #254d73;
+}
+
+/* ホームに戻るリンク */
+#bookForm a {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+    padding: 11px 22px;
+    background-color: #f1f3f5;
+    color: #173451;
+    border: 1px solid #d8dce1;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+/* 戻るリンクのホバー */
+#bookForm a:hover {
+    background-color: #e2e7ec;
+}
+
+/* スマートフォン対応 */
+@media (max-width: 768px) {
+    #bookForm {
+        width: 95%;
+        padding: 25px 20px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    #bookForm button[type="submit"] {
+        width: 100%;
+    }
+}
+/* 項目名・必須・エラー文を横並び */
+.form-label-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 9px;
+}
+
+/* 項目名 */
+.form-label-row label {
+    display: inline-block;
+    margin: 0;
+    color: #173451;
+    font-weight: bold;
+}
+
+/* 必須表示 */
+.required {
+    color: crimson;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* 任意表示 */
+.optional {
+    color: #777;
+    font-size: 12px;
+}
+
+/* エラー表示 */
+.error-message {
+    color: red;
+    font-size: 13px;
+}
