@@ -26,6 +26,11 @@ public class AdminBookListController {
 								AdminBookListForm adminBookListForm,
 			                    Model model) {
 		
+		//検索フォームで入力された文字列の空白を除去
+		adminBookListForm.setName(adminBookListForm.getName()
+												   .replace(" ", "")
+												   .replace("　", ""));
+		
 		//checkPageCount()で、ページ番号が不正なものでないかチェック
 		pageCount = adminBookListService.checkPageCount(adminBookListForm, pageCount);
 		

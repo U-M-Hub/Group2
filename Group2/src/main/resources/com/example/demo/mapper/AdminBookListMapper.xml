@@ -11,7 +11,11 @@
 									'%',
 									REPLACE( 
 										REPLACE( 
-											REPLACE(#{form.name}, '!', '!!'),
+											REPLACE(
+												REPLACE(
+													REPLACE(#{form.name},"　","")
+												" ",""),
+											'!', '!!'),
 										'%', '!%'),
 									'_', '!_'),
 									'%') 
@@ -23,7 +27,11 @@
 									'%',
 									REPLACE( 
 										REPLACE( 
-											REPLACE(#{form.author}, '!', '!!'),
+											REPLACE(
+												REPLACE(
+													REPLACE(#{form.author},"　","")
+												" ",""),
+											'!', '!!'),
 										'%', '!%'),
 									'_', '!_'),
 									'%') 
@@ -35,7 +43,11 @@
 									'%',
 									REPLACE( 
 										REPLACE( 
-											REPLACE(#{form.publisher}, '!', '!!'),
+											REPLACE(
+												REPLACE(
+													REPLACE(#{form.publisher},"　","")
+												" ",""),
+											'!', '!!'),
 										'%', '!%'),
 									'_', '!_'),
 									'%') 
