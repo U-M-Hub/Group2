@@ -72,30 +72,7 @@ public class AdminBookListService {
 	 * 入力された検索条件を加工してインスタンスとして返すService
 	 * 加工内容：検索条件のうち、文字列から空白を除去する
 	 */
-	public AdminBookListForm createSearchCondition(AdminBookListForm adminBookListForm) {
 
-		//検索条件の内、書籍タイトルがnullでなければ空白を除去
-		if(adminBookListForm.getName() != null) {
-			adminBookListForm.setName(
-					adminBookListForm.getName().replace(" ", "").replace("　","")
-					);	
-		}
-		//検索条件の内、著者名がnullでなければ空白を除去
-		if(adminBookListForm.getAuthor() != null) {
-			adminBookListForm.setAuthor(
-					adminBookListForm.getAuthor().replace(" ", "").replace("　","")
-					);	
-		}
-		//検索条件の内、出版社名がnullでなければ空白を除去
-		if(adminBookListForm.getPublisher() != null) {
-			adminBookListForm.setPublisher(
-					adminBookListForm.getPublisher().replace(" ", "").replace("　","")
-					);	
-		}
-
-		return adminBookListForm;
-
-	}
 
 
 
