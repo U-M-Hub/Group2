@@ -26,7 +26,7 @@ public class AdminOrderDetailsController {
 	/* 商品管理者：全件取得 */
 	@GetMapping("/orders")
 	public String showAllOederDetails(Model model) {
-		model.addAttribute("message", "注文履歴一覧(商品管理者)");
+		model.addAttribute("message", "【管理者】注文履歴");
 		model.addAttribute("allDetails", adminOrderDetailsService.getAllOrderDetails());
 		return "/adminOrderDetails";	// 使用html；adminOrderDetails.html
 	}	

@@ -2,10 +2,10 @@
 <html lang="ja"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-
-<meta charset="UTF-8">
-<title>注文履歴(商品管理者)</title>
-<link rel="stylesheet" th:href="@{/css/adminHome.css}">
+	<meta charset="UTF-8">
+	<title>【管理者】注文履歴</title>
+	
+	<link rel="stylesheet" th:href="@{/css/adminHome.css}">
 
 
 	<!-- table th, table td の部分								-->
@@ -25,7 +25,7 @@
 	
 	<div th:replace="~{fragments/adminHeader :: header}"></div>
 
-	<h1 th:text = "${message}">メッセージ</h1>
+	<h2 th:text = "${message}">メッセージ</h2>
 
 	<!-- 0件 or nullの場合 -->
 	<p th:if="${#lists.isEmpty(allDetails)}">
@@ -96,8 +96,10 @@
 	</table>
 
 	<br>
+
 		<a th:href = "@{/admin/home}">＜＜商品管理者ホーム画面に戻る</a>	
 <!--	<a>商品管理者ホーム画面に戻る</a>-->
+
 	
 </body>
 </html>

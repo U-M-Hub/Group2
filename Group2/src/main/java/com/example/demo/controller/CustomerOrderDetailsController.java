@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.security.LoginUser;
 import com.example.demo.service.CustomerOrderDetailsService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,12 +26,18 @@ public class CustomerOrderDetailsController {
 	private final CustomerOrderDetailsService customerOrderDetailsService;
 
 	/* 消費者：ユーザーIDで取得 */
-//	@GetMapping("/orders/{id}")
 	@GetMapping("/orders")
-	public String showOederDetailsByUserId(Model model) {
-		model.addAttribute("message", "注文履歴一覧");
-//		model.addAttribute("DetailsByUserId", customerOrderDetailsService.getOrderDetailsByUserId(id));
-		model.addAttribute("DetailsByUserId", customerOrderDetailsService.getOrderDetailsByUserId(1));
+	public String showOederDetailsByUserId(
+			@AuthenticationPrincipal LoginUser loginUser,
+			Model model
+			) {
+
+		// ログインIDの取得
+		Integer loginId	= loginUser.getUserId();
+		
+		model.addAttribute("message", "【消費者】注文履歴");
+		model.addAttribute("DetailsByUserId", customerOrderDetailsService.getOrderDetailsByUserId(loginId));
+//		model.addAttribute("DetailsByUserId", customerOrderDetailsService.getOrderDetailsByUserId(1));
 		return "/customerOrderDetails";	// 使用html；customerOrderDetails.html
 	}	
 	

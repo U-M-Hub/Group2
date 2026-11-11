@@ -10,7 +10,7 @@ public class CustomerBookDetailsForm {
 
 	/** 注文数 															*/
 	/* @NotNull：														*/
-	/*   文字列が null・空文字・空白文字だけであることを禁止するもの	*/
+	/*   文字列が null であることを禁止するもの							*/
 	/* @Min：															*/
 	/*   指定した数値以上であることをチェック							*/
 	/* ※value = 1：1以上がOK											*/
