@@ -3,8 +3,8 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>【消費者】商品詳細</title>
 
+	<title>商品詳細</title>
 	<link rel="stylesheet" th:href="@{/css/customerHome.css}">
 
 	<!-- table th, table td の部分								-->
@@ -102,6 +102,8 @@
 
 </head>
 <body>
+	
+	<div th:replace="~{fragments/customerHeader :: header}"></div>
 
 	<div th:replace="~{fragments/customerHeader :: header}"></div>
 

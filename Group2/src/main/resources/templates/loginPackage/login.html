@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>ログイン画面</title>
@@ -42,8 +43,20 @@
 		</form>
 	</div>
 	
-	<h3>アカウントをお持ちでない方はこちら</h3>
-	
+	<br>
+	<label>アカウントをお持ちでない方はこちら</label>
+	<div th:if="${param.guest}"
+		 sec:authorize="isAuthenticated()">
+		<label style="color:red">
+			※新規登録はログアウトしてから行ってください
+		</label>
+		
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="ログアウト">
+		</form>
+		<br>
+	</div>
+
 	<form th:action="@{/register/get}" method="get">
 		<input type="submit" value="登録">
 	</form>

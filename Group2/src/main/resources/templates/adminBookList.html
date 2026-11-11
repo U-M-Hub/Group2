@@ -131,14 +131,24 @@
 				<th><img th:src="@{/images/{image}(image=${book.book_cover})}"
 					     style="width: 50px; height: auto;">
 				</th>
-				<th th:text="${book.book_title}"></th>
-				<th th:text="${book.book_author}"></th>
-				<th th:text="${book.book_publisher}"></th>
+				<th>[[${#strings.length(book.book_title) > 10
+				    ? #strings.substring(book.book_title, 0, 10) + '...'
+					: book.book_title }]]
+				</th>
+				<th>[[${#strings.length(book.book_author) > 10
+				    ? #strings.substring(book.book_author, 0, 10) + '...'
+					: book.book_author }]]
+				</th>
+				<th>[[${#strings.length(book.book_publisher) > 10
+				    ? #strings.substring(book.book_publisher, 0, 10) + '...'
+					: book.book_publisher }]]
+				</th>
 				<th th:text="${book.genre_name}"></th>
 				<th>[[${#numbers.formatInteger(book.book_price, 1, 'COMMA')}]]円</th>
 				<th>[[${#numbers.formatInteger(book.book_stock, 1, 'COMMA')}]]個</th>
 				<th>[[${#strings.length(book.book_summary) > 10
-					    ? #strings.substring(book.book_summary, 0, 10) : book.book_summary }]]
+					    ? #strings.substring(book.book_summary, 0, 10) + '...'
+						: book.book_summary }]]
 				</th>
 				<th th:text="${book.book_flag ? '公開' : '非公開'}"
 				    th:style="${book.book_flag ? 'color:blue;' : 'color:red;'}">
@@ -183,7 +193,10 @@
 		</table>
 	</div>
 	
+	<br>
+	<br>
 	
+	<a th:href="@{/admin/home}">＜＜商品管理者画面ホームへ戻る</a>
 	
 </body>
 </html>
