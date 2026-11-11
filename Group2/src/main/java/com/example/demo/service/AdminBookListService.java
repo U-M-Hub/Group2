@@ -68,7 +68,17 @@ public class AdminBookListService {
 		return pageCount;
 	}
 	
-	
+	/*
+	 * 入力された検索条件を加工してインスタンスとして返すService
+	 * 加工内容：検索条件のうち、文字列から空白を除去する
+	 */
+	public AdminBookListForm createSearchCondition(AdminBookListForm adminBookListForm) {
+		
+		AdminBookListForm searchCondition = new AdminBookListForm();
+		
+		
+		
+	}
 	
 	
 	
