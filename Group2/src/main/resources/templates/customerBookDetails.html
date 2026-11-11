@@ -3,7 +3,9 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>商品詳細</title>
+	<title>【消費者】商品詳細</title>
+
+	<link rel="stylesheet" th:href="@{/css/customerHome.css}">
 
 	<!-- table th, table td の部分								-->
 	<!--   テーブルの見出し（th）と								-->
@@ -28,6 +30,23 @@
 	<!-- 				：4px：角をどれくらい丸くするかを指定	-->
 	<!-- box-sizing		：widthで指定した横幅の中に、			-->
 	<!-- 				：枠線や内側の余白も含める設定			-->
+	
+	<!-- .cell の部分										-->
+	<!-- width												-->
+	<!--  横幅を設定(単位：px) ※500px：全角30文字/行		-->
+	<!-- height												-->
+	<!--  縦幅を設定  ※auto：内容に応じて変化				-->
+	<!-- max-height											-->
+	<!--  縦幅の最大値を設定(単位：px) ※120px：最大5行		-->
+	<!-- overflow-y:auto									-->
+	<!--  縦方向にはみ出した場合のみスクロールバーを表示	-->
+	<!-- overflow-x: hidden									-->
+	<!--   横方向にはみ出した部分を隠す						-->
+	<!-- white-space: pre-line								-->
+	<!--  DBに保存された改行を画面にも反映					-->
+	<!-- overflow-wrap: anywhere							-->
+	<!--  長い文字列も折り返す								-->
+
 	<style>
 		table th,
 		table td {
@@ -46,12 +65,47 @@
 	        border-radius: 4px;
 			box-sizing: border-box;
 	    }
+		
+		.btn {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+
+			width: 100px;
+			height: 40px;
+			box-sizing: border-box;
+
+			background-color: orange;
+			color: white;
+			font-size: 14px;
+
+			border: 2px outset buttonborder;
+			border-radius: 2px;
+
+			padding: 2px 6px;
+
+		    text-decoration: none;
+			cursor: pointer;
+		}
+		
+		.cell {
+			width: 500px;
+			height: auto;
+			max-height: 120px;
+			overflow-y: auto;
+			overflow-x: hidden;
+			white-space: pre-line;
+			overflow-wrap: anywhere;
+		}
+
 	</style>
 
 </head>
 <body>
 
-	<h1 th:text = "${message}">メッセージ</h1>
+	<div th:replace="~{fragments/customerHeader :: header}"></div>
+
+	<h2 th:text = "${message}">メッセージ</h2>
 
 	<table border="1"  cellspacing="0">
 	    <tr>
@@ -88,15 +142,21 @@
 		<tr>
 			<!-- 2行目 -->
 			<th style="text-align: left;">タイトル</th>
-			<td colspan="2"
-				th:text="${bookDetails.bookTitle}"></td>
+			<td colspan="2">
+				<div class="cell"
+			    	th:text="${bookDetails.bookTitle}">
+			    </div>
+			</td>
 		</tr>
 		
 	    <tr>
 			<!-- 3行目 -->
 	        <th style="text-align: left;">著者名</th>
-	        <td colspan="2"
-				th:text="${bookDetails.bookAuthor}"></td>
+	        <td colspan="2">
+				<div class="cell"
+					th:text="${bookDetails.bookAuthor}">
+				</div>
+			</td>
 	    </tr>
 
 	    <tr>
@@ -110,27 +170,7 @@
 		    <!-- 5行目 -->
 			<th style="text-align: left;">あらすじ</th>
 			<td colspan="2">
-
-				<!-- width												-->
-				<!--  横幅を設定(単位：px) ※500px：全角30文字/行		-->
-				<!-- height												-->
-				<!--  縦幅を設定(単位：px) ※120px：最大5行				-->
-				<!-- overflow-y:auto									-->
-				<!--  縦方向にはみ出した場合のみスクロールバーを表示	-->
-				<!-- overflow-x: hidden									-->
-				<!--   横方向にはみ出した部分を隠す						-->
-				<!-- white-space: pre-line								-->
-				<!--  DBに保存された改行を画面にも反映					-->
-				<!-- overflow-wrap: anywhere							-->
-				<!--  長い文字列も折り返す								-->
-				<div style="
-					        width: 500px;
-					        height: 120px;
-			    		    overflow-y: auto;
-			        		overflow-x: hidden;
-			        		white-space: pre-line;
-			        		overflow-wrap: anywhere;
-			    			"
+				<div class="cell"
 			    	th:text="${bookDetails.bookSummary}">
 			    </div>
 			</td>
@@ -188,8 +228,11 @@
 		<tr>
 		    <!-- 8行目 -->
 			<th style="text-align: left;">出版社名</th>
-		    <td colspan="2"
-				th:text="${bookDetails.bookPublisher}"></td>
+			<td colspan="2">
+				<div class="cell"
+			    	th:text="${bookDetails.bookPublisher}">
+			    </div>
+			</td>
 		</tr>
 
 		<!-- fromパラメータがない場合(商品一覧画面から遷移時)	-->
@@ -204,20 +247,15 @@
 				<td colspan="3"
 				    style="text-align: right;">
 
-					<form th:action="@{/customer/orders}" method="get">
-					<button style="
-						   		width: 100px;
-						   		height: 40px;
-						   		background-color: orange;
-						   		color: white;
-									"
-						   	type="submit">カート画面</button>
-					</form>
-				</td>			
-
+					<a th:href="@{/customer/cart}"
+					   class="btn">
+					    カート画面
+					</a>
+				</td>
+				
 			</tr>
 			
-			<!-- 在庫数1以上の場合、注文数 / [カートへ]ボタン表示	-->
+			<!-- 在庫数1以上の場合、注文数 / [カートに追加]ボタン表示	-->
 			<tr th:if="${numberOfMatches == 0 and 
 				         bookDetails.bookStock >= 1
 					     and bookDetails.bookFlag == true}">
@@ -255,19 +293,20 @@
 							   	   class="quantity-input"
 									  min="1"
 									  max="1">
-							   
+
+								  <!-- Validationエラーメッセージ -->
+								<div th:if="${#fields.hasErrors('bookCount')}"
+								     th:errors="*{bookCount}"
+									 style="color: red;">
+								</div>
+								
 					</form>
 				</td>
 					
 				<!-- ボタン表示部	-->
 				<td style="text-align: right;">
-					<button style="
-						   		width: 100px;
-						   		height: 40px;
-						   		background-color: orange;
-						   		color: white;
-						   			" 
-						   	type="submit"
+					<button type="submit"
+							class="btn"
 							form="registerForm">カートに追加</button>
 			   	</td>
 			 </tr>

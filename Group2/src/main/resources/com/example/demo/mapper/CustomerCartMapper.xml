@@ -4,15 +4,17 @@
 
     <!-- 一覧取得 -->
     <select id="listBooksInCartAll"
-            resultType="com.example.demo.dto.EmployeeDto">
+            resultType="com.example.demo.dto.CustomerCartDto">
 
 		  SELECT crt.user_id as userId,
 		         crt.book_id as bookId,
 		         bks.book_title as bookTitle,
-		         crt.book_count as bookCount
-		    FROM cart as crt,
+		         crt.book_count as bookCount,
+		         bks.book_price as bookPrice
+		    FROM cart as crt
 		    JOIN books as bks
 		      ON crt.book_id = bks.book_id
+           WHERE crt.user_id = #{userID}
 		ORDER BY crt.user_id asc,
 		         crt.book_id asc
 
@@ -25,5 +27,90 @@
               WHERE user_id = #{userID}
                 AND book_id = #{bookID}
     </delete>
+
+	<!-- 注文履歴テーブルへの登録				-->
+    <!-- ① - 1 注文番号を取得 					-->
+    <!-- ※order_details にデータが無い場合、	-->	
+    <!-- 　最初の注文番号は 101(= 100 + 1)		-->
+    <select id="getNextOrderNumber"
+            resultType="java.lang.Integer">
+
+        SELECT
+            COALESCE(MAX(order_number), 100) + 1
+        FROM
+            order_details
+
+    </select>
+
+	<!-- ① -2 注文対象の書籍情報を取得  -->
+	<select id="findOrderBooks"
+    	    parameterType="java.lang.Integer"
+        	resultType="com.example.demo.dto.CustomerCartDto">
+
+	    SELECT
+    	    bks.book_id as bookId,
+        	bks.book_title as bookTitle,
+        	bks.book_price as bookPrice,
+        	crt.book_count as bookCount,
+        	bks.book_flag as bookFlag
+	    FROM
+    	    cart as crt
+
+	    INNER JOIN
+    	    books as bks
+        	ON crt.book_id = bks.book_id
+
+	    WHERE
+    	    crt.user_id = #{userID}
+    
+    </select>
+
+	<!-- ① - 3 注文詳細を注文履歴テーブルに登録 -->
+	<insert id="insertOrderDetail">
+		
+	    INSERT INTO order_details (
+	        user_id,
+	        order_number,
+	        order_branch_number,
+	        book_id,
+	        order_price,
+	        book_count,
+	        order_date
+	    )
+	    VALUES (
+	        #{userID},
+	        #{orderNumber},
+	        #{branchNumber},
+	        #{book.bookId},
+	        #{book.totalPrice},
+	        #{book.bookCount},
+	        CURRENT_DATE
+	    )
+	
+	</insert>
+
+	<!-- ① - 4 書籍の在庫数を減らす -->
+	<update id="updateBookStock">
+	
+	    UPDATE books
+	    SET book_stock = book_stock - #{bookCount}
+	    WHERE book_id = #{bookID}
+	      AND book_stock >= #{bookCount}
+	
+	</update>
+
+	<!-- ② カートテーブルから注文済み書籍を削除 -->
+	<delete id="deleteOrderedBooks">
+	
+	    DELETE FROM cart
+	    WHERE user_id = #{userID}
+	
+	</delete>
+
+
+
+
+
+
 
 </mapper>

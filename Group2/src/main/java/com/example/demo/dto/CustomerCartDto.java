@@ -16,5 +16,16 @@ public class CustomerCartDto {
 	
 	/** 注文数 */
 	private Integer bookCount;
-	
+
+	/** 価格（単価） */
+	private Integer bookPrice;
+
+	// 価格（単価 × 注文数）
+    public Integer getTotalPrice() {
+        return bookPrice * bookCount;
+    }	
+
+  	// 公開情報フラグ
+    private Boolean bookFlag; 
+
 }

@@ -3,7 +3,7 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>注文履歴</title>
+	<title>【消費者】注文履歴</title>
 
 	<link rel="stylesheet" th:href="@{/css/customerHome.css}">
 
@@ -25,8 +25,14 @@
 	
 	<div th:replace="~{fragments/customerHeader :: header}"></div>
 
-	<h1 th:text = "${message}">メッセージ</h1>
+	<h2 th:text = "${message}">メッセージ</h2>
 
+	<!-- 注文処理が正常終了した場合 -->
+	<p th:if="${completeMessage != null}"
+	   th:text="${completeMessage}"
+	   style="color: blue;">
+	</p>
+	
 	<!-- 0件 or nullの場合 -->
 	<p th:if="${#lists.isEmpty(DetailsByUserId)}">
 	    注文履歴はありません。
@@ -98,8 +104,8 @@
 	</table>
 
 	<br>
-		<a th:href = "@{/customer/home}">消費者ホーム画面に戻る</a>	
-<!--	<a>消費者ホーム画面に戻る</a>	-->
+
+	<a th:href = "@{/customer/home}">消費者ホーム画面に戻る</a>	
 	
 </body>
 </html>

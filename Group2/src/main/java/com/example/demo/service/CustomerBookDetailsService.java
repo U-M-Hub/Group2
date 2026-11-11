@@ -33,13 +33,13 @@ public class CustomerBookDetailsService {
 		
 	}
 
-	/* 消費者：カートテーブルへの追加処理で使用		*/
+	/* 消費者：[カートへ追加]ボタン押下時に使用	*/
+	/* データベースの追加専用処理				*/ 
 	public void insertCustomerCart(CustomerCartDto customerCartDto) {
 
         // カートテーブルへ登録
         customerBookDetailsMapper.insertCustomerCart(customerCartDto);
 
     }
-
 	
 }
