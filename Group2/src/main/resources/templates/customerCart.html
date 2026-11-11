@@ -160,11 +160,6 @@
 						<form th:action="@{/customer/cart/confirm}"
 					             method="post">
 
-					    	<!-- ユーザーID（画面には表示しない） -->
-					    	<input type="hidden"
-					               name="userID"
-					           th:value="${cartList[0].userId}">
-
 					        <!-- 書籍ID（カート内の全件分を送信） -->
 <!--					        <th:block th:each="bookInCart : ${cartList}">-->
 <!--					        <input type="hidden"-->
