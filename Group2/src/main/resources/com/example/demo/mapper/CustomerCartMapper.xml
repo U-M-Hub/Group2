@@ -30,15 +30,10 @@
 
 	<!-- 注文履歴テーブルへの登録				-->
     <!-- ① - 1 注文番号を取得 					-->
-    <!-- ※order_details にデータが無い場合、	-->	
-    <!-- 　最初の注文番号は 101(= 100 + 1)		-->
     <select id="getNextOrderNumber"
             resultType="java.lang.Integer">
 
-        SELECT
-            COALESCE(MAX(order_number), 100) + 1
-        FROM
-            order_details
+        SELECT nextval('order_number_seq')
 
     </select>
 
@@ -106,11 +101,5 @@
 	    WHERE user_id = #{userID}
 	
 	</delete>
-
-
-
-
-
-
 
 </mapper>

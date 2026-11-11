@@ -52,11 +52,11 @@ public class CustomerCartController {
     // 書籍削除
     @PostMapping("/cart/delete")
     public String deleteCartByBookId(
-    		@RequestParam("userID") Integer selectUserId,
+    		@AuthenticationPrincipal LoginUser loginUser,
             @RequestParam("bookID") Integer selectBookId) {
 
         customerCartService.deleteBookInCartByBookId(
-        		selectUserId,
+        		loginUser.getUserId(),
         		selectBookId
         		);
 
@@ -68,7 +68,7 @@ public class CustomerCartController {
     // ※カートテーブルからの削除含む
     @PostMapping("/cart/confirm")
     public String insertCustomerOrderDetails(
-            @RequestParam("userID") Integer userId,
+    		@AuthenticationPrincipal LoginUser loginUser,
             RedirectAttributes redirectAttributes
             ) {
 
@@ -77,7 +77,7 @@ public class CustomerCartController {
 	        // 注文確定処理
     		// ※戻り値：注文番号
     		Integer orderNumber =
-    				customerCartService.confirmCustomerCartOrders(userId);
+    				customerCartService.confirmCustomerCartOrders(loginUser.getUserId());
 
     		// 取得した注文番号を画面表示用に6桁固定（0補填)
     		String orderNumberStr = String.format("%06d", orderNumber);
