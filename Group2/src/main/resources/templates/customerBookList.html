@@ -191,10 +191,18 @@
 
                 <!-- 書名をクリックすると商品詳細画面へ移動 -->
                 <td>
-                    <a th:href="@{/customer/books/{bookId}(bookId=${book.book_id})}"
-                       th:text="${book.book_title}">
-                        サンプル本
-                    </a>
+					<a th:href="@{/customer/books/{bookId}(
+					    bookId=${book.book_id},
+					    page=${currentPage},
+					    sortBy=${sortBy},
+					    bookTitle=${bookTitle},
+					    bookAuthor=${bookAuthor},
+					    bookPublisher=${bookPublisher},
+					    genreId=${genreId}
+					)}"
+					th:text="${book.book_title}">
+					    サンプル本
+					</a>
                 </td>
 
                 <!-- 著者名 -->
