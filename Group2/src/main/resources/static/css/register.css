@@ -1,0 +1,140 @@
+
+/* ページ全体 */
+body {
+    margin: 0;
+    padding: 40px 15px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-color: #f5f7fa;
+    font-family: "Meiryo", "Yu Gothic", sans-serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ページタイトル */
+h2 {
+    width: 100%;
+    max-width: 480px;
+    margin: 0;
+    padding: 25px 35px 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 10px 10px 0 0;
+    color: #173451;
+    font-size: 23px;
+}
+
+/* 説明文・ログイン画面へ戻る見出し */
+h3 {
+    width: 100%;
+    max-width: 480px;
+    margin: 0;
+    padding: 8px 35px 20px;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #666;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+/* 登録フォームを含むエリア */
+body > div {
+    width: 100%;
+    max-width: 480px;
+    padding: 10px 35px 30px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* 入力項目のラベル */
+form label {
+    display: inline-block;
+    margin: 10px 0 5px;
+    color: #173451;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* 入力欄 */
+form input[type="text"],
+form input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    border: 1px solid #cbd5df;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #333;
+    font-size: 14px;
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    outline: none;
+    border-color: #173451;
+    background-color: #fff;
+}
+
+/* 入力エラーメッセージ */
+form div label[style*="color:red"] {
+    display: inline-block;
+    margin: 3px 0;
+    color: #dc3545 !important;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+/* 登録ボタン */
+form input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 11px;
+    border: none;
+    border-radius: 5px;
+    background-color: #173451;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #244b70;
+}
+
+/* ログイン画面へ戻る見出し */
+body > div h3 {
+    padding: 25px 0 5px;
+    background-color: transparent;
+    color: #173451;
+    font-weight: bold;
+}
+
+/* 登録成功メッセージ */
+body > div > label[style*="color:blue"] {
+    display: block;
+    margin: 10px 0 15px;
+    color: #2563a6 !important;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* スマホ表示 */
+@media screen and (max-width: 480px) {
+    body {
+        padding: 25px 12px;
+    }
+
+    h2,
+    h3,
+    body > div {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}

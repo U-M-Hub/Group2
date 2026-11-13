@@ -69,21 +69,22 @@ table td img {
 }
 
 /* ホーム画面に戻るリンク */
-body > a {
-    display: block;
-    width: fit-content;
-    margin: 30px auto;
-    padding: 12px 25px;
-    background-color: #173451;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.2s;
+h1 ~ a[href="/admin/home"] {
+	display: block;
+	    width: fit-content;
+	    margin: 30px auto;
+	    padding: 12px 25px;
+	    background-color: #fff;
+	    color: #173451;
+		border: 1px solid #d8dce1;
+		border-radius: 5px;
+	    text-decoration: none;
+	    border-radius: 5px;
 }
 
-/* 戻るリンクにマウスを乗せたとき */
-body > a:hover {
-    background-color: #254d73;
+/* マウスを乗せたとき */
+h1 ~ a[href="/admin/home"]:hover {
+    background-color: #e2e7ec;
 }
 
 /* 小さい画面への対応 */

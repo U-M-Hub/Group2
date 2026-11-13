@@ -10,6 +10,7 @@
 	
 	<div th:replace="~{fragments/adminLayout :: layout}"></div>	<h2>■💪書籍編集画面💪</h2>
 	
+	<div class="edit-card">
 	<!-- 書籍情報の編集フォーム -->
 	<!-- bookIdをURLに含めて、更新対象の書籍を指定する -->
 	<form id="editForm"
@@ -194,11 +195,13 @@
 		  
 	  </form>
 	  
-	  <hr>
 	  
+	  <br>
+	  <br>
 	  <!-- 一覧画面へ戻るフォーム -->
 	  <!-- 編集前の検索条件とページ番号を引き継ぐ -->
-	  <form th:action="@{/adminBookList/{pageCount}(pageCount=${pageCount})}"
+	  <form class="back-form"
+	  		th:action="@{/adminBookList/{pageCount}(pageCount=${pageCount})}"
 	  		method="get">
 		
 			<input type="hidden" name="name"
@@ -223,6 +226,7 @@
 			
 		</form>
 	  
+		</div>
 
 		<script>
 		document.addEventListener("DOMContentLoaded", function () {

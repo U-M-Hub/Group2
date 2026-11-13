@@ -77,14 +77,16 @@ body > a {
     width: fit-content;
     margin: 30px auto;
     padding: 12px 25px;
-    background-color: #173451;
-    color: #fff;
+    background-color: #fff;
+    color: #173451;
+	border: 1px solid #d8dce1;
+	border-radius: 5px;
     text-decoration: none;
     border-radius: 5px;
 }
 
 body > a:hover {
-    background-color: #254d73;
+    background-color: #e2e7ec;
 }
 
 /* スマホ対応 */

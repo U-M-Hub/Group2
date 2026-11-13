@@ -1,0 +1,171 @@
+
+/* ==============================
+   書籍詳細画面専用CSS
+   ヘッダーには影響させない
+============================== */
+
+/* ページタイトル */
+body > h1 {
+    text-align: center;
+    color: #173451;
+    font-family: "Yu Gothic", "Meiryo", sans-serif;
+    font-size: 30px;
+    margin: 35px 0 25px;
+}
+
+/* 詳細テーブル */
+body > table {
+    width: 85%;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 1px solid #d8e0e8;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(20, 45, 73, 0.07);
+}
+
+/* テーブルのセル */
+body > table th,
+body > table td {
+    padding: 13px 16px;
+    border: 1px solid #dfe5ec;
+    font-size: 15px;
+    color: #26384b;
+}
+
+/* 項目名 */
+body > table th {
+    width: 155px;
+    background: #eaf0f6;
+    color: #173451;
+    text-align: left;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* 書籍画像 */
+body > table img {
+    display: block;
+    width: 200px;
+    height: 300px;
+    object-fit: contain;
+    margin: 0 auto;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* あらすじ */
+body > table td div {
+    width: 100% !important;
+    max-width: 500px;
+    height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+    line-height: 1.8;
+    color: #465568;
+}
+
+/* 注文数入力欄 */
+.quantity-cell {
+    height: 45px;
+    padding: 5px !important;
+}
+
+.quantity-input {
+    width: 100%;
+    height: 38px;
+    padding: 5px 10px;
+    border: 1px solid #cbd5df;
+    border-radius: 5px;
+    background: #f8f9fa;
+    color: #173451;
+    font-size: 16px;
+}
+
+/* カート画面・カートに追加ボタン */
+body > table button {
+    width: 130px !important;
+    height: 42px !important;
+    border: none;
+    border-radius: 6px;
+    background-color: #e9a23b !important;
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+body > table button:hover {
+    background-color: #cf8624 !important;
+}
+
+/* 在庫表示 */
+body > table td span {
+    font-weight: bold;
+}
+
+/* 戻るリンク */
+body > div a[href="/customer/orders"],
+body > div a[href="/customer/books"],
+body > div a[href$="/customer/orders"],
+body > div a[href$="/customer/books"] {
+    display: block;
+    width: fit-content;
+    margin: 25px auto 40px;
+    padding: 12px 28px;
+    border-radius: 6px;
+    background: #173451;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+/* 戻るリンク：詳細テーブルより後ろにあるリンクだけ対象 */
+body > table ~ div a[href$="/customer/orders"],
+body > table ~ div a[href$="/customer/books"] {
+    display: block;
+    width: fit-content;
+    margin: 25px auto 40px;
+    padding: 12px 28px;
+    border-radius: 6px;
+    background: #173451;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+body > table ~ div a[href$="/customer/orders"]:hover,
+body > table ~ div a[href$="/customer/books"]:hover {
+    background: #315b80;
+}
+
+/* スマホ対応 */
+@media (max-width: 700px) {
+    body > table {
+        width: 96%;
+    }
+
+    body > table th,
+    body > table td {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    body > table img {
+        width: 110px;
+        height: 165px;
+    }
+
+    body > table th {
+        width: 90px;
+    }
+}
