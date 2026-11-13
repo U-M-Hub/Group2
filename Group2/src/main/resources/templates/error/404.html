@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>ページが見つかりません</title>
+</head>
+<body>
+
+	<h2>404 Not Found</h2>
+	<p th:text="${errorMessage}"></p>
+
+	<a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/admin/home}">
+	  管理者ホーム画面へ
+	</a>
+
+	<a sec:authorize="hasAuthority('ROLE_USER')" th:href="@{/customer/home}">
+	  消費者ホーム画面へ
+	</a>
+	
+</body>
+</html>

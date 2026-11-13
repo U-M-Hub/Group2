@@ -12,6 +12,11 @@ DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS genres;
 DROP TABLE IF EXISTS users;
 
+-- ====================================
+-- 【追加】注文番号用のSEQUENCE処理
+-- ====================================
+DROP SEQUENCE IF EXISTS order_number_seq;
+CREATE SEQUENCE order_number_seq START WITH 104;
 
 -- ====================================
 -- 2. genres（ジャンル情報）

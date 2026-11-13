@@ -25,7 +25,7 @@ public class BookForm {
 	
 	//著者名
 	@NotBlank(message = "　※著者名を入力してください")
-	@Size(max = 255, message = "　※著者名は255文字以内で入力してください")
+	@Size(max = 100, message = "　※著者名は100文字以内で入力してください")
 	private String book_author;
 	
 	//価格
@@ -51,7 +51,7 @@ public class BookForm {
 	
 	//出版社
 	@NotBlank(message = "　※出版社を入力してください")
-	@Size(max = 255, message = "　※出版社は255文字以内で入力してください")
+	@Size(max = 100, message = "　※出版社は100文字以内で入力してください")
 	private String book_publisher;
 	
 	//公開状態

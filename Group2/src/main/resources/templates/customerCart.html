@@ -1,10 +1,193 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja"
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>【消費者】カート画面</title>
+
+	<link rel="stylesheet" th:href="@{/css/customerHome.css}">
+
+
+	<!-- table th, table td の部分								-->
+	<!--   テーブルの見出し（th）と								-->
+	<!--   データ部分（td）の内側に余白を設ける設定				-->
+	<!-- padding: 8px 12px：上下の余白(8px)と左右の余白(12px)	-->
+	<style>
+		table th,
+		table td {
+		    padding: 8px 12px;
+		}
+		
+		.btn {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+
+			width: 100px;
+			height: 40px;
+			box-sizing: border-box;
+
+			background-color: orange;
+			color: white;
+			font-size: 14px;
+
+			border: 2px outset buttonborder;
+			border-radius: 2px;
+
+			padding: 2px 6px;
+
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		.btn_del {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+
+			width: 100px;
+			height: 40px;
+			box-sizing: border-box;
+
+			background-color: gray;
+			color: white;
+			font-size: 14px;
+
+			border: 2px outset buttonborder;
+			border-radius: 2px;
+
+			padding: 2px 6px;
+
+			text-decoration: none;
+			cursor: pointer;
+		}
+		
+	</style>
+	
 </head>
 <body>
 
+	<div th:replace="~{fragments/customerHeader :: header}"></div>
+	
+	<h2 th:text = "${message}">メッセージ</h2>
+
+		<!-- エラーメッセージ -->
+		<p th:if="${errorMessage != null}"
+		   th:text="${errorMessage}"
+		   style="color: red; white-space: pre-line;">
+		</p>
+
+		<!-- データが0件の場合 -->
+		<div th:if="${#lists.isEmpty(cartList)}">
+	
+		    <!-- 通常操作の場合 -->
+		    <p th:if="${errorMessage == null}">
+		        カートに商品はありません。
+		    </p>
+	
+		</div>
+		
+		<!-- データが1件以上の場合 -->
+		<div th:unless="${#lists.isEmpty(cartList)}">
+		
+		<table border="1"
+			   cellspacing="0">
+	
+			<thead>
+			    <tr>
+			        <th>タイトル</th>
+			        <th>注文数</th>
+					<th>価格</th>
+					<th></th>
+			    </tr>
+			</thead>
+		
+			<tbody>
+				
+			    <tr th:each="cartlist : ${cartList}">
+		
+					<!-- 1列目 -->
+					<td style="text-align: left;">
+					    <a th:href="@{/customer/books/{id}(id=${cartlist.bookId})}"
+					       th:text="${cartlist.bookTitle}">
+					    </a>
+					</td>
+								
+					<!-- 2列目 -->
+			        <td style="text-align: right;"
+						th:text="${#numbers.formatInteger(cartlist.bookCount, 1, 'COMMA')}"></td>
+	
+					<!-- 3列目 -->
+					<td style="text-align: right;"
+						th:text="${#numbers.formatInteger(cartlist.totalPrice, 1, 'COMMA')}"></td>
+		
+					<!-- 4列目 -->
+			        <td>
+			            <form th:action="@{/customer/cart/delete}"
+			                  method="post"
+			                  >
+		
+			                <input type="hidden"
+			                       name="bookID"
+			                       th:value="${cartlist.bookId}">
+		
+			                <button type="submit"
+							        class="btn_del">
+			                    削除
+			                </button>
+		
+			            </form>
+		
+			        </td>
+		
+			    </tr>
+	
+				<!-- 合計行 												 -->
+				<!-- #aggregates.sum(cartList.![totalPrice])				 -->
+				<!-- ※cartList		：Controllerから渡された一覧			 -->
+				<!--   ![totalPrice]：各CustomerCartDtoのtotalPriceを取得	 -->
+				<!--   #aggregates.sum()：取得したtotalPriceを順番に合計する -->
+				<tr>
+				    <td colspan="2" style="text-align: right;">
+				        合計
+				    </td>
+				    <td th:text="${#numbers.formatInteger(
+				                   #aggregates.sum(cartList.![totalPrice]), 1, 'COMMA')}">
+				    </td>
+
+					<!-- [注文確定]ボタン-->					
+					<td>
+						<form th:action="@{/customer/cart/confirm}"
+					             method="post">
+
+					        <!-- 書籍ID（カート内の全件分を送信） -->
+<!--					        <th:block th:each="bookInCart : ${cartList}">-->
+<!--					        <input type="hidden"-->
+<!--					               name="bookIDs"-->
+<!--					           th:value="${bookInCart.bookId}">-->
+<!--					        </th:block>-->
+							
+					        <button type="submit"
+							        class="btn">
+					       		注文確定
+					        </button>
+
+					     </form>
+					</td>
+										
+				</tr>
+		
+			</tbody>
+			
+		</table>
+	
+	</div>
+
+	<br>
+	<a>商品一覧画面に戻る</a>	
+
+	<br>
+	<a th:href = "@{/customer/home}">消費者ホーム画面に戻る</a>	
+			
 </body>
 </html>

@@ -6,16 +6,43 @@
 	<sql id="searchConditions">
 		<where>
 			<!-- 本のタイトルの部分一致検索 -->
-			<if test="form.name != null and form.name != ''">
-				AND b.book_title LIKE CONCAT('%',#{form.name}, '%' )
+			<if test="form.noSpaceName != null and form.noSpaceName != ''">
+				AND REPLACE(REPLACE(b.book_title,' ',''),'　','')
+						LIKE CONCAT(
+									'%',
+									REPLACE( 
+										REPLACE( 
+											REPLACE(#{form.noSpaceName}, '!', '!!'),
+										'%', '!%'),
+									'_', '!_'),
+									'%') 
+									ESCAPE '!'
 			</if>
 			<!-- 著者名の部分一致検索 -->
-			<if test="form.author != null and form.author != ''">
-				AND b.book_author LIKE CONCAT('%',#{form.author}, '%' )
+			<if test="form.noSpaceAuthor != null and form.noSpaceAuthor != ''">
+				AND REPLACE(REPLACE(b.book_author,' ',''),'　','')
+						LIKE CONCAT(
+									'%',
+									REPLACE( 
+										REPLACE( 
+											REPLACE(#{form.noSpaceAuthor}, '!', '!!'),
+										'%', '!%'),
+									'_', '!_'),
+									'%') 
+									ESCAPE '!'
 			</if>
 			<!-- 出版社の部分一致検索 -->
-			<if test="form.publisher != null and form.publisher != ''">
-				AND b.book_publisher LIKE CONCAT('%',#{form.publisher}, '%' )
+			<if test="form.noSpacePublisher != null and form.noSpacePublisher != ''">
+				AND REPLACE(REPLACE(b.book_publisher,' ',''),'　','')
+						LIKE CONCAT(
+									'%',
+									REPLACE( 
+										REPLACE( 
+											REPLACE(#{form.noSpacePublisher}, '!', '!!'),
+										'%', '!%'),
+									'_', '!_'),
+									'%') 
+									ESCAPE '!'
 			</if>
 			<!-- ジャンルでの絞り込み -->
 			<if test="form.genre_id != null">
