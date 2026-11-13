@@ -4,17 +4,68 @@
 
 <sql id="searchConditions">
 
-    <if test="bookTitle != null and bookTitle != ''">
-        AND b.book_title LIKE CONCAT('%', #{bookTitle}, '%')
-    </if>
+  <if test="bookTitle != null and bookTitle != ''">
+    AND REPLACE(REPLACE(b.book_title, ' ', ''), '　', '')
+    LIKE CONCAT(
+        '%',
+        REPLACE(
+            REPLACE(
+                REPLACE(
+                    REPLACE(
+                        REPLACE(#{bookTitle}, ' ', ''),
+                        '　', ''
+                    ),
+                    '!', '!!'
+                ),
+                '%', '!%'
+            ),
+            '_', '!_'
+        ),
+        '%'
+    ) ESCAPE '!'
+</if>
 
-    <if test="bookAuthor != null and bookAuthor != ''">
-        AND b.book_author LIKE CONCAT('%', #{bookAuthor}, '%')
-    </if>
+   <if test="bookAuthor != null and bookAuthor != ''">
+    AND REPLACE(REPLACE(b.book_author, ' ', ''), '　', '')
+    LIKE CONCAT(
+        '%',
+        REPLACE(
+            REPLACE(
+                REPLACE(
+                    REPLACE(
+                        REPLACE(#{bookAuthor}, ' ', ''),
+                        '　', ''
+                    ),
+                    '!', '!!'
+                ),
+                '%', '!%'
+            ),
+            '_', '!_'
+        ),
+        '%'
+    ) ESCAPE '!'
+</if>
 
     <if test="bookPublisher != null and bookPublisher != ''">
-        AND b.book_publisher LIKE CONCAT('%', #{bookPublisher}, '%')
-    </if>
+    AND REPLACE(REPLACE(b.book_publisher, ' ', ''), '　', '')
+    LIKE CONCAT(
+        '%',
+        REPLACE(
+            REPLACE(
+                REPLACE(
+                    REPLACE(
+                        REPLACE(#{bookPublisher}, ' ', ''),
+                        '　', ''
+                    ),
+                    '!', '!!'
+                ),
+                '%', '!%'
+            ),
+            '_', '!_'
+        ),
+        '%'
+    ) ESCAPE '!'
+</if>
 
     <if test="genreId != null and genreId != ''">
         AND b.book_genre = CAST(#{genreId} AS INTEGER)
